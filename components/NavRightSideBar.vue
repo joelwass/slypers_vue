@@ -1,79 +1,76 @@
 <template>
-  <div class="VueToNuxtLogo">
-    <div class="Triangle Triangle--two"/>
-    <div class="Triangle Triangle--one"/>
-    <div class="Triangle Triangle--three"/>
-    <div class="Triangle Triangle--four"/>
+  <div class="SideBarRight">
+    <div class="Links">
+      <div class="IconsNav">
+        <bag width="16" height="22" />
+        <hamburger width="26" height="24"/>
+      </div>
+      <div class="TextNav">
+        <ul>
+          <li><a href="/cart">BAG (0)</a></li>
+          <li><a href="/login">LOGIN / REGISTER</a></li>
+          <li><a href="/">CLIENT SERVICE</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
+<script>
+import Bag from '~/components/icons/Bag.vue'
+import Hamburger from '~/components/icons/Hamburger.vue'
+
+export default {
+  components: {
+    Bag,
+    Hamburger
+  }
+}
+</script>
+
 <style>
-.VueToNuxtLogo {
+.SideBarRight {
+  position: fixed;
+  width: auto;
+  height: 400px;
+  right: 0px;
+  background: transparent;
+}
+
+.SideBarRight > .Links > .IconsNav {
   display: inline-block;
-  animation: turn 2s linear forwards 1s;
-  transform: rotateX(180deg);
-  position: relative;
-  overflow: hidden;
-  height: 180px;
-  width: 245px;
+  padding-top: 40px;
 }
 
-.Triangle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
+.SideBarRight > .Links > .TextNav > ul {
+  list-style-type: none;
+  padding-left: 4pt;
 }
 
-.Triangle--one {
-  border-left: 105px solid transparent;
-  border-right: 105px solid transparent;
-  border-bottom: 180px solid #41B883;
+.SideBarRight > .Links > .TextNav > ul > li > a {
+  text-decoration: none;
+  color: black
 }
 
-.Triangle--two {
-  top: 30px;
-  left: 35px;
-  animation: goright 0.5s linear forwards 3.5s;
-  border-left: 87.5px solid transparent;
-  border-right: 87.5px solid transparent;
-  border-bottom: 150px solid #3B8070;
+.SideBarRight > .Links > .TextNav > ul > li {
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.Triangle--three {
-  top: 60px;
-  left: 35px;
-  animation: goright 0.5s linear forwards 3.5s;
-  border-left: 70px solid transparent;
-  border-right: 70px solid transparent;
-  border-bottom: 120px solid #35495E;
+.SideBarRight > .Links > .TextNav {
+  align-items: left;
+  display: none;
+  padding-right: 40px;
+  padding-top: 115px;
 }
 
-.Triangle--four {
-  top: 120px;
-  left: 70px;
-  animation: godown 0.5s linear forwards 3s;
-  border-left: 35px solid transparent;
-  border-right: 35px solid transparent;
-  border-bottom: 60px solid #fff;
-}
+@media all and (min-width: 640px) {
+  .SideBarRight > .Links > .TextNav {
+    display: block;
+  } 
 
-@keyframes turn {
-  100% {
-    transform: rotateX(0deg);
-  }
-}
-
-@keyframes godown {
-  100% {
-    top: 180px;
-  }
-}
-
-@keyframes goright {
-  100% {
-    left: 70px;
+  .SideBarRight > .Links > .IconsNav { 
+    display: none;
   }
 }
 </style>

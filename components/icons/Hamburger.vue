@@ -13,7 +13,6 @@ export default {
       type: String
     },
     title: {
-      required: true,
       type: String
     },
     width: {

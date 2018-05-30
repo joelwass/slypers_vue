@@ -1,10 +1,10 @@
 <template>
-  <div class="SideBarLeft">
+  <div class="SideBarLeft SideBarLeft-media">
     <logo />
     <div class="Links">
       <ul>
-        <li><a href="/shop">SHOP</a></li>
-        <li><a href="/about">ABOUT</a></li>
+        <li><a v-on:click="goShop">SHOP</a></li>
+        <li><a v-on:click="goAbout">ABOUT</a></li>
       </ul>
     </div>
   </div>
@@ -16,6 +16,14 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+  methods: {
+    goShop() {
+      this.$router.push('/shop')
+    },
+    goAbout() {
+      this.$router.push('/about')
+    }
   }
 }
 </script>
@@ -25,9 +33,12 @@ export default {
   position: fixed;
   width: 150px;
   height: 400px;
-  padding-top: 40px;
-  padding-left: 40px;
   background: transparent;
+}
+
+.SideBarLeft-media {
+  padding-top: 5px;
+  padding-left: 5px;
 }
 
 .SideBarLeft > .Links > ul {
@@ -54,5 +65,10 @@ export default {
   .SideBarLeft > .Links {
     display: block;
   } 
+
+  .SideBarLeft-media {
+    padding-top: 40px;
+    padding-left: 40px;
+  }
 }
 </style>

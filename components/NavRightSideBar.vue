@@ -7,9 +7,9 @@
       </div>
       <div class="TextNav">
         <ul>
-          <li><a href="/cart">BAG (0)</a></li>
-          <li><a href="/login">LOGIN / REGISTER</a></li>
-          <li><a href="/">CLIENT SERVICE</a></li>
+          <li><a v-on:click="goCart">BAG (0)</a></li>
+          <li><a v-on:click="goLogin">LOGIN / REGISTER</a></li>
+          <li><a v-on:click="goClientService">CLIENT SERVICE</a></li>
         </ul>
       </div>
     </div>
@@ -24,6 +24,17 @@ export default {
   components: {
     Bag,
     Hamburger
+  },
+  methods: {
+    goCart() {
+      this.$router.push('/cart')
+    },
+    goLogin() {
+      this.$router.push('/login')
+    },
+    goClientService() {
+      this.$router.push('/client')
+    }
   }
 }
 </script>
@@ -39,7 +50,6 @@ export default {
 
 .SideBarRight > .Links > .IconsNav {
   display: inline-block;
-  padding-top: 40px;
 }
 
 .SideBarRight > .Links > .TextNav > ul {
@@ -61,7 +71,7 @@ export default {
   align-items: left;
   display: none;
   padding-right: 40px;
-  padding-top: 115px;
+  padding-top: 40px;
 }
 
 @media all and (min-width: 640px) {

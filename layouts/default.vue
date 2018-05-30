@@ -1,8 +1,22 @@
 <template>
   <div>
+    <nav-left-side-bar />
+    <nav-right-side-bar />
     <nuxt/>
   </div>
 </template>
+
+<script>
+import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
+import NavRightSideBar from '~/components/NavRightSideBar.vue'
+
+export default {
+  components: {
+    NavLeftSideBar,
+    NavRightSideBar
+  }
+}
+</script>
 
 <style>
 html {

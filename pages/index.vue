@@ -1,7 +1,5 @@
 <template>
   <div>
-    <nav-left-side-bar />
-    <nav-right-side-bar />
     <section class="container">
       <div>
         <app-logo/>
@@ -29,15 +27,11 @@
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
-import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
-import NavRightSideBar from '~/components/NavRightSideBar.vue'
 import Footer from '~/components/Footer.vue'
 
 export default {
   components: {
     AppLogo,
-    NavLeftSideBar,
-    NavRightSideBar,
     FooterElement: Footer
   }
 }

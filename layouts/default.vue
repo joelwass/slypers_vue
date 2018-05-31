@@ -9,8 +9,24 @@
 <script>
 import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
 import NavRightSideBar from '~/components/NavRightSideBar.vue'
+import Api from '../middleware/api'
+import helpers from '../helpers/methods'
 
 export default {
+  mounted: async () => {
+    try {
+      let sessionId = undefined
+      if (helpers.getCookie('auth')) {
+        sessionId = helpers.getCookie('auth')
+      } else {
+        const res = await Api.authenticate()
+        console.log(res)
+        helpers.setCookie('auth', res.data.sessionId, 1)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  },
   components: {
     NavLeftSideBar,
     NavRightSideBar

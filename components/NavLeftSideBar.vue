@@ -52,7 +52,7 @@ export default {
 }
 
 .SideBarLeft > .Links > ul > li {
-  font-size: 14px;
+  font-size: 11px;
   cursor: pointer;
 }
 
@@ -61,7 +61,7 @@ export default {
   display: none;
 }
 
-@media all and (min-width: 640px) {
+@media all and (min-width: 850px) {
   .SideBarLeft > .Links {
     display: block;
   } 

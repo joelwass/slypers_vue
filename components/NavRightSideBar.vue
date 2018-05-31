@@ -63,7 +63,7 @@ export default {
 }
 
 .SideBarRight > .Links > .TextNav > ul > li {
-  font-size: 14px;
+  font-size: 11px;
   cursor: pointer;
 }
 
@@ -74,7 +74,7 @@ export default {
   padding-top: 40px;
 }
 
-@media all and (min-width: 640px) {
+@media all and (min-width: 850px) {
   .SideBarRight > .Links > .TextNav {
     display: block;
   } 

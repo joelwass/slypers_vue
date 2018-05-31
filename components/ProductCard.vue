@@ -1,7 +1,12 @@
 <template>
   <div class="card">
-    <div v-bind:style="{ backgroundImage: 'url(' + this.imageBlah + ')' }"></div>
-    <label :for="labelFor">{{ name }}</label>
+    <div>
+      <slot></slot>
+    </div>
+    <div>
+      <label :for="labelFor">{{ name }}</label>
+      <p>{{ price }}</p>
+    </div>
   </div>
 </template>
 
@@ -20,11 +25,15 @@ export default {
     image: {
       type: String,
       default: ''
+    },
+    source: {
+      type: String,
+      default: ''
     }
   },
   computed: {
-    imageBlah() {
-      return ''
+    price() {
+      return '$16000'
     }
   }
 }  
@@ -32,10 +41,19 @@ export default {
 
 <style>
 .card {
-  border: 2px solid rgb(233,171,88);
-  border-radius: 5px;
+  position: relative;
+  border: 1px black solid;
   padding: 1em;
+  text-align: center;
 }
 
+img{
+    max-height:100%;
+    max-width:100%;
+}
+
+.card-image {
+  background-size: contain;
+}
 </style>
 

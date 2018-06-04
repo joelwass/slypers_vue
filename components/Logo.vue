@@ -16,18 +16,21 @@ export default {
 
 <style>
 .TopLeftLogo {
+  z-index: 1000;
   background: url('~/assets/logos/Slypers-Logo@4x.png') no-repeat;
   background-size:contain;
   width: auto;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .TopLeftLogo-media {
-  height: 30px;
+  height: 40px;
 }
 
-@media all and (min-width: 640px) {
+@media all and (min-width: 850px) {
   .TopLeftLogo-media {
-    height: 75px;
+    height: 50px;
   }
 }
 </style>

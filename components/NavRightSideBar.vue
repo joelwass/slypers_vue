@@ -1,10 +1,6 @@
 <template>
   <div class="SideBarRight">
     <div class="Links">
-      <div class="IconsNav">
-        <bag width="16" height="22" />
-        <hamburger width="26" height="24"/>
-      </div>
       <!-- <div class="TextNav">
         <ul>
           <li><a v-on:click="goCart">BAG (0)</a></li>
@@ -48,10 +44,6 @@ export default {
   background: transparent;
 }
 
-.SideBarRight > .Links > .IconsNav {
-  display: inline-block;
-}
-
 .SideBarRight > .Links > .TextNav > ul {
   list-style-type: none;
   padding-left: 4pt;
@@ -78,9 +70,5 @@ export default {
   .SideBarRight > .Links > .TextNav {
     display: block;
   } 
-
-  .SideBarRight > .Links > .IconsNav { 
-    display: none;
-  }
 }
 </style>

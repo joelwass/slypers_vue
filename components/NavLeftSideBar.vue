@@ -1,6 +1,5 @@
 <template>
   <div class="SideBarLeft SideBarLeft-media">
-    <logo />
     <div class="Links">
       <ul>
         <li><a v-on:click="goShop">SHOP</a></li>
@@ -11,12 +10,7 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
-  },
   methods: {
     goShop() {
       this.$router.push('/shop')
@@ -37,7 +31,7 @@ export default {
 }
 
 .SideBarLeft-media {
-  padding-top: 5px;
+  padding-top: 65px;
   padding-left: 5px;
 }
 
@@ -67,7 +61,7 @@ export default {
   } 
 
   .SideBarLeft-media {
-    padding-top: 40px;
+    padding-top: 100px;
     padding-left: 40px;
   }
 }

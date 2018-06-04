@@ -1,5 +1,6 @@
 <template>
   <div>
+    <nav-header />
     <nav-left-side-bar />
     <nav-right-side-bar />
     <nuxt/>
@@ -9,6 +10,7 @@
 <script>
 import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
 import NavRightSideBar from '~/components/NavRightSideBar.vue'
+import NavHeader from '~/components/NavHeader.vue'
 import Api from '../middleware/api'
 import helpers from '../helpers/methods'
 
@@ -29,7 +31,8 @@ export default {
   },
   components: {
     NavLeftSideBar,
-    NavRightSideBar
+    NavRightSideBar,
+    NavHeader
   }
 }
 </script>

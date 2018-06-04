@@ -87,6 +87,10 @@ export default {
     padding-right: 200px;
     padding-top: 0px;
   } 
+
+  .grid-container-shop {
+    padding-top: 70px;
+  }
 }
 
 </style>

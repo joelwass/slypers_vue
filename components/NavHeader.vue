@@ -2,7 +2,13 @@
   <div class="header">
     <div class="IconsNav">
       <bag class="icon bag" width="16" height="22" />
-      <hamburger class="icon burger" width="32" height="30"/>
+      <hamburger v-on:click="toggleDrawer" class="icon burger" width="32" height="30"/>
+    </div>
+    <div v-show="drawerOpen" class="drawer">
+      <div class="drawer-IconsNav">
+        <bag class="icon bag" width="16" height="22" />
+        <xIcon v-on:click="toggleDrawer" class="icon burger" width="32" height="30"/>
+      </div>
     </div>
     <logo />
   </div>
@@ -14,6 +20,16 @@ import Hamburger from '~/components/icons/Hamburger.vue'
 import Bag from '~/components/icons/Bag.vue'
 
 export default {
+  data() {
+    return {
+      drawerOpen: false
+    }
+  },
+  methods: {
+    toggleDrawer() {
+      this.drawerOpen = !this.drawerOpen
+    }
+  },
   components: {
     Logo,
     Hamburger,
@@ -30,6 +46,16 @@ export default {
   top: 10px;
 }
 
+.drawer {
+  position: absolute;
+  z-index: 100;
+  background-color:white;
+  height: 100%;
+  width: 220px;
+  right: 0px;
+  top: 0px;
+}
+
 .bag {
   padding-bottom: 5px;
 }
@@ -44,7 +70,7 @@ export default {
 
 .header {
   position: fixed;
-  z-index: 1000;
+  z-index: 900;
   border-bottom: 1px solid black;
   background-color:white;
   height: 60px;

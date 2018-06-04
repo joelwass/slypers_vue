@@ -4,6 +4,7 @@ import Vue from 'vue'
 // modules
 import cart from './cart/cart'
 import loading from './loading/loading'
+import customer from './customer/customer'
 
 import {
   SET_BROWSING_SELECTED_PRODUCT
@@ -27,7 +28,8 @@ const store = () => {
     },
     modules: {
       cart,
-      loading
+      loading,
+      customer
     }
   })
 }

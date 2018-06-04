@@ -31,8 +31,11 @@
     </div>
     <div class="product-details">
       <div class="product-details-description">
+        <h2>{{ this.selectedProduct.name }}</h2><br>
+        <h3>${{ this.selectedProduct.price }}</h3><br>
         <p><b>Description -</b><br>{{ this.selectedProduct.description }} </p><br>
 
+        <p>Select Size:</p><br>
         <div v-on:click="dropdown" class="sizes-select">{{ this.selectedSizeData }}</div>
         <div v-show="dropdownOpen" class="sizes">
           <ul>
@@ -40,9 +43,9 @@
           </ul>
         </div>
         
-        <!-- <div class="size-guide">
-          <p>US 11</p>
-        </div> -->
+        <div class="add-to-cart-button" v-on:click="addToCart">
+          <p>Add to Cart</p>
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +69,7 @@ export default {
       },
       sizes: [9.5, 10, 10.5, 11, 11.5, 12],
       dropdownOpen: false,
-      selectedSizeData: 'Select Size'
+      selectedSizeData: 'Size'
     }
   },
   computed: {
@@ -89,6 +92,9 @@ export default {
     selectSize(newVal) {
       this.selectedSize = newVal
       this.dropdown()
+    },
+    addToCart() {
+
     }
   },
   components: {
@@ -102,25 +108,43 @@ export default {
 <style>
 .sizes-select {
   border: 1px solid black;
+  width: 120px;
   padding-left: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.add-to-cart-button {
+  text-align: center;
+  background-color: black;
+  margin-top: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: white;
 }
 
 .sizes > ul {
   list-style-type: none;
   border: 1px solid black;
-  width: 100%;
+  background-color: white;
+  position: absolute;
+  z-index: 10000;
+  width: 120px;
   padding: 0;
 }
 
 .sizes > ul > li {
   cursor: pointer;
   margin: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
   padding-left: 3px;
   width: 100%;
 }
 
 .sizes > ul > li:hover {
-  background-color: lightgrey;
+  background-color: black;
+  color: white;
 }
 
 .grid-container-shop-product {
@@ -173,7 +197,10 @@ img{
 .product-details {
   position: relative;
   margin-top: 30px;
+  margin-bottom: 20px;
   width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
   z-index: 1000;
   bottom: 0px;
   height: 300;
@@ -197,6 +224,16 @@ img{
     padding-right: 200px;
     padding-top: 60px;
   } 
+
+  .sizes > ul {
+    list-style-type: none;
+    border: 1px solid black;
+    background-color: white;
+    position: absolute;
+    z-index: 10000;
+    width: 80%;
+    padding: 0;
+  }
 
   .grid-container-shop-product {
     display: block;

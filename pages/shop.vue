@@ -1,43 +1,48 @@
 <template>
   <div class="grid-container-shop grid-container-shop-media">
-    <product-card class="one" name="Shoe1">
-      <img src="~/assets/shoes/Slypers_16_r_b.jpeg" alt="">
+    <product-card 
+        v-for="product in cart.availableProducts" 
+        :key="product.id"
+        :class="classes[product.name]"
+        :product="product"
+        v-on:click.native="shopProduct(product)">
+      <label for="product">{{product.name}}</label>
     </product-card>
-    <product-card class="two" name="Shoe2">
-      <img src="~/assets/shoes/Slypers_13_g.jpeg" alt="">
-    </product-card>
-    <product-card class="three" name="Shoe3">
-      <img src="~/assets/shoes/Slypers_14_b.jpeg" alt="">
-    </product-card>
-    <product-card class="four" name="Shoe4">
-      <img src="~/assets/shoes/Slypers_15_r.jpeg" alt="">
-    </product-card>
-    <div v-for="product in availableProducts" :key="product"><label for="product">{{product}}</label></div>
   </div>
 </template>
 
 <script>
+import {
+  mapActions,
+  mapState
+} from 'Vuex'
+
 import ProductCard from '~/components/ProductCard.vue'
 import Api from '../middleware/api'
 
 export default {
-  computed: {
-    availableProducts() {
-      console.log('here')
-      const products = this.getAvailableProducts()
-      console.log(products)
-      return []
+  data() {
+    return {
+      classes: {
+        'Red & Black Slypers': 'one',
+        'Grey Slypers': 'two',
+        'Black & White Slypers': 'three',
+        'Blue Slypers': 'four'
+      }
     }
   },
+  computed: {
+    ...mapState({
+      cart: state => state.cart
+    })
+  },
   methods: {
-    getAvailableProducts: async () => {
-      try {
-        const products = await Api.getAllProducts()
-        console.log(products)
-      } catch (e) {
-        console.log(e)
-        return []
-      }
+    ...mapActions({
+      setSelectedProduct: 'SET_BROWSING_SELECTED_PRODUCT'
+    }),
+    shopProduct(product) {
+      this.setSelectedProduct(product)
+      this.$router.push('/shop_product')
     }
   },
   components: {

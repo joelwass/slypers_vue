@@ -5,13 +5,13 @@
         <bag width="16" height="22" />
         <hamburger width="26" height="24"/>
       </div>
-      <div class="TextNav">
+      <!-- <div class="TextNav">
         <ul>
           <li><a v-on:click="goCart">BAG (0)</a></li>
           <li><a v-on:click="goLogin">LOGIN / REGISTER</a></li>
           <li><a v-on:click="goClientService">CLIENT SERVICE</a></li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

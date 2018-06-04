@@ -1,11 +1,14 @@
 <template>
   <div class="card">
     <div>
-      <slot></slot>
+      <img v-if="product.name === 'Red & Black Slypers'" src="~/assets/shoes/Slypers_16_r_b.jpeg" alt="">
+      <img v-else-if="product.name === 'Grey Slypers'" src="~/assets/shoes/Slypers_13_g.jpeg" alt="">
+      <img v-else-if="product.name === 'Blue Slypers'" src="~/assets/shoes/Slypers_14_b.jpeg" alt="">
+      <img v-else src="~/assets/shoes/Slypers_15_r.jpeg" alt="">
     </div>
     <div>
-      <label :for="labelFor">{{ name }}</label>
-      <p>{{ price }}</p>
+      <label :for="labelFor">{{ product.name }}</label>
+      <p>${{ product.price }}</p>
     </div>
   </div>
 </template>
@@ -18,17 +21,9 @@ export default {
       type: String,
       default: ''
     },
-    name: {
-      type: String,
+    product: {
+      type: Object,
       required: true
-    },
-    image: {
-      type: String,
-      default: ''
-    },
-    source: {
-      type: String,
-      default: ''
     }
   },
   computed: {
@@ -42,14 +37,14 @@ export default {
 <style>
 .card {
   position: relative;
-  border: 1px black solid;
+  /* border: 1px black solid; */
   padding: 1em;
   text-align: center;
 }
 
 img{
-    max-height:100%;
-    max-width:100%;
+  max-height:100%;
+  max-width:100%;
 }
 
 .card-image {

@@ -33,10 +33,10 @@
       <div class="product-details-description">
         <p><b>Description -</b><br>{{ this.selectedProduct.description }} </p><br>
 
-        <div v-on:click="dropdown" class="sizes-select">sizes</div>
+        <div v-on:click="dropdown" class="sizes-select">{{ this.selectedSizeData }}</div>
         <div v-show="dropdownOpen" class="sizes">
           <ul>
-            <li v-for="size in sizes" :key="size">US - {{ size }}</li>
+            <li v-for="size in sizes" :key="size" v-on:click="selectSize(size)">US - {{ size }}</li>
           </ul>
         </div>
         
@@ -54,7 +54,6 @@ import {
 } from 'Vuex'
 import ProductCard from '~/components/ProductCard.vue'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import 'swiper/dist/css/swiper.css'
 import Api from '../middleware/api'
 
 export default {
@@ -66,17 +65,30 @@ export default {
         }
       },
       sizes: [9.5, 10, 10.5, 11, 11.5, 12],
-      dropdownOpen: false
+      dropdownOpen: false,
+      selectedSizeData: 'Select Size'
     }
   },
   computed: {
     ...mapState({
       selectedProduct: state => state.browsingSelectedProduct
-    })
+    }),
+    selectedSize: {
+      get() {
+        return this.selectedSizeData
+      },
+      set(newVal) {
+        this.selectedSizeData = `US - ${newVal}`
+      }
+    }
   },
   methods: {
     dropdown() {
       this.dropdownOpen = !this.dropdownOpen
+    },
+    selectSize(newVal) {
+      this.selectedSize = newVal
+      this.dropdown()
     }
   },
   components: {
@@ -90,11 +102,25 @@ export default {
 <style>
 .sizes-select {
   border: 1px solid black;
+  padding-left: 3px;
 }
 
 .sizes > ul {
   list-style-type: none;
   border: 1px solid black;
+  width: 100%;
+  padding: 0;
+}
+
+.sizes > ul > li {
+  cursor: pointer;
+  margin: 0;
+  padding-left: 3px;
+  width: 100%;
+}
+
+.sizes > ul > li:hover {
+  background-color: lightgrey;
 }
 
 .grid-container-shop-product {

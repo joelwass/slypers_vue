@@ -13,6 +13,12 @@
           <li><a v-on:click="go('login')">LOGIN / SIGNUP</a></li>
           <li><a v-on:click="go('faq')">FAQ</a></li>
         </ul>
+      </div><br>
+      <div class="drawer-footer">
+        <hr>
+        <div class="add-to-cart-button" v-on:click="addToCart">
+          <p>Add to Cart</p>
+        </div>
       </div>
     </div>
   </transition>
@@ -39,6 +45,9 @@ export default {
     go(route) {
       this.toggleDrawer()
       this.$router.push(`/${route}`)
+    },
+    addToCart() {
+
     }
   },
   computed: {
@@ -62,6 +71,10 @@ export default {
 </script>
 
 <style>
+.drawer-footer {
+  bottom: 0px;
+}
+
 .navigation > ul {
   list-style-type: none;
   padding-left: 4pt;
@@ -106,7 +119,7 @@ export default {
 }
 
 .drawer {
-  position: absolute;
+  position: fixed;
   z-index: 1010;
   background-color:white;
   height: 100%;

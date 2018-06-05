@@ -1,7 +1,9 @@
 import Vue from 'vue';
 
 import {
-  SET_AVAILABLE_PRODUCTS
+  SET_AVAILABLE_PRODUCTS,
+  SET_SELECTED_PRODUCTS,
+  ADD_PRODUCT
 } from '../types'
 
 const cart = {
@@ -43,16 +45,31 @@ const cart = {
         price_cents: 0,
         color: '#ff0000'
       }
-    ]
+    ],
+    selectedProducts: []
   },
   actions: {
     [SET_AVAILABLE_PRODUCTS]: ({ commit }, availableProducts) => {
       commit(SET_AVAILABLE_PRODUCTS, availableProducts)
+    },
+    [SET_SELECTED_PRODUCTS]: ({ commit }, selectedProducts) => {
+      commit(SET_SELECTED_PRODUCTS, selectedProducts)
+    },
+    [ADD_PRODUCT]: ({ commit }, data) => {
+      commit(ADD_PRODUCT, data)
     }
   },
   mutations: {
     [SET_AVAILABLE_PRODUCTS](state, availableProducts) {
-      Vue.set(state.availableProducts, availableProducts)
+      Vue.set(state, 'availableProducts', availableProducts)
+    },
+    [SET_SELECTED_PRODUCTS](state, selectedProducts) {
+      Vue.set(state, 'selectedProducts', selectedProducts)
+    },
+    [ADD_PRODUCT](state, data) {
+      const newArray = state.selectedProducts
+      newArray.push({ productId: data.productId, size: data.size })
+      Vue.set(state, 'selectedProducts', newArray)
     }
   }
 }

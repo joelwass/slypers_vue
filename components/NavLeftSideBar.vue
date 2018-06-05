@@ -4,13 +4,23 @@
       <ul>
         <li><a v-on:click="go('shop')">SHOP</a></li>
         <li><a v-on:click="go('about')">ABOUT</a></li>
+        <li><a v-on:click="go('checkout')">BAG ({{ selectedProducts.length }})</a></li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import {
+  mapState 
+} from 'Vuex'
+
 export default {
+  computed: {
+    ...mapState({
+      selectedProducts: state => state.cart.selectedProducts
+    })
+  },
   methods: {
     go(route) {
       this.$router.push(`/${route}`)
@@ -45,6 +55,7 @@ export default {
 .SideBarLeft > .Links > ul > li {
   font-size: 11px;
   cursor: pointer;
+  padding-top: 3px;
 }
 
 .SideBarLeft > .Links {

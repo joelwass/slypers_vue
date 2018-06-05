@@ -9,24 +9,16 @@
     </swiper>
     <div class="grid-container-shop-product grid-container-shop-product-media">
       <div class="product-image one" name="Shoe1">
-        <div>
-          <img src="~/assets/shoes/Slypers_16_r_b.jpeg" alt="">
-        </div>
+        <img src="~/assets/shoes/Slypers_16_r_b.jpeg" alt="">
       </div>
       <div class="product-image two" name="Shoe2">
-        <div>
-          <img src="~/assets/shoes/Slypers_13_g.jpeg" alt="">
-        </div>
+        <img src="~/assets/shoes/Slypers_13_g.jpeg" alt="">
       </div>
       <div class="product-image three" name="Shoe3">
-        <div>
-          <img src="~/assets/shoes/Slypers_14_b.jpeg" alt="">
-        </div>
+        <img src="~/assets/shoes/Slypers_14_b.jpeg" alt="">
       </div>
       <div class="product-image four" name="Shoe4">
-        <div>
-          <img src="~/assets/shoes/Slypers_15_r.jpeg" alt="">
-        </div>
+        <img src="~/assets/shoes/Slypers_15_r.jpeg" alt="">
       </div>
     </div>
     <div class="product-details">
@@ -44,7 +36,7 @@
         </div>
         
         <div class="add-to-cart-button" v-on:click="addToCart">
-          <p>Add to Cart</p>
+          <p>{{ this.isSelected ? 'Added' : 'Add to Cart' }}</p>
         </div>
       </div>
     </div>
@@ -53,7 +45,8 @@
 
 <script>
 import {
-  mapState
+  mapState,
+  mapActions
 } from 'Vuex'
 import ProductCard from '~/components/ProductCard.vue'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -69,23 +62,36 @@ export default {
       },
       sizes: [9.5, 10, 10.5, 11, 11.5, 12],
       dropdownOpen: false,
-      selectedSizeData: 'Size'
+      selectedSizeData: 'Size',
+      selectedSizeNumber: undefined
     }
   },
   computed: {
     ...mapState({
-      selectedProduct: state => state.browsingSelectedProduct
+      selectedProduct: state => state.browsingSelectedProduct,
+      selectedProducts: state => state.cart.selectedProducts
     }),
     selectedSize: {
       get() {
         return this.selectedSizeData
       },
       set(newVal) {
+        this.selectedSizeNumber = newVal
         this.selectedSizeData = `US - ${newVal}`
       }
+    },
+    isSelected() {
+      let contains = false
+      this.selectedProducts.forEach((val) => {
+        if (val.productId === this.selectedProduct.id) contains = true
+      })
+      return contains
     }
   },
   methods: {
+    ...mapActions({
+      addProduct: 'ADD_PRODUCT'
+    }),
     dropdown() {
       this.dropdownOpen = !this.dropdownOpen
     },
@@ -94,7 +100,7 @@ export default {
       this.dropdown()
     },
     addToCart() {
-
+      this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })
     }
   },
   components: {
@@ -121,6 +127,10 @@ export default {
   padding-top: 8px;
   padding-bottom: 8px;
   color: white;
+}
+
+.add-to-cart-button:hover {
+  cursor: pointer;
 }
 
 .sizes > ul {

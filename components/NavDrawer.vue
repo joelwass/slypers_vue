@@ -16,8 +16,8 @@
       </div><br>
       <div class="drawer-footer">
         <hr>
-        <div class="add-to-cart-button" v-on:click="addToCart">
-          <p>Add to Cart</p>
+        <div class="checkout-button" v-on:click="checkout">
+          <p>CHECKOUT ({{ selectedProducts.length }} ITEMS)</p>
         </div>
       </div>
     </div>
@@ -46,13 +46,14 @@ export default {
       this.toggleDrawer()
       this.$router.push(`/${route}`)
     },
-    addToCart() {
+    checkout() {
 
     }
   },
   computed: {
     ...mapState({
-      drawerOpenState: state => state.drawerOpen
+      drawerOpenState: state => state.drawerOpen,
+      selectedProducts: state => state.cart.selectedProducts
     }),
     drawerOpen: {
       get() {
@@ -72,7 +73,18 @@ export default {
 
 <style>
 .drawer-footer {
-  bottom: 0px;
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+}
+
+.drawer-footer > .checkout-button {
+  text-align: center;
+  background-color: black;
+  margin-top: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: white;
 }
 
 .navigation > ul {

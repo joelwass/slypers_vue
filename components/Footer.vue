@@ -111,10 +111,6 @@ export default {
     width: 100%;
     height: 100px;
   } 
-
-  .email_collection {
-    display: inline-block;
-  }
 }
 </style>
 

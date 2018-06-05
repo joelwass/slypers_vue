@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="IconsNav">
-      <bag class="icon bag" width="16" height="22" />
+      <bag v-on:click.native="go('checkout')" class="icon bag" width="16" height="22" />
       <hamburger v-on:click.native="toggleDrawer" class="icon burger" width="32" height="30"/>
     </div>
     <logo />
@@ -25,6 +25,9 @@ export default {
     toggleDrawer() {
       const prevDrawerOpen = this.drawerOpen
       this.drawerOpen = !prevDrawerOpen
+    },
+    go(route) {
+      this.$router.push(`/${route}`)
     }
   },
   computed: {

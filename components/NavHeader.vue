@@ -2,32 +2,42 @@
   <div class="header">
     <div class="IconsNav">
       <bag class="icon bag" width="16" height="22" />
-      <hamburger v-on:click="toggleDrawer" class="icon burger" width="32" height="30"/>
-    </div>
-    <div v-show="drawerOpen" class="drawer">
-      <div class="drawer-IconsNav">
-        <bag class="icon bag" width="16" height="22" />
-        <xIcon v-on:click="toggleDrawer" class="icon burger" width="32" height="30"/>
-      </div>
+      <hamburger v-on:click.native="toggleDrawer" class="icon burger" width="32" height="30"/>
     </div>
     <logo />
   </div>
 </template>
 
 <script>
+import {
+  mapActions,
+  mapState
+} from 'Vuex'
 import Logo from '~/components/Logo.vue'  
 import Hamburger from '~/components/icons/Hamburger.vue'
 import Bag from '~/components/icons/Bag.vue'
 
 export default {
-  data() {
-    return {
-      drawerOpen: false
+  methods: {
+    ...mapActions({
+      setDrawerOpen: 'SET_DRAWER_OPEN'
+    }),
+    toggleDrawer() {
+      const prevDrawerOpen = this.drawerOpen
+      this.drawerOpen = !prevDrawerOpen
     }
   },
-  methods: {
-    toggleDrawer() {
-      this.drawerOpen = !this.drawerOpen
+  computed: {
+    ...mapState({
+      drawerOpenState: state => state.drawerOpen
+    }),
+    drawerOpen: {
+      get() {
+        return this.drawerOpenState
+      },
+      set(newVal) {
+        this.setDrawerOpen(newVal)
+      }
     }
   },
   components: {
@@ -44,16 +54,6 @@ export default {
   position: fixed;
   right: 10px;
   top: 10px;
-}
-
-.drawer {
-  position: absolute;
-  z-index: 100;
-  background-color:white;
-  height: 100%;
-  width: 220px;
-  right: 0px;
-  top: 0px;
 }
 
 .bag {

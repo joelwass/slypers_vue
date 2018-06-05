@@ -2,8 +2,8 @@
   <div class="SideBarLeft SideBarLeft-media">
     <div class="Links">
       <ul>
-        <li><a v-on:click="goShop">SHOP</a></li>
-        <li><a v-on:click="goAbout">ABOUT</a></li>
+        <li><a v-on:click="go('shop')">SHOP</a></li>
+        <li><a v-on:click="go('about')">ABOUT</a></li>
       </ul>
     </div>
   </div>
@@ -12,11 +12,8 @@
 <script>
 export default {
   methods: {
-    goShop() {
-      this.$router.push('/shop')
-    },
-    goAbout() {
-      this.$router.push('/about')
+    go(route) {
+      this.$router.push(`/${route}`)
     }
   }
 }

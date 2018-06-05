@@ -165,19 +165,19 @@ export default {
   padding-top: 60px;
 }
 
-.one {
+.grid-container-shop-product > .one {
   grid-column: 1 / 1;
   grid-row: 1;
 }
-.two { 
+.grid-container-shop-product > .two { 
   grid-column: 1 / 1;
   grid-row: 2;
 }
-.three {
+.grid-container-shop-product > .three {
   grid-column: 1 / 1;
   grid-row: 3;
 }
-.four {
+.grid-container-shop-product > .four {
   grid-column: 1 / 1;
   grid-row: 4;
 }

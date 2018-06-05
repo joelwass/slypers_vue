@@ -3,15 +3,22 @@
     <nav-header />
     <nav-left-side-bar />
     <nav-right-side-bar />
+    <nav-drawer />
+    <overlay v-show="drawerOpen" />
     <nuxt/>
     <footer-element/>
   </div>
 </template>
 
 <script>
+import {
+  mapState
+} from 'Vuex'
 import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
 import NavRightSideBar from '~/components/NavRightSideBar.vue'
 import NavHeader from '~/components/NavHeader.vue'
+import Overlay from '~/components/Overlay.vue'
+import NavDrawer from '~/components/NavDrawer.vue'
 import Footer from '~/components/Footer.vue'
 import Api from '../middleware/api'
 import helpers from '../helpers/methods'
@@ -31,10 +38,17 @@ export default {
       console.log(e)
     }
   },
+  computed: {
+    ...mapState({
+      drawerOpen: state => state.drawerOpen
+    })
+  },
   components: {
     NavLeftSideBar,
     NavRightSideBar,
     NavHeader,
+    NavDrawer,
+    Overlay,
     FooterElement: Footer
   }
 }

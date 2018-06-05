@@ -64,19 +64,19 @@ export default {
   padding-top: 60px;
 }
 
-.one {
+.grid-container-shop > .one {
   grid-column: 1 / 2;
   grid-row: 1;
 }
-.two { 
+.grid-container-shop > .two { 
   grid-column: 2 / 2;
   grid-row: 1;
 }
-.three {
+.grid-container-shop > .three {
   grid-column: 1 / 2;
   grid-row: 2;
 }
-.four {
+.grid-container-shop > .four {
   grid-column: 2 / 2;
   grid-row: 2;
 }

@@ -1,24 +1,95 @@
 <template>
   <div class="shop-product">
-    <swiper :options="swiperOption" class="image-swiper">
-      <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/Slypers_16_r_b.jpeg" alt=""></swiper-slide>
-      <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/Slypers_13_g.jpeg" alt=""></swiper-slide>
-      <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/Slypers_14_b.jpeg" alt=""></swiper-slide>
-      <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/Slypers_15_r.jpeg" alt=""></swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-    </swiper>
-    <div class="grid-container-shop-product grid-container-shop-product-media">
-      <div class="product-image one" name="Shoe1">
-        <img src="~/assets/shoes/Slypers_16_r_b.jpeg" alt="">
+    <div v-if="this.selectedProduct.name === 'Black & White Slypers'" >
+      <swiper :options="swiperOption" class="image-swiper">
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/blackAndWhite/Slypers_16.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/blackAndWhite/Slypers_9.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/blackAndWhite/Slypers_7.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/blackAndWhite/Slypers_2.jpeg" alt=""></swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+      <div class="grid-container-shop-product grid-container-shop-product-media">
+        <div class="product-image one" name="Shoe1">
+          <img src="~/assets/shoes/blackAndWhite/Slypers_16.jpeg" alt="">
+        </div>
+        <div class="product-image two" name="Shoe2">
+          <img src="~/assets/shoes/blackAndWhite/Slypers_9.jpeg" alt="">
+        </div>
+        <div class="product-image three" name="Shoe3">
+          <img src="~/assets/shoes/blackAndWhite/Slypers_7.jpeg" alt="">
+        </div>
+        <div class="product-image four" name="Shoe4">
+          <img src="~/assets/shoes/blackAndWhite/Slypers_2.jpeg" alt="">
+        </div>
       </div>
-      <div class="product-image two" name="Shoe2">
-        <img src="~/assets/shoes/Slypers_13_g.jpeg" alt="">
+    </div>
+    <div v-if="this.selectedProduct.name === 'Red Slypers'" >
+      <swiper :options="swiperOption" class="image-swiper">
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/red/Slypers_15_r.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/red/Slypers_9_r.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/red/Slypers_7_r.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/red/Slypers_2_r.jpeg" alt=""></swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+      <div class="grid-container-shop-product grid-container-shop-product-media">
+        <div class="product-image one" name="Shoe1">
+          <img src="~/assets/shoes/red/Slypers_15_r.jpeg" alt="">
+        </div>
+        <div class="product-image two" name="Shoe2">
+          <img src="~/assets/shoes/red/Slypers_9_r.jpeg" alt="">
+        </div>
+        <div class="product-image three" name="Shoe3">
+          <img src="~/assets/shoes/red/Slypers_7_r.jpeg" alt="">
+        </div>
+        <div class="product-image four" name="Shoe4">
+          <img src="~/assets/shoes/red/Slypers_2_r.jpeg" alt="">
+        </div>
       </div>
-      <div class="product-image three" name="Shoe3">
-        <img src="~/assets/shoes/Slypers_14_b.jpeg" alt="">
+    </div>
+    <div v-if="this.selectedProduct.name === 'Blue Slypers'" >
+      <swiper :options="swiperOption" class="image-swiper">
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/blue/Slypers_14.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/blue/Slypers_12.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/blue/Slypers_5.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/blue/Slypers_4.jpeg" alt=""></swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+      <div class="grid-container-shop-product grid-container-shop-product-media">
+        <div class="product-image one" name="Shoe1">
+          <img src="~/assets/shoes/blue/Slypers_14.jpeg" alt="">
+        </div>
+        <div class="product-image two" name="Shoe2">
+          <img src="~/assets/shoes/blue/Slypers_12.jpeg" alt="">
+        </div>
+        <div class="product-image three" name="Shoe3">
+          <img src="~/assets/shoes/blue/Slypers_5.jpeg" alt="">
+        </div>
+        <div class="product-image four" name="Shoe4">
+          <img src="~/assets/shoes/blue/Slypers_4.jpeg" alt="">
+        </div>
       </div>
-      <div class="product-image four" name="Shoe4">
-        <img src="~/assets/shoes/Slypers_15_r.jpeg" alt="">
+    </div>
+    <div v-if="this.selectedProduct.name === 'Grey Slypers'" >
+      <swiper :options="swiperOption" class="image-swiper">
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/grey/Slypers_13.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/grey/Slypers_10.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/grey/Slypers_6.jpeg" alt=""></swiper-slide>
+        <swiper-slide class="image-swiper-slide"><img src="~/assets/shoes/grey/Slypers_1.jpeg" alt=""></swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+      <div class="grid-container-shop-product grid-container-shop-product-media">
+        <div class="product-image one" name="Shoe1">
+          <img src="~/assets/shoes/grey/Slypers_13.jpeg" alt="">
+        </div>
+        <div class="product-image two" name="Shoe2">
+          <img src="~/assets/shoes/grey/Slypers_10.jpeg" alt="">
+        </div>
+        <div class="product-image three" name="Shoe3">
+          <img src="~/assets/shoes/grey/Slypers_6.jpeg" alt="">
+        </div>
+        <div class="product-image four" name="Shoe4">
+          <img src="~/assets/shoes/grey/Slypers_1.jpeg" alt="">
+        </div>
       </div>
     </div>
     <div class="product-details">
@@ -33,6 +104,10 @@
           <ul>
             <li v-for="size in sizes" :key="size" v-on:click="selectSize(size)">US - {{ size }}</li>
           </ul>
+        </div>
+
+        <div class="validation-container">
+          <p>{{ this.validationIssue }}</p>
         </div>
         
         <div class="add-to-cart-button" v-on:click="addToCart">
@@ -60,6 +135,7 @@ export default {
           el: '.swiper-pagination'
         }
       },
+      validationIssue: undefined,
       sizes: [9.5, 10, 10.5, 11, 11.5, 12],
       dropdownOpen: false,
       selectedSizeData: 'Size',
@@ -96,11 +172,16 @@ export default {
       this.dropdownOpen = !this.dropdownOpen
     },
     selectSize(newVal) {
+      this.validationIssue = undefined
       this.selectedSize = newVal
       this.dropdown()
     },
     addToCart() {
-      this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })
+      if (!this.selectedSizeNumber) {
+        this.validationIssue = 'Please select a size first'
+      } else {
+        this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })
+      }
     }
   },
   components: {
@@ -112,6 +193,11 @@ export default {
 </script>
 
 <style>
+.validation-container {
+  margin-top: 5px;
+  color: red;
+}
+
 .sizes-select {
   border: 1px solid black;
   width: 120px;

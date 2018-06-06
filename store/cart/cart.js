@@ -11,8 +11,8 @@ const cart = {
     availableProducts: [
       {
         id: '1',
-        description: 'Dutch Brothel Slypers Red And Black',
-        name: 'Red & Black Slypers',
+        description: 'Dutch Brothel Slypers Black And White',
+        name: 'Black & White Slypers',
         price: '400.00',
         price_dollars: 400,
         price_cents: 0,
@@ -38,8 +38,8 @@ const cart = {
       },
       {
         id: '4',
-        description: 'Dutch Brothel Slypers Black And White',
-        name: 'Black & White Slypers',
+        description: 'Dutch Brothel Slypers Red',
+        name: 'Red Slypers',
         price: '400.00',
         price_dollars: 400,
         price_cents: 0,

@@ -1,7 +1,8 @@
 <template>
   <div class="header">
     <div class="IconsNav">
-      <bag v-on:click.native="go('checkout')" class="icon bag" width="16" height="22" />
+      <bag v-on:click.native="go('checkout')" class="icon bag" width="19" height="25" />
+      <div class="quantity-in-bag">{{ selectedItems.length ? selectedItems.length : '' }}</div>
       <hamburger v-on:click.native="toggleDrawer" class="icon burger" width="32" height="30"/>
     </div>
     <logo />
@@ -32,7 +33,8 @@ export default {
   },
   computed: {
     ...mapState({
-      drawerOpenState: state => state.drawerOpen
+      drawerOpenState: state => state.drawerOpen,
+      selectedItems: state => state.cart.selectedProducts
     }),
     drawerOpen: {
       get() {
@@ -57,6 +59,12 @@ export default {
   position: fixed;
   right: 10px;
   top: 10px;
+}
+
+.IconsNav > .quantity-in-bag {
+  position: absolute;
+  top: 11px;
+  right: 43px;
 }
 
 .bag {

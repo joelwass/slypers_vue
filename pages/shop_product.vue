@@ -111,7 +111,7 @@
         </div>
         
         <div class="add-to-cart-button" v-on:click="addToCart">
-          <p>{{ this.isSelected ? 'Added' : 'Add to Cart' }}</p>
+          <p>Add to Cart</p>
         </div>
       </div>
     </div>

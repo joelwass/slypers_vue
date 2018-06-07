@@ -100,6 +100,7 @@ export default {
 .navigation > ul > li {
   font-size: 11px;
   cursor: pointer;
+  padding-top: 5px;
 }
 
 .drawer-transition-enter-active {

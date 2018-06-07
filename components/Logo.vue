@@ -16,6 +16,7 @@ export default {
 
 <style>
 .TopLeftLogo {
+  cursor: pointer;
   z-index: 1000;
   background: url('~/assets/logos/Slypers-Logo@4x.png') no-repeat;
   background-size:contain;

@@ -61,7 +61,7 @@ export default {
   top: 10px;
 }
 
-.IconsNav > .quantity-in-bag {
+.quantity-in-bag {
   position: absolute;
   top: 11px;
   right: 43px;

@@ -3,7 +3,8 @@
     <nav-header />
     <nav-left-side-bar />
     <nav-drawer />
-    <overlay v-show="drawerOpen" />
+    <bag-drawer />
+    <overlay v-show="drawerOpen || bagDrawerOpen" />
     <nuxt/>
     <footer-element/>
   </div>
@@ -17,6 +18,7 @@ import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
 import NavHeader from '~/components/NavHeader.vue'
 import Overlay from '~/components/Overlay.vue'
 import NavDrawer from '~/components/NavDrawer.vue'
+import BagDrawer from '~/components/BagDrawer.vue'
 import Footer from '~/components/Footer.vue'
 import Api from '../middleware/api'
 import helpers from '../helpers/methods'
@@ -38,12 +40,14 @@ export default {
   },
   computed: {
     ...mapState({
-      drawerOpen: state => state.drawerOpen
+      drawerOpen: state => state.drawerOpen,
+      bagDrawerOpen: state => state.bagDrawerOpen
     })
   },
   components: {
     NavLeftSideBar,
     NavHeader,
+    BagDrawer,
     NavDrawer,
     Overlay,
     FooterElement: Footer

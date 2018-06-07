@@ -8,7 +8,8 @@ import customer from './customer/customer'
 
 import {
   SET_BROWSING_SELECTED_PRODUCT,
-  SET_DRAWER_OPEN
+  SET_DRAWER_OPEN,
+  SET_BAG_DRAWER_OPEN
 } from './types'
 
 const store = () => {
@@ -16,7 +17,8 @@ const store = () => {
     strict: true, // Only allow state mutation in mutation handlers
     state: {
       browsingSelectedProduct: {},
-      drawerOpen: false
+      drawerOpen: false,
+      bagDrawerOpen: false
     },
     actions: {
       [SET_BROWSING_SELECTED_PRODUCT]: ({ commit }, browsingProduct) => {
@@ -24,6 +26,9 @@ const store = () => {
       },
       [SET_DRAWER_OPEN]: ({ commit }, open) => {
         commit(SET_DRAWER_OPEN, open)
+      },
+      [SET_BAG_DRAWER_OPEN]: ({ commit }, open) => {
+        commit(SET_BAG_DRAWER_OPEN, open)
       }
     },
     mutations: {
@@ -32,6 +37,9 @@ const store = () => {
       },
       [SET_DRAWER_OPEN](state, open) {
         Vue.set(state, 'drawerOpen', open)
+      },
+      [SET_BAG_DRAWER_OPEN](state, open) {
+        Vue.set(state, 'bagDrawerOpen', open)
       }
     },
     modules: {

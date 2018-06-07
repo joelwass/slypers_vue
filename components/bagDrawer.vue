@@ -1,21 +1,12 @@
 <template>
 <div>
-  <transition name="drawer-transition">
-    <div v-if="drawerOpen" class="drawer">
-      <div class="drawer-IconsNav">
-        <bag class="icon bag" width="19" height="25" />
-        <div class="quantity-in-bag">{{ selectedProducts.length ? selectedProducts.length : '' }}</div>
+  <transition name="bag-drawer-transition">
+    <div v-if="drawerOpen" class="bag-drawer">
+      <div class="bag-drawer-IconsNav">
+        <label for="bag" class>BAG ({{ this.selectedProducts.length }})</label>
         <xIcon v-on:click.native="toggleDrawer" class="icon x" width="32" height="30"/>
       </div>
-      <div class="navigation">
-        <ul>
-          <li><a v-on:click="go('shop')">SHOP</a></li>
-          <li><a v-on:click="go('about')">ABOUT</a></li>
-          <li><a v-on:click="go('login')">LOGIN / SIGNUP</a></li>
-          <li><a v-on:click="go('faq')">FAQ</a></li>
-        </ul>
-      </div><br>
-      <div class="drawer-footer">
+      <div class="bag-drawer-footer">
         <hr>
         <div class="checkout-button" v-on:click="checkout">
           <p>CHECKOUT ({{ selectedProducts.length }} ITEMS)</p>
@@ -37,7 +28,7 @@ import Bag from '~/components/icons/Bag.vue'
 export default {
   methods: {
     ...mapActions({
-      setDrawerOpen: 'SET_DRAWER_OPEN'
+      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN'
     }),
     toggleDrawer() {
       const prevDrawerOpen = this.drawerOpen
@@ -53,7 +44,7 @@ export default {
   },
   computed: {
     ...mapState({
-      drawerOpenState: state => state.drawerOpen,
+      drawerOpenState: state => state.bagDrawerOpen,
       selectedProducts: state => state.cart.selectedProducts
     }),
     drawerOpen: {
@@ -61,7 +52,7 @@ export default {
         return this.drawerOpenState
       },
       set(newVal) {
-        this.setDrawerOpen(newVal)
+        this.setBagDrawerOpen(newVal)
       }
     }
   },
@@ -73,13 +64,13 @@ export default {
 </script>
 
 <style>
-.drawer-footer {
+.bag-drawer-footer {
   position: absolute;
   width: 100%;
   bottom: 10px;
 }
 
-.drawer-footer > .checkout-button {
+.bag-drawer-footer > .checkout-button {
   text-align: center;
   background-color: black;
   margin-top: 10px;
@@ -88,51 +79,28 @@ export default {
   color: white;
 }
 
-.navigation > ul {
-  list-style-type: none;
-  padding-left: 4pt;
-}
-
-.navigation > ul > li > a {
-  text-decoration: none;
-  color: black
-}
-
-.navigation > ul > li {
-  font-size: 11px;
-  cursor: pointer;
-  padding-top: 5px;
-}
-
-.drawer-transition-enter-active {
+.bag-drawer-transition-enter-active {
   transition: all .3s ease;
 }
 
-.drawer-transition-leave-to {
+.bag-drawer-transition-leave-to {
   transition: all .3s ease;
 }
 
-.drawer-transition-enter, .drawer-transition-leave-to
+.bag-drawer-transition-enter, .bag-drawer-transition-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(220px);
   opacity: 0;
 }
 
-.drawer-IconsNav {
+.bag-drawer-IconsNav {
   display: inline-block;
   position: fixed;
   right: 10px;
   top: 10px;
 }
 
-.drawer > .navigation {
-  width: 100%;
-  position: relative;
-  padding-left: 10px;
-  margin-top: 80px;
-}
-
-.drawer {
+.bag-drawer {
   position: fixed;
   z-index: 1010;
   background-color:white;
@@ -142,22 +110,8 @@ export default {
   top: 0px;
 }
 
-.bag {
-  padding-bottom: 5px;
-}
-
-.x {
-  padding-top: 5px;
-}
-
-.drawer-IconsNav > .icon {
+.bag-drawer-IconsNav > .icon {
   margin-left: 5px;
-}
-
-@media all and (min-width: 850px) {
-  .drawer-IconsNav { 
-    display: none;
-  }
 }
 </style>
 

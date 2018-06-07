@@ -6,9 +6,11 @@
       <img v-else-if="product.name === 'Blue Slypers'" src="~/assets/shoes/blue/Slypers_14.jpeg" alt="">
       <img v-else src="~/assets/shoes/red/Slypers_15_r.jpeg" alt="">
     </div>
-    <div>
-      <label :for="labelFor">{{ product.name }}</label>
-      <p>${{ product.price }}</p>
+    <div class="product-label">
+      <label :for="labelFor">{{ product.description.toUpperCase() }}</label>
+    </div>
+    <div class="product-price">
+      <p>$ {{ product.price }} - ORDER NOW</p>
     </div>
   </div>
 </template>
@@ -37,9 +39,21 @@ export default {
 <style>
 .card {
   position: relative;
-  /* border: 1px black solid; */
   padding: 1em;
   text-align: center;
+}
+
+.card > .product-price {
+  text-align: left;
+  bottom: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+ 
+.card > .product-label {
+  margin-top: 15px;
+  text-align: left;
+  height: 30px;
 }
 
 img{

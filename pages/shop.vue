@@ -58,6 +58,7 @@ export default {
   grid-gap: 10px;
   grid-auto-rows: minmax(200px, auto);
   margin: 0 auto;
+  margin-bottom: 30px;
 }
 
 .grid-container-shop-media {

@@ -5,6 +5,7 @@
         <li><a v-on:click="go('shop')">SHOP</a></li>
         <li><a v-on:click="go('about')">ABOUT</a></li>
         <li><a v-on:click="go('checkout')">BAG ({{ selectedProducts.length }})</a></li>
+        <li><a v-on:click="go('faq')">FAQ</a></li>
       </ul>
     </div>
   </div>

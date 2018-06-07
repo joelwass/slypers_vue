@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="faq">
     <p><strong>How much does shipping cost?</strong></p>
 
     <p>At this time, we are only accepting orders from residents that live in the U.S.A. and Canada</p>
@@ -90,5 +90,18 @@
 </script>
 
 <style>
+.faq {
+    padding: 80px 30px 20px 30px;
+  } 
+
+.faq > p {
+  margin: 5px 0 5px 0;
+}
+
+@media all and (min-width: 850px) {
+  .faq {
+    padding: 97px 130px 100px 130px
+  }
+}
 </style>
 

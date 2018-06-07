@@ -10,8 +10,16 @@
       <div class="products">
         <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
           <div class="selectedProduct">
+            <div class="productPrice">
+              <p>$ {{ product(prod.productId).price }}</p>
+            </div>
+            <div class="productDetails">
+              <p>{{ product(prod.productId).description.toUpperCase() }}</p><br><br>
+              <p><strong>COLOR:</strong> {{ product(prod.productId).colorString }}</p>
+              <p><strong>SIZE:</strong> {{ prod.size }}</p>
+              <p><strong>QUANTITY:</strong> {{ prod.quantity }}</p>
+            </div>
             <img class="selectedProductImage" :src="product(prod.productId).image" />
-            <p></p>
           </div>
         </div>
         
@@ -36,9 +44,6 @@ import X from '~/components/icons/X.vue'
 import Bag from '~/components/icons/Bag.vue'
 
 export default {
-  mounted() {
-    console.log(this.selectedProducts)
-  },
   methods: {
     ...mapActions({
       setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN'
@@ -55,7 +60,6 @@ export default {
 
     },
     product(id) {
-      console.log(this.availableProducts)
       return this.availableProducts.filter(val => {
         return val.id === id;
       })[0]
@@ -76,8 +80,15 @@ export default {
       }
     },
     selectedProductsMapped() {
-      console.log(this.selectedProducts)
-      return this.selectedProducts
+      const mappedProducts = {}
+      this.selectedProducts.forEach((val) => {
+        if (mappedProducts[val.productId]) {
+          mappedProducts[val.productId].quantity++
+        } else {
+          mappedProducts[val.productId] = val
+        }
+      })
+      return Object.values(mappedProducts)
     }
   },
   components: {
@@ -88,6 +99,11 @@ export default {
 </script>
 
 <style>
+.selectedProductsMapped {
+  display:inline-block;
+  width: 100%;
+}
+
 .bag-drawer > .divider {
   margin-top: 59px;
 }
@@ -97,6 +113,16 @@ export default {
   margin-top: 20px;
 }
 
+.selectedProduct > .productDetails {
+  float: right;
+  width: 120px;
+}
+
+.selectedProduct > .productPrice {
+  float: right;
+  width: 60px
+}
+
 .products {
   padding-bottom: 130px;
   height: 100%;
@@ -104,7 +130,7 @@ export default {
 }
 
 .selectedProduct > .selectedProductImage {
-  width: 150px;
+  width: 120px;
 }
 
 .bag-drawer > .bag-title {

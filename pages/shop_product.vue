@@ -129,6 +129,7 @@ export default {
   padding-left: 3px;
   padding-top: 5px;
   padding-bottom: 5px;
+  cursor:pointer;
 }
 
 .add-to-cart-button {
@@ -152,6 +153,7 @@ export default {
   z-index: 10000;
   width: 120px;
   padding: 0;
+  cursor: pointer;
 }
 
 .sizes > ul > li {

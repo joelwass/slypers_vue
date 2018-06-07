@@ -38,6 +38,7 @@ export default {
   position: relative;
   padding: 1em;
   text-align: center;
+  cursor: pointer;
 }
 
 .card > .product-price {

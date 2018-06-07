@@ -18,7 +18,8 @@ const cart = {
         price: '400.00',
         price_dollars: 400,
         price_cents: 0,
-        color: '#ff0000'
+        color: '#ff0000',
+        colorString: 'Black & White'
       },
       {
         id: '2',
@@ -29,7 +30,8 @@ const cart = {
         price: '400.00',
         price_dollars: 400,
         price_cents: 0,
-        color: '#ff0000'
+        color: '#ff0000',
+        colorString: 'Grey'
       },
       {
         id: '3',
@@ -40,7 +42,8 @@ const cart = {
         price: '400.00',
         price_dollars: 400,
         price_cents: 0,
-        color: '#ff0000'
+        color: '#ff0000',
+        colorString: 'Blue'
       },
       {
         id: '4',
@@ -51,7 +54,8 @@ const cart = {
         price: '400.00',
         price_dollars: 400,
         price_cents: 0,
-        color: '#ff0000'
+        color: '#ff0000',
+        colorString: 'Red'
       }
     ],
     selectedProducts: []
@@ -76,7 +80,7 @@ const cart = {
     },
     [ADD_PRODUCT](state, data) {
       const newArray = state.selectedProducts
-      newArray.push({ productId: data.productId, size: data.size })
+      newArray.push({ productId: data.productId, size: data.size, quantity: 1 })
       Vue.set(state, 'selectedProducts', newArray)
     }
   }

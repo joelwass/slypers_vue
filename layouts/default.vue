@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div :class="appClasses">
     <nav-header />
     <nav-left-side-bar />
     <nav-drawer />
     <bag-drawer />
     <overlay v-show="drawerOpen || bagDrawerOpen" />
-    <nuxt :class="appClasses" />
+    <nuxt />
     <footer-element/>
   </div>
 </template>

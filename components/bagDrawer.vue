@@ -11,8 +11,8 @@
         <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
           <div class="selectedProduct">
             <img class="selectedProductImage" :src="product(prod.productId).image" />
+            <p></p>
           </div>
-          <hr>
         </div>
         
       </div>
@@ -98,7 +98,8 @@ export default {
 }
 
 .products {
-  margin-bottom: 50px;
+  padding-bottom: 130px;
+  height: 100%;
   overflow: scroll;
 }
 
@@ -115,8 +116,11 @@ export default {
 
 .bag-drawer-footer {
   position: absolute;
+  z-index: 1001;
+  background-color:white;
   width: 100%;
-  bottom: 10px;
+  bottom: 0px;
+  padding-bottom: 10px;
 }
 
 .bag-drawer-footer > .checkout-button {

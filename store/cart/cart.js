@@ -1,7 +1,9 @@
 import Vue from 'vue';
 
 import {
-  SET_AVAILABLE_PRODUCTS
+  SET_AVAILABLE_PRODUCTS,
+  SET_SELECTED_PRODUCTS,
+  ADD_PRODUCT
 } from '../types'
 
 const cart = {
@@ -9,8 +11,8 @@ const cart = {
     availableProducts: [
       {
         id: '1',
-        description: 'Dutch Brothel Slypers Red And Black',
-        name: 'Red & Black Slypers',
+        description: 'Dutch Brothel Slypers Black And White',
+        name: 'Black & White Slypers',
         price: '400.00',
         price_dollars: 400,
         price_cents: 0,
@@ -36,23 +38,38 @@ const cart = {
       },
       {
         id: '4',
-        description: 'Dutch Brothel Slypers Black And White',
-        name: 'Black & White Slypers',
+        description: 'Dutch Brothel Slypers Red',
+        name: 'Red Slypers',
         price: '400.00',
         price_dollars: 400,
         price_cents: 0,
         color: '#ff0000'
       }
-    ]
+    ],
+    selectedProducts: []
   },
   actions: {
     [SET_AVAILABLE_PRODUCTS]: ({ commit }, availableProducts) => {
       commit(SET_AVAILABLE_PRODUCTS, availableProducts)
+    },
+    [SET_SELECTED_PRODUCTS]: ({ commit }, selectedProducts) => {
+      commit(SET_SELECTED_PRODUCTS, selectedProducts)
+    },
+    [ADD_PRODUCT]: ({ commit }, data) => {
+      commit(ADD_PRODUCT, data)
     }
   },
   mutations: {
     [SET_AVAILABLE_PRODUCTS](state, availableProducts) {
-      Vue.set(state.availableProducts, availableProducts)
+      Vue.set(state, 'availableProducts', availableProducts)
+    },
+    [SET_SELECTED_PRODUCTS](state, selectedProducts) {
+      Vue.set(state, 'selectedProducts', selectedProducts)
+    },
+    [ADD_PRODUCT](state, data) {
+      const newArray = state.selectedProducts
+      newArray.push({ productId: data.productId, size: data.size })
+      Vue.set(state, 'selectedProducts', newArray)
     }
   }
 }

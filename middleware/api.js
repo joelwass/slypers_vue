@@ -30,6 +30,12 @@ const api = {
     axios.post(endpoint + '/auth')
     .then(auth => resolve(auth))
     .catch(err => reject(err))
+  }),
+
+  signUpForEmails: () => new Promise((resolve, reject) => {
+    axios.post(endpoint + '/signUpForEmails')
+    .then(res => resolve(res))
+    .catch(err => reject(err))
   })
 }
 

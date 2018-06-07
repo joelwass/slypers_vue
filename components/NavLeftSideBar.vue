@@ -1,28 +1,30 @@
 <template>
   <div class="SideBarLeft SideBarLeft-media">
-    <logo />
     <div class="Links">
       <ul>
-        <li><a v-on:click="goShop">SHOP</a></li>
-        <li><a v-on:click="goAbout">ABOUT</a></li>
+        <li><a v-on:click="go('shop')">SHOP</a></li>
+        <li><a v-on:click="go('about')">ABOUT</a></li>
+        <li><a v-on:click="go('checkout')">BAG ({{ selectedProducts.length }})</a></li>
+        <li><a v-on:click="go('faq')">FAQ</a></li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import {
+  mapState 
+} from 'Vuex'
 
 export default {
-  components: {
-    Logo
+  computed: {
+    ...mapState({
+      selectedProducts: state => state.cart.selectedProducts
+    })
   },
   methods: {
-    goShop() {
-      this.$router.push('/shop')
-    },
-    goAbout() {
-      this.$router.push('/about')
+    go(route) {
+      this.$router.push(`/${route}`)
     }
   }
 }
@@ -37,7 +39,7 @@ export default {
 }
 
 .SideBarLeft-media {
-  padding-top: 5px;
+  padding-top: 65px;
   padding-left: 5px;
 }
 
@@ -54,6 +56,7 @@ export default {
 .SideBarLeft > .Links > ul > li {
   font-size: 11px;
   cursor: pointer;
+  padding-top: 3px;
 }
 
 .SideBarLeft > .Links {
@@ -67,7 +70,7 @@ export default {
   } 
 
   .SideBarLeft-media {
-    padding-top: 40px;
+    padding-top: 100px;
     padding-left: 40px;
   }
 }

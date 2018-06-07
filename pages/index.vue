@@ -21,18 +21,15 @@
         </div>
       </div>
     </section>
-    <footer-element/>
   </div>
 </template>
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
-import Footer from '~/components/Footer.vue'
 
 export default {
   components: {
-    AppLogo,
-    FooterElement: Footer
+    AppLogo
   }
 }
 </script>

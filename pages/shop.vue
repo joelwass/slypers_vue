@@ -58,25 +58,26 @@ export default {
   grid-gap: 10px;
   grid-auto-rows: minmax(200px, auto);
   margin: 0 auto;
+  margin-bottom: 30px;
 }
 
 .grid-container-shop-media {
   padding-top: 60px;
 }
 
-.one {
+.grid-container-shop > .one {
   grid-column: 1 / 2;
   grid-row: 1;
 }
-.two { 
+.grid-container-shop > .two { 
   grid-column: 2 / 2;
   grid-row: 1;
 }
-.three {
+.grid-container-shop > .three {
   grid-column: 1 / 2;
   grid-row: 2;
 }
-.four {
+.grid-container-shop > .four {
   grid-column: 2 / 2;
   grid-row: 2;
 }
@@ -87,6 +88,10 @@ export default {
     padding-right: 200px;
     padding-top: 0px;
   } 
+
+  .grid-container-shop {
+    padding-top: 70px;
+  }
 }
 
 </style>

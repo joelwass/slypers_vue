@@ -21,7 +21,7 @@ export default {
 
 <style>
 .overlay {
-  width: 100vh;
+  width: 100vw;
   position: absolute;
   height:100vh;
   background: rgba(0, 0, 0, 0.5);

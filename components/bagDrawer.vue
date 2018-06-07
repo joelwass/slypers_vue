@@ -2,9 +2,19 @@
 <div>
   <transition name="bag-drawer-transition">
     <div v-if="drawerOpen" class="bag-drawer">
+      <h1 class="bag-title">BAG ({{ this.selectedProducts.length }})</h1>
       <div class="bag-drawer-IconsNav">
-        <label for="bag" class>BAG ({{ this.selectedProducts.length }})</label>
         <xIcon v-on:click.native="toggleDrawer" class="icon x" width="32" height="30"/>
+      </div>
+      <hr class="divider">
+      <div class="products">
+        <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
+          <div class="selectedProduct">
+            <img class="selectedProductImage" :src="product(prod.productId).image" />
+          </div>
+          <hr>
+        </div>
+        
       </div>
       <div class="bag-drawer-footer">
         <hr>
@@ -26,6 +36,9 @@ import X from '~/components/icons/X.vue'
 import Bag from '~/components/icons/Bag.vue'
 
 export default {
+  mounted() {
+    console.log(this.selectedProducts)
+  },
   methods: {
     ...mapActions({
       setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN'
@@ -40,12 +53,19 @@ export default {
     },
     checkout() {
 
+    },
+    product(id) {
+      console.log(this.availableProducts)
+      return this.availableProducts.filter(val => {
+        return val.id === id;
+      })[0]
     }
   },
   computed: {
     ...mapState({
       drawerOpenState: state => state.bagDrawerOpen,
-      selectedProducts: state => state.cart.selectedProducts
+      selectedProducts: state => state.cart.selectedProducts,
+      availableProducts: state => state.cart.availableProducts
     }),
     drawerOpen: {
       get() {
@@ -54,6 +74,10 @@ export default {
       set(newVal) {
         this.setBagDrawerOpen(newVal)
       }
+    },
+    selectedProductsMapped() {
+      console.log(this.selectedProducts)
+      return this.selectedProducts
     }
   },
   components: {
@@ -64,6 +88,31 @@ export default {
 </script>
 
 <style>
+.bag-drawer > .divider {
+  margin-top: 59px;
+}
+
+.selectedProduct {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.products {
+  margin-bottom: 50px;
+  overflow: scroll;
+}
+
+.selectedProduct > .selectedProductImage {
+  width: 150px;
+}
+
+.bag-drawer > .bag-title {
+  position: absolute;
+  left: 20px;
+  top: 18px;
+  font-size: 20px;
+}
+
 .bag-drawer-footer {
   position: absolute;
   width: 100%;
@@ -105,13 +154,19 @@ export default {
   z-index: 1010;
   background-color:white;
   height: 100%;
-  width: 220px;
+  width: 300px;
   right: 0px;
   top: 0px;
 }
 
 .bag-drawer-IconsNav > .icon {
   margin-left: 5px;
+}
+
+@media all and (min-width: 850px) {
+  .bag-drawer > .divider {
+    margin-top: 79px;
+  }
 }
 </style>
 

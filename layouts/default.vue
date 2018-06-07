@@ -5,7 +5,7 @@
     <nav-drawer />
     <bag-drawer />
     <overlay v-show="drawerOpen || bagDrawerOpen" />
-    <nuxt/>
+    <nuxt :class="appClasses" />
     <footer-element/>
   </div>
 </template>
@@ -22,6 +22,7 @@ import BagDrawer from '~/components/BagDrawer.vue'
 import Footer from '~/components/Footer.vue'
 import Api from '../middleware/api'
 import helpers from '../helpers/methods'
+import bagDrawerVue from '../components/bagDrawer.vue';
 
 export default {
   mounted: async () => {
@@ -42,7 +43,10 @@ export default {
     ...mapState({
       drawerOpen: state => state.drawerOpen,
       bagDrawerOpen: state => state.bagDrawerOpen
-    })
+    }),
+    appClasses() {
+      if (this.drawerOpen || this.bagDrawerOpen) return 'noScroll'
+    }
   },
   components: {
     NavLeftSideBar,
@@ -56,6 +60,10 @@ export default {
 </script>
 
 <style>
+.noScroll {
+  position: fixed;
+}
+
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 12px;

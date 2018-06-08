@@ -4,7 +4,7 @@
     <div v-if="drawerOpen" class="bag-drawer">
       <h1 class="bag-title">BAG ({{ this.selectedProducts.length }})</h1>
       <div class="bag-drawer-IconsNav">
-        <xIcon v-on:click.native="toggleDrawer" class="icon x" width="32" height="30"/>
+        <xIcon @click.native="toggleDrawer" class="icon x" width="32" height="30"/>
       </div>
       <hr class="divider">
       <div class="products">
@@ -13,11 +13,19 @@
             <div class="productPrice">
               <p>$ {{ product(prod.productId).price }}</p>
             </div>
-            <div class="productDetails">
+            <div class="removeProductButton">
+              <p @click="removeAllOfProduct(prod.productId, prod.size)">REMOVE</p>
+            </div>
+            <div class="productDescription">
               <p>{{ product(prod.productId).description.toUpperCase() }}</p><br><br>
+            </div>
+            <div class="productDetails">
               <p><strong>COLOR:</strong> {{ product(prod.productId).colorString }}</p>
               <p><strong>SIZE: </strong>{{ prod.size }}</p>
-              <div class="size-row"><strong>QUANTITY:</strong><p> - </p><p> {{ prod.quantity }} </p><p> + </p></div>
+              <div class="size-row"><strong>QUANTITY:</strong>
+                <p class="minus" @click="minusQuantity(prod.productId, prod.size)"> - </p><p> {{ prod.quantity }} </p>
+                <p class="plus" @click="plusQuantity(prod.productId, prod.size)"> + </p>
+              </div>
             </div>
             <img class="selectedProductImage" :src="product(prod.productId).image" />
           </div>
@@ -26,6 +34,10 @@
       </div>
       <div class="bag-drawer-footer">
         <hr>
+        <div class="subtotal">
+          <p class="subtotal-label">SUBTOTAL</p>
+          <p class="subtotal-amount">$ {{ subtotal }}</p>
+        </div>
         <div class="checkout-button" v-on:click="checkout">
           <p>CHECKOUT ({{ selectedProducts.length }} ITEMS)</p>
         </div>
@@ -46,7 +58,9 @@ import Bag from '~/components/icons/Bag.vue'
 export default {
   methods: {
     ...mapActions({
-      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN'
+      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN',
+      removeProduct: 'REMOVE_PRODUCT',
+      addProduct: 'ADD_PRODUCT'
     }),
     toggleDrawer() {
       const prevDrawerOpen = this.drawerOpen
@@ -63,6 +77,15 @@ export default {
       return this.availableProducts.filter(val => {
         return val.id === id;
       })[0]
+    },
+    minusQuantity(id, size) {
+      this.removeProduct({ productId: id, size })
+    },
+    plusQuantity(id, size) {
+      this.addProduct({ productId: id, size })
+    },
+    removeAllOfProduct(id, size) {
+      this.removeProduct({ productId: id, size, removeAll: true })
     }
   },
   computed: {
@@ -89,6 +112,15 @@ export default {
         }
       })
       return Object.values(mappedProducts)
+    },
+    subtotal() {
+      return this.selectedProducts.reduce((acc, val) => {
+        const product = this.availableProducts.filter((avail) => avail.id === val.productId)[0]
+        console.log(product)
+        console.log(acc)
+        console.log(parseInt(product.price_dollars))
+        return acc + parseInt(product.price_dollars)
+      }, 0)
     }
   },
   components: {
@@ -99,13 +131,46 @@ export default {
 </script>
 
 <style>
+.subtotal {
+  width: 100%;
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
+
+.subtotal > .subtotal-amount {
+  display: inline;
+  padding-right: 10px;
+  float: right;
+}
+
+.subtotal > .subtotal-label {
+  padding-left: 10px;
+  display: inline;
+}
+
+.selectedProduct > .removeProductButton {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 60px;
+  cursor: pointer;
+}
+
+.size-row > .minus {
+  width: 10px;
+  cursor: pointer;
+}
+
+.size-row > .plus {
+  width: 10px;
+  cursor: pointer;
+}
 
 .productDetails > .size-row {
   display: inline-block;
 }
 
 .size-row > p {
-  width: auto;
   display:inline;
 }
 
@@ -121,26 +186,37 @@ export default {
 .selectedProduct {
   margin-bottom: 20px;
   margin-top: 20px;
+  position: relative;
+}
+
+.selectedProduct > .productDescription {
+  position: absolute;
+  top: 0px;
+  right: 100px;
+  width: 110px;
 }
 
 .selectedProduct > .productDetails {
-  float: right;
-  width: 140px;
+  position: absolute;
+  bottom: 0px;
+  right: 100px;
+  width: 110px;
 }
 
 .selectedProduct > .productPrice {
   float: right;
-  width: 60px
+  width: 60px;
 }
 
 .products {
   padding-bottom: 130px;
   height: 100%;
   overflow: scroll;
+  font-size: 11px;
 }
 
 .selectedProduct > .selectedProductImage {
-  width: 120px;
+  width: 100px;
 }
 
 .bag-drawer > .bag-title {

@@ -1,19 +1,52 @@
 <template>
-  <div :class="classes"></div>
+  <div class="overlay" @click="toggleCorrectDrawer"></div>
 </template>
 
 <script>
 import {
-  mapState
+  mapState,
+  mapActions
 } from 'Vuex'
 
 export default {
   computed: {
     ...mapState({
-      drawerOpen: state => state.drawerOpen
+      drawerOpenState: state => state.drawerOpen,
+      bagDrawerOpenState: state => state.bagDrawerOpen,
     }),
-    classes() {
-      return this.drawerOpen ? ['overlay', 'overlay-open']: ['overlay', 'overlay-hidden']
+    drawerOpen: {
+      get() {
+        return this.drawerOpenState
+      },
+      set(newVal) {
+        this.setDrawerOpen(newVal)
+      }
+    },
+    bagDrawerOpen: {
+      get() {
+        return this.bagDrawerOpenState
+      },
+      set(newVal) {
+        this.setBagDrawerOpen(newVal)
+      }
+    }
+  },
+  methods: {
+    ...mapActions({
+      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN',
+      setDrawerOpen: 'SET_DRAWER_OPEN'
+    }),
+    toggleDrawer() {
+      const prevDrawerOpen = this.drawerOpen
+      this.drawerOpen = !prevDrawerOpen
+    },
+    toggleBagDrawer() {
+      const prevDrawerOpen = this.bagDrawerOpen
+      this.bagDrawerOpen = !prevDrawerOpen
+    },
+    toggleCorrectDrawer() {
+      if (this.drawerOpenState) this.toggleDrawer()
+      else this.toggleBagDrawer()
     }
   }
 }
@@ -26,24 +59,6 @@ export default {
   height:100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1005;
-}
-
-.overlay-hidden {
-  opacity: 1;
-  animation: opacity 1s ease-in-out;
-  /* -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -ms-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out; */
-}
-
-.overlay-open {
-  opacity: 0.6;
-  animation: opactiy 1s ease-in-out;
-  /* -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -ms-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out; */
 }
 </style>
 

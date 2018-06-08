@@ -16,8 +16,8 @@
             <div class="productDetails">
               <p>{{ product(prod.productId).description.toUpperCase() }}</p><br><br>
               <p><strong>COLOR:</strong> {{ product(prod.productId).colorString }}</p>
-              <p><strong>SIZE:</strong> {{ prod.size }}</p>
-              <p><strong>QUANTITY:</strong> {{ prod.quantity }}</p>
+              <p><strong>SIZE: </strong>{{ prod.size }}</p>
+              <div class="size-row"><strong>QUANTITY:</strong><p> - </p><p> {{ prod.quantity }} </p><p> + </p></div>
             </div>
             <img class="selectedProductImage" :src="product(prod.productId).image" />
           </div>
@@ -82,10 +82,10 @@ export default {
     selectedProductsMapped() {
       const mappedProducts = {}
       this.selectedProducts.forEach((val) => {
-        if (mappedProducts[val.productId]) {
-          mappedProducts[val.productId].quantity++
+        if (mappedProducts[`${val.productId}${val.size}`] && mappedProducts[`${val.productId}${val.size}`].size === val.size) {
+          mappedProducts[`${val.productId}${val.size}`].quantity++
         } else {
-          mappedProducts[val.productId] = val
+          mappedProducts[`${val.productId}${val.size}`] = Object.assign({}, val)
         }
       })
       return Object.values(mappedProducts)
@@ -99,6 +99,16 @@ export default {
 </script>
 
 <style>
+
+.productDetails > .size-row {
+  display: inline-block;
+}
+
+.size-row > p {
+  width: auto;
+  display:inline;
+}
+
 .selectedProductsMapped {
   display:inline-block;
   width: 100%;
@@ -115,7 +125,7 @@ export default {
 
 .selectedProduct > .productDetails {
   float: right;
-  width: 120px;
+  width: 140px;
 }
 
 .selectedProduct > .productPrice {
@@ -184,7 +194,7 @@ export default {
   z-index: 1010;
   background-color:white;
   height: 100%;
-  width: 300px;
+  width: 320px;
   right: 0px;
   top: 0px;
 }

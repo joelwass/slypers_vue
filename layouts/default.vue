@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div :class="appClasses">
     <nav-header />
     <nav-left-side-bar />
     <nav-drawer />
-    <overlay v-show="drawerOpen" />
-    <nuxt/>
+    <bag-drawer />
+    <overlay v-show="drawerOpen || bagDrawerOpen" />
+    <nuxt />
     <footer-element/>
   </div>
 </template>
@@ -17,9 +18,11 @@ import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
 import NavHeader from '~/components/NavHeader.vue'
 import Overlay from '~/components/Overlay.vue'
 import NavDrawer from '~/components/NavDrawer.vue'
+import BagDrawer from '~/components/BagDrawer.vue'
 import Footer from '~/components/Footer.vue'
 import Api from '../middleware/api'
 import helpers from '../helpers/methods'
+import bagDrawerVue from '../components/bagDrawer.vue';
 
 export default {
   mounted: async () => {
@@ -38,12 +41,17 @@ export default {
   },
   computed: {
     ...mapState({
-      drawerOpen: state => state.drawerOpen
-    })
+      drawerOpen: state => state.drawerOpen,
+      bagDrawerOpen: state => state.bagDrawerOpen
+    }),
+    appClasses() {
+      if (this.drawerOpen || this.bagDrawerOpen) return 'noScroll'
+    }
   },
   components: {
     NavLeftSideBar,
     NavHeader,
+    BagDrawer,
     NavDrawer,
     Overlay,
     FooterElement: Footer
@@ -52,6 +60,10 @@ export default {
 </script>
 
 <style>
+.noScroll {
+  position: fixed;
+}
+
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 12px;

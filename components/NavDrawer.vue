@@ -3,7 +3,8 @@
   <transition name="drawer-transition">
     <div v-if="drawerOpen" class="drawer">
       <div class="drawer-IconsNav">
-        <bag class="icon bag" width="16" height="22" />
+        <bag class="icon bag" width="19" height="25" />
+        <div class="quantity-in-bag">{{ selectedProducts.length ? selectedProducts.length : '' }}</div>
         <xIcon v-on:click.native="toggleDrawer" class="icon x" width="32" height="30"/>
       </div>
       <div class="navigation">
@@ -100,6 +101,7 @@ export default {
 .navigation > ul > li {
   font-size: 11px;
   cursor: pointer;
+  padding-top: 5px;
 }
 
 .drawer-transition-enter-active {

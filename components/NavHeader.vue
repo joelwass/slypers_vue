@@ -1,7 +1,8 @@
 <template>
   <div class="header">
     <div class="IconsNav">
-      <bag v-on:click.native="go('checkout')" class="icon bag" width="16" height="22" />
+      <bag v-on:click.native="toggleBagDrawer" class="icon bag" width="19" height="25" />
+      <div class="quantity-in-bag">{{ selectedItems.length ? selectedItems.length : '' }}</div>
       <hamburger v-on:click.native="toggleDrawer" class="icon burger" width="32" height="30"/>
     </div>
     <logo />
@@ -20,19 +21,23 @@ import Bag from '~/components/icons/Bag.vue'
 export default {
   methods: {
     ...mapActions({
-      setDrawerOpen: 'SET_DRAWER_OPEN'
+      setDrawerOpen: 'SET_DRAWER_OPEN',
+      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN'
     }),
     toggleDrawer() {
       const prevDrawerOpen = this.drawerOpen
       this.drawerOpen = !prevDrawerOpen
     },
-    go(route) {
-      this.$router.push(`/${route}`)
+    toggleBagDrawer() {
+      const prevDrawerOpen = this.bagDrawerOpen
+      this.bagDrawerOpen = !prevDrawerOpen
     }
   },
   computed: {
     ...mapState({
-      drawerOpenState: state => state.drawerOpen
+      drawerOpenState: state => state.drawerOpen,
+      bagDrawerOpenState: state => state.bagDrawerOpen,
+      selectedItems: state => state.cart.selectedProducts
     }),
     drawerOpen: {
       get() {
@@ -40,6 +45,14 @@ export default {
       },
       set(newVal) {
         this.setDrawerOpen(newVal)
+      }
+    },
+    bagDrawerOpen: {
+      get() {
+        return this.bagDrawerOpenState
+      },
+      set(newVal) {
+        this.setBagDrawerOpen(newVal)
       }
     }
   },
@@ -57,6 +70,12 @@ export default {
   position: fixed;
   right: 10px;
   top: 10px;
+}
+
+.quantity-in-bag {
+  position: absolute;
+  top: 11px;
+  right: 43px;
 }
 
 .bag {

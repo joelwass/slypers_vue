@@ -4,7 +4,7 @@
       <ul>
         <li><a v-on:click="go('shop')">SHOP</a></li>
         <li><a v-on:click="go('about')">ABOUT</a></li>
-        <li><a v-on:click="go('checkout')">BAG ({{ selectedProducts.length }})</a></li>
+        <li><a v-on:click="toggleDrawer">BAG ({{ selectedProducts.length }})</a></li>
         <li><a v-on:click="go('faq')">FAQ</a></li>
       </ul>
     </div>
@@ -13,16 +13,33 @@
 
 <script>
 import {
-  mapState 
+  mapState,
+  mapActions
 } from 'Vuex'
 
 export default {
   computed: {
     ...mapState({
+      bagDrawerOpenState: state => state.bagDrawerOpen,
       selectedProducts: state => state.cart.selectedProducts
-    })
+    }),
+    drawerOpen: {
+      get() {
+        return this.bagDrawerOpenState
+      },
+      set(newVal) {
+        this.toggleBagDrawer(newVal)
+      }
+    }
   },
   methods: {
+    ...mapActions({
+      toggleBagDrawer: 'SET_BAG_DRAWER_OPEN'
+    }),
+    toggleDrawer() {
+      const prevDrawerOpen = this.drawerOpen
+      this.drawerOpen = !prevDrawerOpen
+    },
     go(route) {
       this.$router.push(`/${route}`)
     }
@@ -56,6 +73,7 @@ export default {
 .SideBarLeft > .Links > ul > li {
   font-size: 11px;
   cursor: pointer;
+  margin-top: 2px;
   padding-top: 3px;
 }
 

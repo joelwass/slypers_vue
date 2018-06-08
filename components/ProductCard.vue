@@ -1,10 +1,7 @@
 <template>
   <div class="card">
     <div>
-      <img v-if="product.name === 'Black & White Slypers'" src="~/assets/shoes/blackAndWhite/Slypers_16.jpeg" alt="">
-      <img v-else-if="product.name === 'Grey Slypers'" src="~/assets/shoes/grey/Slypers_13.jpeg" alt="">
-      <img v-else-if="product.name === 'Blue Slypers'" src="~/assets/shoes/blue/Slypers_14.jpeg" alt="">
-      <img v-else src="~/assets/shoes/red/Slypers_15_r.jpeg" alt="">
+      <img :src="product.image" alt="productImage">
     </div>
     <div class="product-label">
       <label :for="labelFor">{{ product.description.toUpperCase() }}</label>
@@ -41,6 +38,7 @@ export default {
   position: relative;
   padding: 1em;
   text-align: center;
+  cursor: pointer;
 }
 
 .card > .product-price {

@@ -16,10 +16,11 @@ export default {
 
 <style>
 .TopLeftLogo {
+  cursor: pointer;
   z-index: 1000;
   background: url('~/assets/logos/Slypers-Logo@4x.png') no-repeat;
   background-size:contain;
-  width: auto;
+  width: 200px;
   margin-top: 10px;
   margin-left: 10px;
 }

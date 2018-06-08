@@ -100,7 +100,7 @@
 
 @media all and (min-width: 850px) {
   .faq {
-    padding: 97px 130px 100px 130px
+    padding: 97px 140px 100px 140px
   }
 }
 </style>

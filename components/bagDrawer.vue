@@ -139,12 +139,12 @@ export default {
 
 .subtotal > .subtotal-amount {
   display: inline;
-  padding-right: 10px;
+  padding-right: 10%;
   float: right;
 }
 
 .subtotal > .subtotal-label {
-  padding-left: 10px;
+  padding-left: 10%;
   display: inline;
 }
 
@@ -152,7 +152,7 @@ export default {
   position: absolute;
   right: 0px;
   bottom: 0px;
-  width: 60px;
+  margin-right: 10px;
   cursor: pointer;
 }
 
@@ -205,7 +205,7 @@ export default {
 
 .selectedProduct > .productPrice {
   float: right;
-  width: 60px;
+  margin-right: 10px;
 }
 
 .products {
@@ -240,8 +240,11 @@ export default {
   background-color: black;
   margin-top: 10px;
   padding-top: 8px;
+  margin-left: auto;
+  margin-right: auto;
   padding-bottom: 8px;
   color: white;
+  width: 80%;
 }
 
 .bag-drawer-transition-enter-active {

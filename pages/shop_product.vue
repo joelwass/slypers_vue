@@ -11,6 +11,16 @@
         </div>
       </div>
     </div>
+    <div class="sliding-window">
+      <div class="grid-container-sliding-window">
+        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="product-image one" name="Shoe1">
+          <img :src="image" alt="">
+        </div>
+      </div>
+      <div class="sliding-window-opaqueness">
+
+      </div>
+    </div>
     <div class="product-details">
       <div class="product-details-description">
         <h2>{{ this.selectedProduct.name }}</h2><br>
@@ -118,6 +128,17 @@ export default {
 </script>
 
 <style>
+.sliding-window {
+  display: none;
+}
+
+.sliding-window > .sliding-window-opaqueness {
+  width: 60px;
+  height: 80px;
+  position: absolute;
+  top: 0px;
+}
+
 .validation-container {
   margin-top: 5px;
   color: red;
@@ -192,17 +213,10 @@ export default {
   grid-column: 1 / 1;
   grid-row: 1;
 }
-.grid-container-shop-product > .two { 
+
+.grid-container-sliding-window {
   grid-column: 1 / 1;
-  grid-row: 2;
-}
-.grid-container-shop-product > .three {
-  grid-column: 1 / 1;
-  grid-row: 3;
-}
-.grid-container-shop-product > .four {
-  grid-column: 1 / 1;
-  grid-row: 4;
+  grid-row: 1;
 }
 
 img{
@@ -247,6 +261,16 @@ img{
     padding-right: 200px;
     padding-top: 60px;
   } 
+
+  .sliding-window {
+    display: block;
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    bottom: 350px;
+    cursor:pointer;
+    left: 130px;
+  }
 
   .sizes > ul {
     list-style-type: none;

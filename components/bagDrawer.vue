@@ -71,7 +71,8 @@ export default {
       this.$router.push(`/${route}`)
     },
     checkout() {
-
+      this.toggleDrawer()
+      this.$router.push('checkout')
     },
     product(id) {
       return this.availableProducts.filter(val => {
@@ -116,9 +117,6 @@ export default {
     subtotal() {
       return this.selectedProducts.reduce((acc, val) => {
         const product = this.availableProducts.filter((avail) => avail.id === val.productId)[0]
-        console.log(product)
-        console.log(acc)
-        console.log(parseInt(product.price_dollars))
         return acc + parseInt(product.price_dollars)
       }, 0)
     }
@@ -240,6 +238,7 @@ export default {
   background-color: black;
   margin-top: 10px;
   padding-top: 8px;
+  cursor: pointer;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 8px;

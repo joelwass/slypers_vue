@@ -6,19 +6,16 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
       <div class="grid-container-shop-product grid-container-shop-product-media">
-        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="product-image one" name="Shoe1">
+        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="product-image one" :id="`shoe${index}`">
           <img :src="image" alt="">
         </div>
       </div>
     </div>
     <div class="sliding-window">
       <div class="grid-container-sliding-window">
-        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="product-image one" name="Shoe1">
+        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" @click="scrollToImage(`#shoe${index}`)" :key="index" class="sliding-window-image" name="Shoe1">
           <img :src="image" alt="">
         </div>
-      </div>
-      <div class="sliding-window-opaqueness">
-
       </div>
     </div>
     <div class="product-details">
@@ -71,6 +68,15 @@ export default {
       selectedSizeNumber: undefined
     }
   },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("hashchange", function () {
+      window.scrollTo(window.scrollX, window.scrollY - 100);
+    });
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   computed: {
     ...mapState({
       selectedProduct: state => state.browsingSelectedProduct,
@@ -98,6 +104,12 @@ export default {
     ...mapActions({
       addProduct: 'ADD_PRODUCT'
     }),
+    handleScroll (event) {
+      const imageHeight = document.getElementById('shoe1').clientHeight
+      if (imageHeight) {
+        const floor = Math.floor(window.scrollY / imageHeight)
+      }
+    },
     dropdown() {
       this.dropdownOpen = !this.dropdownOpen
     },
@@ -117,6 +129,9 @@ export default {
       } else {
         this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })
       }
+    },
+    scrollToImage(imageId) {
+      document.location = imageId
     }
   },
   components: {
@@ -130,13 +145,6 @@ export default {
 <style>
 .sliding-window {
   display: none;
-}
-
-.sliding-window > .sliding-window-opaqueness {
-  width: 60px;
-  height: 80px;
-  position: absolute;
-  top: 0px;
 }
 
 .validation-container {
@@ -231,6 +239,14 @@ img{
   text-align: center;
 }
 
+.sliding-window-image {
+  position: relative;
+  border: 1px black solid;
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .product-details {
   position: relative;
   margin-top: 30px;
@@ -268,7 +284,6 @@ img{
     width: 70px;
     height: 70px;
     bottom: 350px;
-    cursor:pointer;
     left: 130px;
   }
 

@@ -6,7 +6,14 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
       <div class="grid-container-shop-product grid-container-shop-product-media">
-        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="product-image one" name="Shoe1">
+        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="product-image one" :id="`shoe${index}`">
+          <img :src="image" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="sliding-window">
+      <div class="grid-container-sliding-window">
+        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" @click="scrollToImage(`#shoe${index}`)" :key="index" :class="slidingWindowClasses(index)" name="Shoe1">
           <img :src="image" alt="">
         </div>
       </div>
@@ -58,8 +65,18 @@ export default {
       sizes: [9.5, 10, 10.5, 11, 11.5, 12],
       dropdownOpen: false,
       selectedSizeData: 'Size',
-      selectedSizeNumber: undefined
+      selectedSizeNumber: undefined,
+      viewingImage: 0
     }
+  },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('hashchange', function () {
+      window.scrollTo(window.scrollX, window.scrollY - 50);
+    });
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   computed: {
     ...mapState({
@@ -86,8 +103,20 @@ export default {
   },
   methods: {
     ...mapActions({
-      addProduct: 'ADD_PRODUCT'
+      addProduct: 'ADD_PRODUCT',
+      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN'
     }),
+    slidingWindowClasses(shoe) {
+      if (shoe !== this.viewingImage) return ['sliding-window-image', 'sliding-window-opacity']
+      return ['sliding-window-image']
+    },
+    handleScroll (event) {
+      const imageHeight = document.getElementById('shoe1').clientHeight
+      if (imageHeight) {
+        const floor = Math.floor((window.scrollY+300) / imageHeight)
+        this.viewingImage = floor
+      }
+    },
     dropdown() {
       this.dropdownOpen = !this.dropdownOpen
     },
@@ -105,8 +134,13 @@ export default {
       if (!this.selectedSizeNumber) {
         this.validationIssue = 'Please select a size first'
       } else {
+        // add to bag and pop bag drawer
         this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })
+        this.setBagDrawerOpen(true);
       }
+    },
+    scrollToImage(imageId) {
+      document.location = imageId
     }
   },
   components: {
@@ -118,6 +152,10 @@ export default {
 </script>
 
 <style>
+.sliding-window {
+  display: none;
+}
+
 .validation-container {
   margin-top: 5px;
   color: red;
@@ -143,6 +181,10 @@ export default {
 
 .add-to-cart-button:hover {
   cursor: pointer;
+}
+
+.sliding-window-opacity {
+  opacity: .6;
 }
 
 .sizes > ul {
@@ -192,17 +234,10 @@ export default {
   grid-column: 1 / 1;
   grid-row: 1;
 }
-.grid-container-shop-product > .two { 
+
+.grid-container-sliding-window {
   grid-column: 1 / 1;
-  grid-row: 2;
-}
-.grid-container-shop-product > .three {
-  grid-column: 1 / 1;
-  grid-row: 3;
-}
-.grid-container-shop-product > .four {
-  grid-column: 1 / 1;
-  grid-row: 4;
+  grid-row: 1;
 }
 
 img{
@@ -214,6 +249,14 @@ img{
   position: relative;
   /* border: 1px black solid; */
   padding: 1em;
+  text-align: center;
+}
+
+.sliding-window-image {
+  position: relative;
+  border: 1px black solid;
+  margin: 10px;
+  cursor: pointer;
   text-align: center;
 }
 
@@ -247,6 +290,15 @@ img{
     padding-right: 200px;
     padding-top: 60px;
   } 
+
+  .sliding-window {
+    display: block;
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    bottom: 350px;
+    left: 130px;
+  }
 
   .sizes > ul {
     list-style-type: none;

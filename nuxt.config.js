@@ -27,7 +27,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'vue-awesome-swiper'],
     /*
     ** Run ESLint on save
     */

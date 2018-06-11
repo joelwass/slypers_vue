@@ -30,7 +30,6 @@
             <img class="selectedProductImage" :src="product(prod.productId).image" />
           </div>
         </div>
-        
       </div>
       <div class="bag-drawer-footer">
         <hr>

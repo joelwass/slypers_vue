@@ -13,7 +13,7 @@
     </div>
     <div class="sliding-window">
       <div class="grid-container-sliding-window">
-        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" @click="scrollToImage(`#shoe${index}`)" :key="index" class="sliding-window-image" name="Shoe1">
+        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" @click="scrollToImage(`#shoe${index}`)" :key="index" :class="slidingWindowClasses(index)" name="Shoe1">
           <img :src="image" alt="">
         </div>
       </div>
@@ -65,13 +65,14 @@ export default {
       sizes: [9.5, 10, 10.5, 11, 11.5, 12],
       dropdownOpen: false,
       selectedSizeData: 'Size',
-      selectedSizeNumber: undefined
+      selectedSizeNumber: undefined,
+      viewingImage: 0
     }
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener("hashchange", function () {
-      window.scrollTo(window.scrollX, window.scrollY - 100);
+    window.addEventListener('hashchange', function () {
+      window.scrollTo(window.scrollX, window.scrollY - 50);
     });
   },
   destroyed () {
@@ -102,12 +103,18 @@ export default {
   },
   methods: {
     ...mapActions({
-      addProduct: 'ADD_PRODUCT'
+      addProduct: 'ADD_PRODUCT',
+      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN'
     }),
+    slidingWindowClasses(shoe) {
+      if (shoe !== this.viewingImage) return ['sliding-window-image', 'sliding-window-opacity']
+      return ['sliding-window-image']
+    },
     handleScroll (event) {
       const imageHeight = document.getElementById('shoe1').clientHeight
       if (imageHeight) {
-        const floor = Math.floor(window.scrollY / imageHeight)
+        const floor = Math.floor((window.scrollY+300) / imageHeight)
+        this.viewingImage = floor
       }
     },
     dropdown() {
@@ -127,7 +134,9 @@ export default {
       if (!this.selectedSizeNumber) {
         this.validationIssue = 'Please select a size first'
       } else {
+        // add to bag and pop bag drawer
         this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })
+        this.setBagDrawerOpen(true);
       }
     },
     scrollToImage(imageId) {
@@ -172,6 +181,10 @@ export default {
 
 .add-to-cart-button:hover {
   cursor: pointer;
+}
+
+.sliding-window-opacity {
+  opacity: .6;
 }
 
 .sizes > ul {

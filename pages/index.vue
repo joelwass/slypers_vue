@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <section>
-      <img src="/Picture1.png" alt="">
-    </section>
+    <div class="splash-image-div">
+      <img class="splash-image" src="/Picture1.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -14,13 +14,20 @@ export default {
 </script>
 
 <style>
-.container > img {
-  background-size: contain;
-  width: 80%;
+.splash-image {
+  width: 100%;
   margin: auto;
 }
 
+.splash-image-div {
+  vertical-align: middle;
+}
+
 .container {
-  min-width: 100vh;
+  width: 80%;
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  margin: auto;
 }
 </style>

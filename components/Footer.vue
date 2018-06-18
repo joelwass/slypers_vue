@@ -38,14 +38,13 @@ export default {
   },
   computed: {
     ...mapState({
-      stateEmail: state => state.customer.contact.email
+      stateEmail: state => state.customer.user.email
     }),
     currentEmail: {
       get() {
         return this.email || this.stateEmail
       },
       set(newVal) {
-        console.log(newVal)
         this.email = newVal
       }
     }

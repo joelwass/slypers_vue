@@ -3,13 +3,22 @@ import Vue from 'vue'
 
 // modules
 import cart from './cart/cart'
-import loading from './loading/loading'
 import customer from './customer/customer'
+
+// api helper
+import API from '../middleware/api'
+import helpers from '../helpers/methods'
 
 import {
   SET_BROWSING_SELECTED_PRODUCT,
   SET_DRAWER_OPEN,
-  SET_BAG_DRAWER_OPEN
+  SET_BAG_DRAWER_OPEN,
+  LOGIN_USER,
+  CLEAR_ERRORS,
+  SET_LOADING,
+  SET_CUSTOMER,
+  SET_ERROR,
+  LOGOUT_USER
 } from './types'
 
 const store = () => {
@@ -18,7 +27,11 @@ const store = () => {
     state: {
       browsingSelectedProduct: {},
       drawerOpen: false,
-      bagDrawerOpen: false
+      bagDrawerOpen: false,
+      authenticated: false,
+      sessionId: '',
+      loading: false,
+      errorMessage: ''
     },
     actions: {
       [SET_BROWSING_SELECTED_PRODUCT]: ({ commit }, browsingProduct) => {
@@ -29,6 +42,39 @@ const store = () => {
       },
       [SET_BAG_DRAWER_OPEN]: ({ commit }, open) => {
         commit(SET_BAG_DRAWER_OPEN, open)
+      },
+      [LOGIN_USER]: ({ dispatch, commit }, credentials) => {
+        API.login(credentials).then((res) => {
+          if (res.success) {
+            return dispatch(SET_CUSTOMER, res.customer)
+          } else {
+            console.log(res)
+            alert(res.error)
+            return dispatch(SET_ERROR, res.error)
+          }
+          return dispatch(SET_LOADING, false)
+        })
+      },
+      [SET_LOADING]: ({ commit }, loading) => {
+        commit(SET_LOADING, loading)
+      },
+      [SET_ERROR]: ({ commit }, error) => {
+        commit(SET_ERROR, error)
+      },
+      [LOGOUT_USER]: ({ commit }) => {
+        dispatch('SET_LOADING', true)
+        API.logout().then((res) => {
+          if (res.success) {
+            helpers.eraseCookie('slypers_session')
+            commit(LOGOUT_USER)
+          } else {
+            dispatch(SET_ERROR, 'Error logging out')
+          }
+          dispatch(SET_LOADING, false)
+        })
+      },
+      [CLEAR_ERRORS]: ({ commit}) => {
+        commit(CLEAR_ERRORS)
       }
     },
     mutations: {
@@ -40,11 +86,19 @@ const store = () => {
       },
       [SET_BAG_DRAWER_OPEN](state, open) {
         Vue.set(state, 'bagDrawerOpen', open)
+      },
+      [SET_LOADING](state, loading) {
+        Vue.set(state, 'loading', loading)
+      },
+      [SET_ERROR](state, error) {
+        Vue.set(state, 'errorMessage', error)
+      },
+      [CLEAR_ERRORS](state) {
+        Vue.set(state, 'errorMessage', '')
       }
     },
     modules: {
       cart,
-      loading,
       customer
     }
   })

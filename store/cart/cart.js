@@ -14,7 +14,7 @@ const cart = {
         id: '1',
         description: 'Dutch Brothel Slypers Black And White',
         image: '/shoes/blackAndWhite/Slypers_16.jpeg',
-        images: ['/shoes/blackAndWhite/Slypers_16.jpeg', '/shoes/blackAndWhite/Slypers_9.jpeg', '/shoes/blackAndWhite/Slypers_7.jpeg', '/shoes/blackAndWhite/Slypers_2.jpeg'],
+        images: ['/shoes/blackAndWhite/Slypers_16.jpeg', '/shoes/blackAndWhite/Slypers_11.jpeg', '/shoes/blackAndWhite/Slypers_8.jpeg', '/shoes/blackAndWhite/Slypers_3.jpeg'],
         name: 'Black & White Slypers',
         price: '400',
         price_dollars: 400,

@@ -62,12 +62,45 @@
             <p>SAVE SHIPPING INFO</p>
           </div>
         </div>
-        <div v-else-if="currentView === 'payment'">
-          
+        <div v-show="currentView === 'payment'">
+          <div class="stripe">
+            <div class="billing-info">
+              <input type="text" placeholder="Street Address" v-model="address">
+              <input type="text" placeholder="Unit # (optional)" v-model="address2">
+              <input type="text" placeholder="City" v-model="city">
+              <input type="text" placeholder="State" v-model="stateAddress">
+              <input type="text" placeholder="Zip" v-model="zip">
+            </div>
+            <form>
+              <div class="cc-field" :class="cardTypeClass">
+                <input type="text" placeholder="First name" v-model="stripe.firstName" />
+                <input type="text" placeholder="Last name" v-model="stripe.lastName" />
+                <input type="text" placeholder="Credit Card Number" v-model="stripe.cardNumber" />
+                <input type="text" placeholder="Expiration" v-model="stripe.expiration" />
+                <input type="text" placeholder="CVC" v-model="stripe.securityCode" />
+                <input type="text" placeholder="Zip Code" v-model="stripe.postalCode" />
+              </div>
+            </form>
+            <button @click="pay">pay</button>
+            <form action="/charge" method="post" id="payment-form">
+              <div class="form-row">
+                <label for="card-element">
+                  Credit or debit card
+                </label>
+                <div id="card-element">
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
+
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+              </div>
+
+              <button>Submit Payment</button>
+            </form>
+          </div>
         </div>   
       </div>
     </div>
-    <script src="https://js.stripe.com/v3/"></script>
   </div>
 </template>
 
@@ -90,7 +123,84 @@ export default {
   data() {
     return {
       currentView: 'loginSignup',
+      cardStuffInitialized: false,
       clickedSignUp: true,
+      stripeOptions: {
+        hidePostalCode: false
+      },
+      stripeInfo: {
+        firstName: undefined,
+        cardNumber: undefined,
+        lastName: undefined,
+        expiration: undefined,
+        securityCode: undefined,
+        postalCode: undefined,
+      },
+      localStripe: undefined
+    }
+  },
+  watch: {
+    currentView(view) {
+      if (view === 'payment' && !this.cardStuffInitialized) {
+        this.cardStuffInitialized = true
+          // Create a Stripe client.
+        var stripe = Stripe('pk_test_vosa23qHDTzgpr2tENv03qLC');
+
+        // Create an instance of Elements.
+        var elements = stripe.elements();
+
+        // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
+        var style = {
+          base: {
+            color: '#32325d',
+            lineHeight: '18px',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+              color: '#aab7c4'
+            }
+          },
+          invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+          }
+        };
+
+        // Create an instance of the card Element.
+        var card = elements.create('card', {style: style});
+
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element.
+        card.addEventListener('change', function(event) {
+          var displayError = document.getElementById('card-errors');
+          if (event.error) {
+            displayError.textContent = event.error.message;
+          } else {
+            displayError.textContent = '';
+          }
+        });
+
+        // Handle form submission.
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          stripe.createToken(card).then(function(result) {
+            if (result.error) {
+              // Inform the user if there was an error.
+              var errorElement = document.getElementById('card-errors');
+              errorElement.textContent = result.error.message;
+            } else {
+              // Send the token to your server.
+              stripeTokenHandler(result.token);
+            }
+          });
+        });
+      }
     }
   },
   computed: {
@@ -118,6 +228,30 @@ export default {
         }
       })
       return Object.values(mappedProducts)
+    },
+    stripe: async () => {
+      if (this.localStripe) return this.localStripe
+      try {
+        const config = await api.getConfig()
+        console.log(config)
+        this.localStripe = new window.Stripe(config.stripePublishableKey)
+        console.log('here')
+        console.log(this.localStripe)
+        return this.localStripe
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    cardType: () => {
+      return this.stripe.card.cardType(this.cardNumber);
+    },
+    cardTypeClass: () => {
+     switch (this.cardType) {
+        case 'Visa': return 'is-visa';
+        case 'MasterCard': return 'is-mastercard';
+        case 'American Express': return 'is-amex';
+        case 'Discover': return 'is-discover';
+      }
     },
     email: {
       get() {
@@ -192,6 +326,15 @@ export default {
         this.setZip(newVal)
       }
     },
+    stripeData: () => {
+      return {
+        name: this.name,
+        number: this.cardNumber,
+        cvc: this.securityCode,
+        exp: this.expiration,
+        address_zip: this.postalCode,
+      };
+    },
   },
   methods: {
     ...mapActions({
@@ -208,6 +351,16 @@ export default {
       setZip: 'SET_CUSTOMER_ZIP',
       saveShipping: 'SAVE_CUSTOMER_SHIPPING'
     }),
+    pay () {
+      console.log('here2')
+      console.log(this.stripe)
+      this.stripe.then(res => {
+        res.createToken(this.stripeData, function(status, response) {
+          console.log(status)
+          console.log(response)
+        })
+      })
+    },
     product(id) {
       return this.availableProducts.filter(val => {
         return val.id === id;
@@ -272,6 +425,32 @@ export default {
     grid-row: 1;
     cursor: pointer;
     padding-top: 5px;
+  }
+  /**
+  * The CSS shown here will not be introduced in the Quickstart guide, but shows
+  * how you can use CSS to style your Element's container.
+  */
+  .StripeElement {
+    background-color: white;
+    height: 40px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
   }
 }
 

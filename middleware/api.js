@@ -1,5 +1,5 @@
 const axios = require('axios')
-const endpoint = 'http://localhost:3001/api/v1'
+const endpoint = 'https://slypers-staging-node.herokuapp.com/api/v1'
 import helper from '../helpers/methods'
 
 const headers = { 'Content-Type': 'application/json' }

@@ -15,7 +15,7 @@
 import {
   mapState,
   mapActions
-} from 'Vuex'
+} from 'vuex'
 
 export default {
   computed: {

@@ -13,7 +13,7 @@
 import {
   mapActions,
   mapState
-} from 'Vuex'
+} from 'vuex'
 import Logo from '~/components/Logo.vue'  
 import Hamburger from '~/components/icons/Hamburger.vue'
 import Bag from '~/components/icons/Bag.vue'

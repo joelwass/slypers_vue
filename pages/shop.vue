@@ -15,7 +15,7 @@
 import {
   mapActions,
   mapState
-} from 'Vuex'
+} from 'vuex'
 
 import ProductCard from '~/components/ProductCard.vue'
 import Api from '../middleware/api'

@@ -14,7 +14,7 @@
 <script>
 import {
   mapState
-} from 'Vuex'
+} from 'vuex'
 import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
 import NavHeader from '~/components/NavHeader.vue'
 import Overlay from '~/components/Overlay.vue'

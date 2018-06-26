@@ -1,4 +1,4 @@
-import Vuex from 'vuex'
+import vuex from 'vuex'
 import Vue from 'vue'
 
 // modules
@@ -22,7 +22,7 @@ import {
 } from './types'
 
 const store = () => {
-  return new Vuex.Store({
+  return new vuex.Store({
     strict: true, // Only allow state mutation in mutation handlers
     state: {
       browsingSelectedProduct: {},

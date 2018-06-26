@@ -26,6 +26,9 @@ import Api from '../middleware/api'
 import helpers from '../helpers/methods'
 
 export default {
+  mounted() {
+    console.log('mounted')
+  },
   computed: {
     ...mapState({
       drawerOpen: state => state.drawerOpen,

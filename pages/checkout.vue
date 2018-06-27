@@ -1,10 +1,10 @@
 <template>
   <div class="checkout">
     <div class="checkout-grid">
-      <div class="checkout-nav-el" @click="currentView = 'loginSignup'">1. LOGIN / REGISTER</div>
-      <div class="checkout-nav-el" @click="currentView = 'shipping'">2. SHIPPING</div>
-      <div class="checkout-nav-el" @click="currentView = 'payment'">3. PAYMENT</div>
-      <div class="checkout-nav-el" @click="currentView = 'review'">4. REVIEW</div>
+      <div class="checkout-nav-el" @click="setCurrentCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. LOGIN / REGISTER</div>
+      <div class="checkout-nav-el" @click="setCurrentCheckoutStep({ step: 'SHIPPING_STEP' })">2. SHIPPING</div>
+      <div class="checkout-nav-el" @click="setCurrentCheckoutStep({ step: 'PAYMENT_STEP' })">3. PAYMENT</div>
+      <div class="checkout-nav-el" @click="setCurrentCheckoutStep({ step: 'REVIEW_STEP' })">4. REVIEW</div>
       <div class="bag">
         <h1 class="bag-title">BAG ({{ this.selectedProducts.length }})</h1>
         <hr class="divider">
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="checkout-content">
-        <div v-if="currentView === 'loginSignup'">
+        <div v-if="currentCheckoutStep === 'SIGNUP_LOGIN_STEP'">
           <div v-if="!loggedIn && !clickedSignUp" class="login">
             <input type="text" placeholder="Email" v-model="email">
             <input type="text" placeholder="Password" v-model="password">
@@ -50,7 +50,7 @@
             <p>OR SIGN IN</p>
           </div>
         </div>
-        <div v-else-if="currentView === 'shipping'">
+        <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
           <div class="shipping-info">
             <input type="text" placeholder="Street Address" v-model="address">
             <input type="text" placeholder="Unit # (optional)" v-model="address2">
@@ -62,26 +62,14 @@
             <p>SAVE SHIPPING INFO</p>
           </div>
         </div>
-        <div v-show="currentView === 'payment'">
+        <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
           <div class="stripe">
-            <div class="billing-info">
-              <input type="text" placeholder="Street Address" v-model="address">
-              <input type="text" placeholder="Unit # (optional)" v-model="address2">
-              <input type="text" placeholder="City" v-model="city">
-              <input type="text" placeholder="State" v-model="stateAddress">
-              <input type="text" placeholder="Zip" v-model="zip">
-            </div>
             <form>
               <div class="cc-field" :class="cardTypeClass">
                 <input type="text" placeholder="First name" v-model="stripe.firstName" />
                 <input type="text" placeholder="Last name" v-model="stripe.lastName" />
-                <input type="text" placeholder="Credit Card Number" v-model="stripe.cardNumber" />
-                <input type="text" placeholder="Expiration" v-model="stripe.expiration" />
-                <input type="text" placeholder="CVC" v-model="stripe.securityCode" />
-                <input type="text" placeholder="Zip Code" v-model="stripe.postalCode" />
               </div>
             </form>
-            <button @click="pay">pay</button>
             <form action="/charge" method="post" id="payment-form">
               <div class="form-row">
                 <label for="card-element">
@@ -122,7 +110,6 @@ export default {
   },
   data() {
     return {
-      currentView: 'loginSignup',
       cardStuffInitialized: false,
       clickedSignUp: true,
       stripeOptions: {
@@ -130,18 +117,14 @@ export default {
       },
       stripeInfo: {
         firstName: undefined,
-        cardNumber: undefined,
-        lastName: undefined,
-        expiration: undefined,
-        securityCode: undefined,
-        postalCode: undefined,
+        lastName: undefined
       },
       localStripe: undefined
     }
   },
   watch: {
-    currentView(view) {
-      if (view === 'payment' && !this.cardStuffInitialized) {
+    currentCheckoutStep(view) {
+      if (view === 'PAYMENT_STEP' && !this.cardStuffInitialized) {
         this.cardStuffInitialized = true
           // Create a Stripe client.
         var stripe = Stripe('pk_test_vosa23qHDTzgpr2tENv03qLC');
@@ -190,13 +173,14 @@ export default {
           event.preventDefault();
 
           stripe.createToken(card).then(function(result) {
+            console.log(result)
             if (result.error) {
               // Inform the user if there was an error.
               var errorElement = document.getElementById('card-errors');
               errorElement.textContent = result.error.message;
             } else {
               // Send the token to your server.
-              stripeTokenHandler(result.token);
+              api.stripeTokenHandler(result.token);
             }
           });
         });
@@ -216,7 +200,8 @@ export default {
       cityState: state => state.customer.user.shippingCity,
       stateState: state => state.customer.user.shippingState,
       zipState: state => state.customer.user.shippingZip,
-      loggedIn: state => state.authenticated
+      loggedIn: state => state.authenticated,
+      currentCheckoutStep: state => state.cart.currentCheckoutStep
     }),
     selectedProductsMapped() {
       const mappedProducts = {}
@@ -349,7 +334,8 @@ export default {
       setCity: 'SET_CUSTOMER_CITY',
       setState: 'SET_CUSTOMER_STATE',
       setZip: 'SET_CUSTOMER_ZIP',
-      saveShipping: 'SAVE_CUSTOMER_SHIPPING'
+      saveShipping: 'SAVE_CUSTOMER_SHIPPING',
+      setCurrentCheckoutStep: 'SET_CHECKOUT_STEP'
     }),
     pay () {
       console.log('here2')
@@ -375,7 +361,7 @@ export default {
     },
     saveShippingInfo() {
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
-        this.saveShipping({ email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip })
+        this.saveShipping({ email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts })
       }
     }
   }

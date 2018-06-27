@@ -13,7 +13,6 @@ import {
   SET_BROWSING_SELECTED_PRODUCT,
   SET_DRAWER_OPEN,
   SET_BAG_DRAWER_OPEN,
-  LOGIN_USER,
   CLEAR_ERRORS,
   SET_LOADING,
   SET_CUSTOMER,
@@ -42,18 +41,6 @@ const store = () => {
       },
       [SET_BAG_DRAWER_OPEN]: ({ commit }, open) => {
         commit(SET_BAG_DRAWER_OPEN, open)
-      },
-      [LOGIN_USER]: ({ dispatch, commit }, credentials) => {
-        API.login(credentials).then((res) => {
-          if (res.success) {
-            return dispatch(SET_CUSTOMER, res.customer)
-          } else {
-            console.log(res)
-            alert(res.error)
-            return dispatch(SET_ERROR, res.error)
-          }
-          return dispatch(SET_LOADING, false)
-        })
       },
       [SET_LOADING]: ({ commit }, loading) => {
         commit(SET_LOADING, loading)

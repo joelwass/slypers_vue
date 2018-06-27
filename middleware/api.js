@@ -1,5 +1,5 @@
 const axios = require('axios')
-const endpoint = 'https://slypers-staging-node.herokuapp.com/api/v1'
+const endpoint = process.NODE_ENV === 'production' ? 'https://slypers-staging-node.herokuapp.com/api/v1' : 'http://localhost:3001/api/v1'
 import helper from '../helpers/methods'
 
 const headers = { 'Content-Type': 'application/json' }
@@ -128,6 +128,39 @@ class API {
     return axios(`${endpoint}/config`)
       .then(res => res.data)
       .catch(err => err)
+  }
+
+  stripeTokenHandler (token) {
+    return axios(`${endpoint}/stripe/token`)
+  }
+
+  createStripeOrder (shippingAddress, items, email) {
+    const options = {
+      method: 'POST',
+      headers,
+      data: {
+        shipping: shippingAddress,
+        items,
+        email
+      },
+      url: `${endpoint}/stripe/order`
+    }
+    return axios(options)
+      .then(res => {
+        console.log(res)
+        return res.data
+      })
+      .catch(err => {
+        console.log(err.response)
+        // if we're unauthorized, auth and retry
+        if (err.response.status == '401') {
+          this.authenticate().then(authRes => axios(options))
+          .catch(err => {
+            return err
+          })
+        }
+        return err
+      })
   }
 
   makeRequest (suffix) {

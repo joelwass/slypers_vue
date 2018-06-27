@@ -4,11 +4,17 @@ import {
   SET_AVAILABLE_PRODUCTS,
   SET_SELECTED_PRODUCTS,
   ADD_PRODUCT,
-  REMOVE_PRODUCT
+  REMOVE_PRODUCT,
+  SIGNUP_LOGIN_STEP,
+  SHIPPING_STEP,
+  PAYMENT_STEP,
+  REVIEW_STEP,
+  SET_CHECKOUT_STEP
 } from '../types'
 
 const cart = {
   state: {
+    currentCheckoutStep: SIGNUP_LOGIN_STEP,
     availableProducts: [
       {
         id: '1',
@@ -73,6 +79,9 @@ const cart = {
     },
     [REMOVE_PRODUCT]: ({ commit}, data) => {
       commit(REMOVE_PRODUCT, data)
+    },
+    [SET_CHECKOUT_STEP]: ({ commit }, data) => {
+      commit(SET_CHECKOUT_STEP, data)
     }
   },
   mutations: {
@@ -105,6 +114,17 @@ const cart = {
         }
       }
       Vue.set(state, 'selectedProducts', newProducts)
+    },
+    [SET_CHECKOUT_STEP](state, data) {
+      if (data.step === SIGNUP_LOGIN_STEP) {
+        Vue.set(state, 'currentCheckoutStep', SIGNUP_LOGIN_STEP)
+      } else if (data.step === SHIPPING_STEP) {
+        Vue.set(state, 'currentCheckoutStep', SHIPPING_STEP)
+      } else if (data.step === PAYMENT_STEP) {
+        Vue.set(state, 'currentCheckoutStep', PAYMENT_STEP)
+      } else if (data.step === REVIEW_STEP) {
+        Vue.set(state, 'currentCheckoutStep', REVIEW_STEP)
+      }
     }
   }
 }

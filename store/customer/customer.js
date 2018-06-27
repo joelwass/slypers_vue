@@ -11,21 +11,26 @@ import {
   SET_PASSWORD,
   SET_FIRST_NAME,
   SET_LAST_NAME,
-  CREATE_CUSTOMER,
   SET_LOADING,
   SET_CUSTOMER_ADDRESS,
   SET_CUSTOMER_ADDRESS_2,
   SET_CUSTOMER_CITY,
   SET_CUSTOMER_STATE,
   SET_CUSTOMER_ZIP,
-  SAVE_CUSTOMER_SHIPPING
+  SAVE_CUSTOMER_SHIPPING,
+  SIGNUP_LOGIN_STEP,
+  LOGIN_USER,
+  SHIPPING_STEP,
+  PAYMENT_STEP,
+  REVIEW_STEP,
+  SET_CHECKOUT_STEP
 } from '../types'
 
 const customer = {
   state: {
     user: {
-      email: 'joel@wass.com',
-      password: 'test',
+      email: 'joel2@wass.com',
+      password: 'asdf',
       firstName: 'joel',
       lastName: 'wass',
       shippingAddress: '',
@@ -48,12 +53,26 @@ const customer = {
       API.createNewUser(customer).then((res) => {
         if (res.success) {
           commit(CREATE_ACCOUNT, res.customer)
+          dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
         } else {
           alert(res.message)
           console.log(res)
           dispatch(SET_ERROR, res.message)
         }
         dispatch(SET_LOADING, false)
+      })
+    },
+    [LOGIN_USER]: ({ dispatch, commit }, credentials) => {
+      API.login(credentials).then((res) => {
+        if (res.success) {
+          dispatch(SET_CUSTOMER, res.customer)
+          dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
+        } else {
+          console.log(res)
+          alert(res.error)
+          return dispatch(SET_ERROR, res.error)
+        }
+        return dispatch(SET_LOADING, false)
       })
     },
     [SET_PASSWORD]: ({ commit }, password) => {
@@ -83,9 +102,43 @@ const customer = {
     [SAVE_CUSTOMER_SHIPPING]: ({ dispatch, commit }, data) => {
       dispatch(CLEAR_ERRORS)
       dispatch(SET_LOADING, true)
-      API.saveShipping(data).then((res) => {
+      const stripeOrderData = {
+        shipping: {
+          address: {
+            city: data.city,
+            country: 'USA',
+            line1: data.address,
+            state: data.state,
+            postal_code: data.zip
+          }
+        },
+        items: data.map((val) => {
+          return {
+            currency: 'usd',
+            quantity: val.quantity,
+            parent: val.id,
+            type: 'id'
+          }
+        }),
+        email: data.email
+      }
+      API.createStripeOrder(stripeOrderData).then(res => {
         console.log(res)
-        if (!res.success) {
+        return API.saveShipping({
+          address: data.address,
+          address2: data.address2,
+          email: data.email,
+          city: data.city,
+          state: data.state,
+          zip: data.zip
+        })
+      }).then((res) => {
+        console.log(res)
+        if (res.success) {
+          alert(res.message)
+          console.log(res)
+          dispatch(SET_CHECKOUT_STEP, { step: PAYMENT_STEP })
+        } else {
           alert(res.message)
           console.log(res)
           dispatch(SET_ERROR, res.message)

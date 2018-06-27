@@ -48,7 +48,7 @@
 import {
   mapState,
   mapActions
-} from 'Vuex'
+} from 'vuex'
 import ProductCard from '~/components/ProductCard.vue'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import Api from '../middleware/api'

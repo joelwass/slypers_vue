@@ -50,7 +50,7 @@
 import {
   mapActions,
   mapState
-} from 'Vuex'
+} from 'vuex'
 import X from '~/components/icons/X.vue'
 import Bag from '~/components/icons/Bag.vue'
 

@@ -18,7 +18,7 @@
 import {
   mapActions,
   mapState
-} from 'Vuex'
+} from 'vuex'
 import Api from '../middleware/api'
 
 export default {

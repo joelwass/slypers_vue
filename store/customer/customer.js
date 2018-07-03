@@ -23,6 +23,9 @@ import {
   SHIPPING_STEP,
   PAYMENT_STEP,
   REVIEW_STEP,
+  SET_CUSTOMER_BIRHTDAY,
+  SET_CUSTOMER_BIRHTMONTH,
+  SET_CUSTOMER_BIRHTYEAR,
   SET_CHECKOUT_STEP
 } from '../types'
 
@@ -33,6 +36,9 @@ const customer = {
       password: 'asdf',
       firstName: 'joel',
       lastName: 'wass',
+      birthDay: '',
+      birthMonth: '',
+      birthYear: '',
       shippingAddress: '',
       shippingAddress2: '',
       shippingCity: '',
@@ -83,6 +89,15 @@ const customer = {
     },
     [SET_LAST_NAME]: ({ commit }, lastName) => {
       commit(SET_LAST_NAME, lastName)
+    },
+    [SET_CUSTOMER_BIRHTDAY]: ({ commit }, birthday) => {
+      commit(SET_CUSTOMER_BIRHTDAY, birthday)
+    },
+    [SET_CUSTOMER_BIRHTMONTH]: ({ commit }, month) => {
+      commit(SET_CUSTOMER_BIRHTMONTH, month)
+    },
+    [SET_CUSTOMER_BIRHTYEAR]: ({ commit }, year) => {
+      commit(SET_CUSTOMER_BIRHTYEAR, year)
     },
     [SET_CUSTOMER_ADDRESS]: ({ commit }, address) => {
       commit(SET_CUSTOMER_ADDRESS, address)
@@ -165,6 +180,15 @@ const customer = {
     },
     [SET_LAST_NAME](state, lastName) {
       Vue.set(state.user, 'lastName', lastName)
+    },
+    [SET_CUSTOMER_BIRHTDAY](state, day) {
+      Vue.set(state.user, 'birthDay', day)
+    },
+    [SET_CUSTOMER_BIRHTMONTH](state, month) {
+      Vue.set(state.user, 'birthMonth', month)
+    },
+    [SET_CUSTOMER_BIRHTYEAR](state, year) {
+      Vue.set(state.user, 'birthYear', year)
     },
     [SET_CUSTOMER_ADDRESS](state, address) {
       Vue.set(state.user, 'shippingAddress', address)

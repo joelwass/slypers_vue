@@ -1,13 +1,12 @@
 <template>
   <div class="checkout">
     <div class="checkout-grid">
-      <div class="checkout-nav-el" @click="setCurrentCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. LOGIN / REGISTER</div>
-      <div class="checkout-nav-el" @click="setCurrentCheckoutStep({ step: 'SHIPPING_STEP' })">2. SHIPPING</div>
-      <div class="checkout-nav-el" @click="setCurrentCheckoutStep({ step: 'PAYMENT_STEP' })">3. PAYMENT</div>
-      <div class="checkout-nav-el" @click="setCurrentCheckoutStep({ step: 'REVIEW_STEP' })">4. REVIEW</div>
+      <div :class="navClasses('SIGNUP_LOGIN_STEP')" @click="setCurrentCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. LOGIN / REGISTER</div>
+      <div :class="navClasses('SHIPPING_STEP')" @click="setCurrentCheckoutStep({ step: 'SHIPPING_STEP' })">2. SHIPPING</div>
+      <div :class="navClasses('PAYMENT_STEP')" @click="setCurrentCheckoutStep({ step: 'PAYMENT_STEP' })">3. PAYMENT</div>
+      <div :class="navClasses('REVIEW_STEP')" @click="setCurrentCheckoutStep({ step: 'REVIEW_STEP' })">4. REVIEW</div>
       <div class="bag">
-        <h1 class="bag-title">BAG ({{ this.selectedProducts.length }})</h1>
-        <hr class="divider">
+        <h3 class="bag-title">BAG ({{ this.selectedProducts.length }})</h3>
         <div class="products">
           <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
             <div class="selectedProduct">
@@ -29,37 +28,60 @@
       </div>
       <div class="checkout-content">
         <div v-if="currentCheckoutStep === 'SIGNUP_LOGIN_STEP'">
-          <div v-if="!loggedIn && !clickedSignUp" class="login">
-            <input type="text" placeholder="Email" v-model="email">
-            <input type="text" placeholder="Password" v-model="password">
+          <h3 class="checkout-content-subheader">LOG IN</h3>
+          <p>ENTER YOUR EMAIL AND PASSWORD TO ACCESS</p><br>
+          <div class="login">
+            <b>EMAIL *</b><br><input class="checkout-content-input" type="text" placeholder="Email" v-model="email"><br>
+            <b>PASSWORD *</b><br><input class="checkout-content-input" type="text" placeholder="Password" v-model="password"><br>
           </div>
-          <div v-else class="signup">
-            <input type="text" placeholder="Email" v-model="email">
-            <input type="text" placeholder="Password" v-model="password">
-            <input type="text" placeholder="First Name" v-model="firstName">
-            <input type="text" placeholder="Last Name" v-model="lastName">
+          <div class="checkout-button" v-on:click="signIn">
+            <p class="checkout-button-text"><b>LOG IN</b></p>
           </div>
-          <div class="checkout-button" v-on:click="signInOrSignUp">
-            <p v-if="clickedSignUp">SIGN UP</p>
-            <p v-else>SIGN IN</p>
+          <h3 class="checkout-content-subheader">REGISTER</h3>
+          <div class="signup">
+            <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="email">
+            <b>PASSWORD *</b><br><input type="text" class="checkout-content-input" placeholder="Password" v-model="password">
+            <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First Name" v-model="firstName">
+            <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last Name" v-model="lastName">
+            <!-- <p>DATE OF BIRTH *</p><br>
+            <div class="dateOfBirth">
+              <div v-on:click="yearDropdown" class="sizes-select">{{ this.selectedYear }}</div>
+              <div v-show="yearDropdownOpen" class="sizes">
+                <ul>
+                  <li v-for="year in range(1950, 2018)" :key="year" v-on:click="this.localBirthYear = year">{{ year }}</li>
+                </ul>
+              </div>
+              <div v-on:click="monthDropdown" class="sizes-select">{{ this.selectedMonth }}</div>
+              <div v-show="monthDropdownOpen" class="sizes">
+                <ul>
+                  <li v-for="month in range(1, 12)" :key="month" v-on:click="this.localBirthMonth = month">{{ month }}</li>
+                </ul>
+              </div>
+              <div v-on:click="dayDropdown" class="sizes-select">{{ this.selectedDay }}</div>
+              <div v-show="dayDropdownOpen" class="sizes">
+                <ul>
+                  <li v-for="day in daysInMonth(this.localBirthMonth, this.localBirthYear)" :key="day" v-on:click="this.localBirthDay = day">{{ day }}</li>
+                </ul>
+              </div>
+            </div> -->
           </div>
-          <div class="checkout-button" v-show="!clickedSignUp" v-on:click="clickedSignUp = true">
-            <p>OR SIGN UP</p>
-          </div>
-          <div class="checkout-button" v-show="clickedSignUp" v-on:click="clickedSignUp = false">
-            <p>OR SIGN IN</p>
+          <div class="checkout-button" v-on:click="signUp">
+            <p class="checkout-button-text"><b>SIGN UP</b></p>
           </div>
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
+          <h3 class="checkout-content-subheader">SHIPPING ADDRESS</h3>
+          <p>ORDERS PLACED ON THIS SITE CAN ONLY BE DELIVERED IN THE UNITED STATES.</p><br>
+          <p>UPS CANNOT DELIVER TO P.O. BOXES OR TO GENERAL DELIVERY</p><br><br>
           <div class="shipping-info">
-            <input type="text" placeholder="Street Address" v-model="address">
-            <input type="text" placeholder="Unit # (optional)" v-model="address2">
-            <input type="text" placeholder="City" v-model="city">
-            <input type="text" placeholder="State" v-model="stateAddress">
-            <input type="text" placeholder="Zip" v-model="zip">
+            <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
+            <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">
+            <b>CITY *</b><br><input type="text" class="checkout-content-input" placeholder="City" v-model="city">
+            <b>STATE *</b><br><input type="text" class="checkout-content-input" placeholder="State" v-model="stateAddress">
+            <b>ZIP *</b><br><input type="text" class="checkout-content-input" placeholder="Zip" v-model="zip">
           </div>
           <div class="checkout-button" v-on:click="saveShippingInfo">
-            <p>SAVE SHIPPING INFO</p>
+            <p class="checkout-button-text"><b>SAVE SHIPPING INFO</b></p>
           </div>
         </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
@@ -99,8 +121,12 @@ import {
 } from 'vuex'
 
 import api from '../middleware/api'
+import helperMethods from '../helpers/methods'
 
 export default {
+  mounted() {
+    console.log(helperMethods)
+  },
   head () {
     return {
       script: [
@@ -119,7 +145,14 @@ export default {
         firstName: undefined,
         lastName: undefined
       },
-      localStripe: undefined
+      localStripe: undefined,
+      months: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+      selectedMonth: 'MONTH',
+      selectedYear: 'YEAR',
+      selectedDay: 'DAY',
+      dayDropdownOpen: false,
+      monthDropdownOpen: false,
+      yearDropdownOpen: false,
     }
   },
   watch: {
@@ -201,7 +234,10 @@ export default {
       stateState: state => state.customer.user.shippingState,
       zipState: state => state.customer.user.shippingZip,
       loggedIn: state => state.authenticated,
-      currentCheckoutStep: state => state.cart.currentCheckoutStep
+      currentCheckoutStep: state => state.cart.currentCheckoutStep,
+      birthDay: state => state.customer.user.birthDay,
+      birthMonth: state => state.customer.user.birthMonth,
+      birthYear: state => state.customer.user.birthYear,
     }),
     selectedProductsMapped() {
       const mappedProducts = {}
@@ -271,6 +307,30 @@ export default {
         this.setLastName(newVal)
       }
     },
+    localBirthDay: {
+      get() {
+        return this.birthDay
+      },
+      set(newVal) {
+        this.setBirthDay(newVal)
+      }
+    },
+    localBirthMonth: {
+      get() {
+        return this.birthMonth
+      },
+      set(newVal) {
+        this.setBirthMonth(newVal)
+      }
+    },
+    localBirthYear: {
+      get() {
+        return this.birthYear
+      },
+      set(newVal) {
+        this.setBirthYear(newVal)
+      }
+    },
     address: {
       get() {
         return this.addressState
@@ -325,6 +385,9 @@ export default {
     ...mapActions({
       setPassword: 'SET_PASSWORD',
       setEmail: 'SET_CUSTOMER_EMAIL',
+      setBirthDay: 'SET_CUSTOMER_BIRHTDAY',
+      setBirthMonth: 'SET_CUSTOMER_BIRHTMONTH',
+      setBirthYear: 'SET_CUSTOMER_BIRHTYEAR',
       setFirstName: 'SET_FIRST_NAME',
       setLastName: 'SET_LAST_NAME',
       login: 'LOGIN_USER',
@@ -347,15 +410,24 @@ export default {
         })
       })
     },
+    range(start, end) {
+      return helperMethods.range(start, end)
+    },
+    daysInMonth(month, year) {
+      return new Date(year, month, 0).getDate();
+    },
     product(id) {
       return this.availableProducts.filter(val => {
         return val.id === id;
       })[0]
     },
-    signInOrSignUp() {
-      if (this.email && this.password && !this.clickedSignUp) {
+    signIn() {
+      if (this.email && this.password) {
         this.login({ email: this.email, password: this.password })
-      } else if (this.email && this.password && this.firstName && this.lastName && this.clickedSignUp) {
+      }
+    },
+    signUp() {
+      if (this.email && this.password && this.firstName && this.lastName) {
         this.signup({ firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
       }
     },
@@ -363,7 +435,20 @@ export default {
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
         this.saveShipping({ email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts })
       }
-    }
+    },
+    navClasses(step) {
+      if (step === this.currentCheckoutStep) return 'checkout-nav-el grey-outline-nav-el'
+      return 'checkout-nav-el'
+    },
+    dayDropdown() {
+      this.dayDropdownOpen = !this.dayDropdownOpen
+    },
+    monthDropdown() {
+      this.monthDropdownOpen = !this.monthDropdownOpen
+    },
+    yearDropdown() {
+      this.yearDropdownOpen = !this.yearDropdownOpen
+    },
   }
 }
   
@@ -378,30 +463,62 @@ export default {
     padding-top: 80px;
   }
 
+  .checkout-button {
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    height: 25px;
+    margin: 26px 0 26px 0;
+  }
+
+  .checkout-button-text {
+    padding-top: 4px;
+  }
+
   .checkout > .checkout-grid > .bag {
     grid-column: 3 / 5;
-    grid-row: 2 / 6;
+    grid-row: 2 / 5;
+    border: solid rgb(230, 226, 226) 1px;
+    padding: 30px;
   }
 
   .checkout > .checkout-grid > .checkout-content {
     grid-column: 1 / 3;
-    grid-row: 2 / 6
+    grid-row: 2 / 10;
+    border: solid rgb(230, 226, 226) 1px;
+    padding: 30px;
+  }
+
+  .checkout-content-input {
+    width: 100%;
+    height: 25px;
+    padding: 5px;
+    margin: 5px 0 5px 0;
+    border: 1px solid black;
+  }
+
+  .grey-outline-nav-el {
+    border-left: solid rgb(230, 226, 226) 1px;
+    border-right: solid rgb(230, 226, 226) 1px;
+    border-top: solid rgb(230, 226, 226) 1px;
+  }
+
+  .checkout-content-subheader {
+    margin-bottom: 10px;
   }
 
   .checkout-grid {
-    height: 500px;
+    height: 1000px;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(12, 1fr);
   }
 
   .checkout-nav-el {
     text-align: center;
     padding: 30px;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
-    border-bottom: 1px solid grey;
   }
 
   .checkout-nav-ul-li {
@@ -437,6 +554,43 @@ export default {
 
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
+  }
+
+  .sizes-select {
+    border: 1px solid black;
+    width: 80px;
+    padding-left: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor:pointer;
+  }
+  .sizes > ul {
+    list-style-type: none;
+    border: 1px solid black;
+    background-color: white;
+    position: absolute;
+    z-index: 10000;
+    width: 120px;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .sizes > ul > li {
+    cursor: pointer;
+    margin: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    width: 100%;
+  }
+
+  .sizes > ul > li:hover {
+    background-color: black;
+    color: white;
+  }
+
+  .dateOfBirth {
+    display: inline-block;
   }
 }
 

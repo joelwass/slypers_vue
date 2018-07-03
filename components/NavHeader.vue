@@ -93,7 +93,6 @@ export default {
 .header {
   position: fixed;
   z-index: 900;
-  border-bottom: 1px solid black;
   background-color:white;
   height: 60px;
   width: 100%;
@@ -105,7 +104,7 @@ export default {
   }
 
   .header {
-    height: 80px;
+    height: 70px;
   }
 }
 </style>

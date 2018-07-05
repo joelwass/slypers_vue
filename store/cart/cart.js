@@ -1,5 +1,7 @@
 import Vue from 'vue';
 
+import API from '../../middleware/api'
+
 import {
   SET_AVAILABLE_PRODUCTS,
   SET_SELECTED_PRODUCTS,
@@ -9,7 +11,9 @@ import {
   SHIPPING_STEP,
   PAYMENT_STEP,
   REVIEW_STEP,
-  SET_CHECKOUT_STEP
+  SET_CHECKOUT_STEP,
+  SETUP_CART,
+  SET_LOADING
 } from '../types'
 
 const cart = {
@@ -68,6 +72,18 @@ const cart = {
     selectedProducts: []
   },
   actions: {
+    [SETUP_CART]: ({ dispatch, commit }) => {
+      dispatch(SET_LOADING, true)
+      API.getStripeProducts().then((res) => {
+        if (res.success) {
+          commit(SETUP_CART, res.products.data)
+        } else {
+          console.log(res)
+          dispatch(SET_ERROR, res.message)
+        }
+        dispatch(SET_LOADING, false)
+      })
+    },
     [SET_AVAILABLE_PRODUCTS]: ({ commit }, availableProducts) => {
       commit(SET_AVAILABLE_PRODUCTS, availableProducts)
     },
@@ -85,6 +101,19 @@ const cart = {
     }
   },
   mutations: {
+    [SETUP_CART](state, products) {
+      const copy = state.availableProducts.slice()
+      for (var j = 0; j < products.length; j++) {
+        const prod = products[j]
+        for (var i = 0; i < copy.length; i++) {
+          if (copy[i].id === prod.id) {
+            copy[i].skus = prod.skus.data
+            break;
+          }
+        }
+      }
+      Vue.set(state, 'availableProducts', copy)
+    },
     [SET_AVAILABLE_PRODUCTS](state, availableProducts) {
       Vue.set(state, 'availableProducts', availableProducts)
     },
@@ -93,7 +122,7 @@ const cart = {
     },
     [ADD_PRODUCT](state, data) {
       const newArray = state.selectedProducts
-      newArray.push({ productId: data.productId, size: data.size, quantity: 1 })
+      newArray.push({ productId: data.productId, size: data.size, quantity: 1, sku: data.sku })
       Vue.set(state, 'selectedProducts', newArray)
     },
     [REMOVE_PRODUCT](state, data) {

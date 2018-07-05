@@ -37,6 +37,7 @@
           <div class="checkout-button" v-on:click="signIn">
             <p class="checkout-button-text"><b>LOG IN</b></p>
           </div>
+          <p>OR</p><br>
           <h3 class="checkout-content-subheader">REGISTER</h3>
           <div class="signup">
             <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="email">
@@ -238,6 +239,7 @@ export default {
       birthDay: state => state.customer.user.birthDay,
       birthMonth: state => state.customer.user.birthMonth,
       birthYear: state => state.customer.user.birthYear,
+      order: state => state.customer.order
     }),
     selectedProductsMapped() {
       const mappedProducts = {}
@@ -398,7 +400,8 @@ export default {
       setState: 'SET_CUSTOMER_STATE',
       setZip: 'SET_CUSTOMER_ZIP',
       saveShipping: 'SAVE_CUSTOMER_SHIPPING',
-      setCurrentCheckoutStep: 'SET_CHECKOUT_STEP'
+      setCurrentCheckoutStep: 'SET_CHECKOUT_STEP',
+      customerPay: 'CUSTOMER_PAY'
     }),
     pay () {
       console.log('here2')
@@ -407,7 +410,12 @@ export default {
         res.createToken(this.stripeData, function(status, response) {
           console.log(status)
           console.log(response)
+          return this.customerPay({ token: response, orderId: this.order.id })
         })
+      }).then(res => {
+        console.log('yarg', res)
+      }).catch(err => {
+        console.log('1', err)
       })
     },
     range(start, end) {
@@ -433,7 +441,7 @@ export default {
     },
     saveShippingInfo() {
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
-        this.saveShipping({ email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts })
+        this.saveShipping({ email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts, name: `${this.firstName} ${this.lastName}` })
       }
     },
     navClasses(step) {
@@ -459,7 +467,7 @@ export default {
 @media all and (min-width: 850px) {
   .checkout {
     min-height: 100vh;
-    padding-left: 140px;
+    padding-left: 220px;
     padding-top: 80px;
   }
 

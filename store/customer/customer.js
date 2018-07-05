@@ -26,7 +26,9 @@ import {
   SET_CUSTOMER_BIRHTDAY,
   SET_CUSTOMER_BIRHTMONTH,
   SET_CUSTOMER_BIRHTYEAR,
-  SET_CHECKOUT_STEP
+  SET_CHECKOUT_STEP,
+  SET_CUSTOMER_ORDER,
+  CUSTOMER_PAY
 } from '../types'
 
 const customer = {
@@ -43,10 +45,24 @@ const customer = {
       shippingAddress2: '',
       shippingCity: '',
       shippingState: '',
-      shippingZip: ''
-    }
+      shippingZip: '',
+    },
+    order: undefined
   },
   actions: {
+    [CUSTOMER_PAY]: ({ commit }, token) => {
+      API.login(credentials).then((res) => {
+        if (res.success) {
+          dispatch(SET_CUSTOMER, res.customer)
+          dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
+        } else {
+          console.log(res)
+          alert(res.error)
+          return dispatch(SET_ERROR, res.error)
+        }
+        return dispatch(SET_LOADING, false)
+      })
+    },
     [SET_CUSTOMER_EMAIL]: ({ commit }, email) => {
       commit(SET_CUSTOMER_EMAIL, email)
     },
@@ -117,8 +133,10 @@ const customer = {
     [SAVE_CUSTOMER_SHIPPING]: ({ dispatch, commit }, data) => {
       dispatch(CLEAR_ERRORS)
       dispatch(SET_LOADING, true)
+      console.log('data here', data)
       const stripeOrderData = {
         shipping: {
+          name: data.name,
           address: {
             city: data.city,
             country: 'USA',
@@ -127,31 +145,39 @@ const customer = {
             postal_code: data.zip
           }
         },
-        items: data.map((val) => {
+        items: data.selectedProducts.slice().map((val) => {
           return {
             currency: 'usd',
             quantity: val.quantity,
-            parent: val.id,
-            type: 'id'
+            parent: val.sku,
+            type: 'sku'
           }
         }),
         email: data.email
       }
       API.createStripeOrder(stripeOrderData).then(res => {
-        console.log(res)
-        return API.saveShipping({
-          address: data.address,
-          address2: data.address2,
-          email: data.email,
-          city: data.city,
-          state: data.state,
-          zip: data.zip
-        })
-      }).then((res) => {
-        console.log(res)
+        console.log('here', res)
         if (res.success) {
+          dispatch(SET_CUSTOMER_ORDER, res)
+          return API.saveShipping({
+            address: data.address,
+            address2: data.address2,
+            email: data.email,
+            city: data.city,
+            state: data.state,
+            zip: data.zip
+          })
+        } else {
           alert(res.message)
           console.log(res)
+          dispatch(SET_ERROR, res.message)
+          // TODO: maybe throw here?
+        }
+      }).then((res) => {
+        console.log('blah', res)
+        if (res.success) {
+          alert(res.message)
+          console.log('yikes', res)
           dispatch(SET_CHECKOUT_STEP, { step: PAYMENT_STEP })
         } else {
           alert(res.message)
@@ -163,6 +189,9 @@ const customer = {
     }
   },
   mutations: {
+    [SET_CUSTOMER_ORDER](state, order) {
+      Vue.set(state, 'order', order)
+    },
     [SET_CUSTOMER_EMAIL](state, email) {
       Vue.set(state.user, 'email', email)
     },

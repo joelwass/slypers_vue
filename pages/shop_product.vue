@@ -135,7 +135,8 @@ export default {
         this.validationIssue = 'Please select a size first'
       } else {
         // add to bag and pop bag drawer
-        this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })
+        // TODO: need to add the specific sku for the size they selected
+        this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber, sku: this.selectedProduct.skus[0].id })
         this.setBagDrawerOpen(true);
       }
     },

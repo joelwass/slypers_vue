@@ -84,6 +84,24 @@ class API {
       .catch(err => err)
   }
 
+  pay (data) {
+    console.log(data.token)
+    const options = {
+      method: 'POST',
+      headers,
+      data: {
+        source: data.token
+      },
+      url: `${endpoint}/stripe/orders/${data.orderId}/pay`
+    }
+    return axios(options)
+      .then(res => {
+        if (res.data.success) this.setAuthToken(res.data.sessionId)
+        return res.data
+      })
+      .catch(err => err)
+  }
+
   createNewUser (body) {
     const options = {
       method: 'POST',
@@ -134,16 +152,36 @@ class API {
     return axios(`${endpoint}/stripe/token`)
   }
 
-  createStripeOrder (shippingAddress, items, email) {
+  createStripeOrder (data) {
     const options = {
       method: 'POST',
       headers,
-      data: {
-        shipping: shippingAddress,
-        items,
-        email
-      },
-      url: `${endpoint}/stripe/order`
+      data,
+      url: `${endpoint}/stripe/orders`
+    }
+    return axios(options)
+      .then(res => {
+        console.log(res)
+        return res.data
+      })
+      .catch(err => {
+        console.log(err.response)
+        // if we're unauthorized, auth and retry
+        if (err.response.status == '401') {
+          this.authenticate().then(authRes => axios(options))
+          .catch(err => {
+            return err
+          })
+        }
+        return err
+      })
+  }
+
+  getStripeProducts () {
+    const options = {
+      method: 'GET',
+      headers,
+      url: `${endpoint}/stripe/products`
     }
     return axios(options)
       .then(res => {

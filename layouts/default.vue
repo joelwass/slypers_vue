@@ -13,7 +13,8 @@
 
 <script>
 import {
-  mapState
+  mapState,
+  mapActions
 } from 'vuex'
 import NavLeftSideBar from '~/components/NavLeftSideBar.vue'
 import NavHeader from '~/components/NavHeader.vue'
@@ -27,7 +28,13 @@ import helpers from '../helpers/methods'
 
 export default {
   mounted() {
-    console.log('mounted')
+    console.log('here')
+    this.setupCart()
+  },
+  methods: {
+    ...mapActions({
+      setupCart: 'SETUP_CART'
+    })
   },
   computed: {
     ...mapState({

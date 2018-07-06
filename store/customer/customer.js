@@ -28,8 +28,8 @@ import {
   SET_CUSTOMER_BIRHTYEAR,
   SET_CHECKOUT_STEP,
   SET_CUSTOMER_ORDER,
-  CUSTOMER_PAY,
-  SET_CUSTOMER_TOKEN
+  SET_CUSTOMER_TOKEN,
+  SUBMIT_ORDER
 } from '../types'
 
 const customer = {
@@ -52,22 +52,25 @@ const customer = {
     token: undefined
   },
   actions: {
+    [SUBMIT_ORDER]: ({ dispatch, commit, state }) => {
+      dispatch(SET_LOADING, true)
+      API.pay({ token: state.token, orderId: state.order.id }).then((res) => {
+        console.log(res)
+        if (res.success) {
+
+        } else {
+          alert(res.error)
+          dispatch(SET_ERROR, res.error)
+        }
+        return dispatch(SET_LOADING, false)
+      }).catch(err => {
+        console.log(err)
+        return dispatch(SET_LOADING, false)
+      })
+    },
     [SET_CUSTOMER_TOKEN]: ({ dispatch, commit }, token) => {
       commit(SET_CUSTOMER_TOKEN, token)
       dispatch(SET_CHECKOUT_STEP, { step: REVIEW_STEP })
-    },
-    [CUSTOMER_PAY]: ({ commit }, state) => {
-      API.pay({ token: state.token}).then((res) => {
-        if (res.success) {
-          dispatch(SET_CUSTOMER, res.customer)
-          dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
-        } else {
-          console.log(res)
-          alert(res.error)
-          return dispatch(SET_ERROR, res.error)
-        }
-        return dispatch(SET_LOADING, false)
-      })
     },
     [SET_CUSTOMER_EMAIL]: ({ commit }, email) => {
       commit(SET_CUSTOMER_EMAIL, email)
@@ -164,7 +167,7 @@ const customer = {
       API.createStripeOrder(stripeOrderData).then(res => {
         console.log('here', res)
         if (res.success) {
-          dispatch(SET_CUSTOMER_ORDER, res)
+          commit(SET_CUSTOMER_ORDER, res.order)
           return API.saveShipping({
             address: data.address,
             address2: data.address2,

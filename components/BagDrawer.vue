@@ -38,7 +38,7 @@
           <p class="subtotal-amount">$ {{ subtotal }}</p>
         </div>
         <div class="checkout-button" v-on:click="checkout">
-          <p>CHECKOUT ({{ selectedProducts.length }} ITEMS)</p>
+          <p class="checkout-button-text"><b>CHECKOUT ({{ selectedProducts.length }} ITEMS)</b></p>
         </div>
       </div>
     </div>
@@ -236,8 +236,8 @@ export default {
   text-align: center;
   background-color: black;
   margin-top: 10px;
-  padding-top: 8px;
   cursor: pointer;
+  padding-top: 4px;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 8px;

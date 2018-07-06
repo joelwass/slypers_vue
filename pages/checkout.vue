@@ -118,6 +118,12 @@
             PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
           </div>
         </div>   
+        <div v-show="currentCheckoutStep === 'REVIEW_STEP'">
+          <h3>REVIEW</h3>
+          <div class="checkout-button" v-on:click="submitOrder">
+            <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -359,11 +365,14 @@ export default {
       setZip: 'SET_CUSTOMER_ZIP',
       saveShipping: 'SAVE_CUSTOMER_SHIPPING',
       setCurrentCheckoutStep: 'SET_CHECKOUT_STEP',
-      setToken: 'SET_CUSTOMER_TOKEN'
+      setToken: 'SET_CUSTOMER_TOKEN',
+      submit: 'SUBMIT_ORDER'
     }),
-    savePayment (event) {
+    submitOrder() {
+      this.submit()
+    },
+    savePayment(event) {
       event.preventDefault();
-
       const self = this
 
       this.localStripe.createToken(this.localCard).then(function(result) {
@@ -433,6 +442,7 @@ export default {
 
   .checkout-button {
     width: 100%;
+    cursor: pointer;
     background-color: black;
     color: white;
     text-align: center;

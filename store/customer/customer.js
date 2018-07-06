@@ -28,7 +28,8 @@ import {
   SET_CUSTOMER_BIRHTYEAR,
   SET_CHECKOUT_STEP,
   SET_CUSTOMER_ORDER,
-  CUSTOMER_PAY
+  CUSTOMER_PAY,
+  SET_CUSTOMER_TOKEN
 } from '../types'
 
 const customer = {
@@ -47,11 +48,16 @@ const customer = {
       shippingState: '',
       shippingZip: '',
     },
-    order: undefined
+    order: undefined,
+    token: undefined
   },
   actions: {
-    [CUSTOMER_PAY]: ({ commit }, token) => {
-      API.login(credentials).then((res) => {
+    [SET_CUSTOMER_TOKEN]: ({ dispatch, commit }, token) => {
+      commit(SET_CUSTOMER_TOKEN, token)
+      dispatch(SET_CHECKOUT_STEP, { step: REVIEW_STEP })
+    },
+    [CUSTOMER_PAY]: ({ commit }, state) => {
+      API.pay({ token: state.token}).then((res) => {
         if (res.success) {
           dispatch(SET_CUSTOMER, res.customer)
           dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
@@ -91,8 +97,8 @@ const customer = {
           dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
         } else {
           console.log(res)
-          alert(res.error)
-          return dispatch(SET_ERROR, res.error)
+          alert(res.message)
+          return dispatch(SET_ERROR, res.message)
         }
         return dispatch(SET_LOADING, false)
       })
@@ -185,10 +191,16 @@ const customer = {
           dispatch(SET_ERROR, res.message)
         }
         dispatch(SET_LOADING, false)
+      }).catch(err => {
+        console.log('err', err)
+        dispatch(SET_LOADING, false)
       })
     }
   },
   mutations: {
+    [SET_CUSTOMER_TOKEN](state, token) {
+      Vue.set(state, 'token', token)
+    },
     [SET_CUSTOMER_ORDER](state, order) {
       Vue.set(state, 'order', order)
     },

@@ -86,19 +86,21 @@
           </div>
         </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
+          <h3 class="checkout-content-subheader">PAYMENT</h3>
+          <p>PLEASE NOTE THAT PRE-ORDER PURCHASES CAN ONLY BE PAID FOR BY CREDIT CARD.</p><br>
+          <p><b>PAYMENT DETAILS</b></p><br>
+          <p>YOU ARE MAKING YOUR PURCHASE ON A SECURE SERVER</p><br><br>
           <div class="stripe">
-            <form>
-              <div class="cc-field" :class="cardTypeClass">
-                <input type="text" placeholder="First name" v-model="stripe.firstName" />
-                <input type="text" placeholder="Last name" v-model="stripe.lastName" />
-              </div>
-            </form>
+            <div class="cc-field">
+              <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First name" v-model="stripeInfo.firstName" />
+              <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last name" v-model="stripeInfo.lastName" />
+            </div>
             <form action="/charge" method="post" id="payment-form">
               <div class="form-row">
-                <label for="card-element">
-                  Credit or debit card
-                </label>
-                <div id="card-element">
+                <label for="card-element"><b>
+                  CARD NUMBER *
+                </b></label>
+                <div id="card-element" class="checkout-content-input" >
                   <!-- A Stripe Element will be inserted here. -->
                 </div>
 
@@ -106,8 +108,14 @@
                 <div id="card-errors" role="alert"></div>
               </div>
 
-              <button>Submit Payment</button>
+              <div class="checkout-button" v-on:click="savePayment">
+                <p class="checkout-button-text"><b>SAVE PAYMENT INFO</b></p>
+              </div>
             </form>
+            <hr><br>
+            <p><b>RETURN POLICY</b></p><br>
+            <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
+            PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
           </div>
         </div>   
       </div>
@@ -146,6 +154,7 @@ export default {
         firstName: undefined,
         lastName: undefined
       },
+      localCard: undefined,
       localStripe: undefined,
       months: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
       selectedMonth: 'MONTH',
@@ -161,10 +170,10 @@ export default {
       if (view === 'PAYMENT_STEP' && !this.cardStuffInitialized) {
         this.cardStuffInitialized = true
           // Create a Stripe client.
-        var stripe = Stripe('pk_test_vosa23qHDTzgpr2tENv03qLC');
+        this.localStripe = Stripe('pk_test_vosa23qHDTzgpr2tENv03qLC');
 
         // Create an instance of Elements.
-        var elements = stripe.elements();
+        var elements = this.localStripe.elements();
 
         // Custom styling can be passed to options when creating an Element.
         // (Note that this demo uses a wider set of styles than the guide below.)
@@ -186,37 +195,19 @@ export default {
         };
 
         // Create an instance of the card Element.
-        var card = elements.create('card', {style: style});
+        this.localCard = elements.create('card', {style: style});
 
         // Add an instance of the card Element into the `card-element` <div>.
-        card.mount('#card-element');
+        this.localCard.mount('#card-element');
 
         // Handle real-time validation errors from the card Element.
-        card.addEventListener('change', function(event) {
+        this.localCard.addEventListener('change', function(event) {
           var displayError = document.getElementById('card-errors');
           if (event.error) {
             displayError.textContent = event.error.message;
           } else {
             displayError.textContent = '';
           }
-        });
-
-        // Handle form submission.
-        var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function(event) {
-          event.preventDefault();
-
-          stripe.createToken(card).then(function(result) {
-            console.log(result)
-            if (result.error) {
-              // Inform the user if there was an error.
-              var errorElement = document.getElementById('card-errors');
-              errorElement.textContent = result.error.message;
-            } else {
-              // Send the token to your server.
-              api.stripeTokenHandler(result.token);
-            }
-          });
         });
       }
     }
@@ -251,30 +242,6 @@ export default {
         }
       })
       return Object.values(mappedProducts)
-    },
-    stripe: async () => {
-      if (this.localStripe) return this.localStripe
-      try {
-        const config = await api.getConfig()
-        console.log(config)
-        this.localStripe = new window.Stripe(config.stripePublishableKey)
-        console.log('here')
-        console.log(this.localStripe)
-        return this.localStripe
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    cardType: () => {
-      return this.stripe.card.cardType(this.cardNumber);
-    },
-    cardTypeClass: () => {
-     switch (this.cardType) {
-        case 'Visa': return 'is-visa';
-        case 'MasterCard': return 'is-mastercard';
-        case 'American Express': return 'is-amex';
-        case 'Discover': return 'is-discover';
-      }
     },
     email: {
       get() {
@@ -372,16 +339,7 @@ export default {
       set(newVal) {
         this.setZip(newVal)
       }
-    },
-    stripeData: () => {
-      return {
-        name: this.name,
-        number: this.cardNumber,
-        cvc: this.securityCode,
-        exp: this.expiration,
-        address_zip: this.postalCode,
-      };
-    },
+    }
   },
   methods: {
     ...mapActions({
@@ -401,22 +359,24 @@ export default {
       setZip: 'SET_CUSTOMER_ZIP',
       saveShipping: 'SAVE_CUSTOMER_SHIPPING',
       setCurrentCheckoutStep: 'SET_CHECKOUT_STEP',
-      customerPay: 'CUSTOMER_PAY'
+      setToken: 'SET_CUSTOMER_TOKEN'
     }),
-    pay () {
-      console.log('here2')
-      console.log(this.stripe)
-      this.stripe.then(res => {
-        res.createToken(this.stripeData, function(status, response) {
-          console.log(status)
-          console.log(response)
-          return this.customerPay({ token: response, orderId: this.order.id })
-        })
-      }).then(res => {
-        console.log('yarg', res)
-      }).catch(err => {
-        console.log('1', err)
-      })
+    savePayment (event) {
+      event.preventDefault();
+
+      const self = this
+
+      this.localStripe.createToken(this.localCard).then(function(result) {
+        console.log(result)
+        if (result.error) {
+          // Inform the user if there was an error.
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // Send the token to your server.
+          self.setToken(result.token)
+        }
+      });
     },
     range(start, end) {
       return helperMethods.range(start, end)
@@ -510,6 +470,7 @@ export default {
     border-left: solid rgb(230, 226, 226) 1px;
     border-right: solid rgb(230, 226, 226) 1px;
     border-top: solid rgb(230, 226, 226) 1px;
+    font-weight: bold;
   }
 
   .checkout-content-subheader {

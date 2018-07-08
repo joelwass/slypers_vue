@@ -116,7 +116,17 @@ class API {
         if (res.data.success) this.setAuthToken(res.data.sessionId)
         return res.data
       })
-      .catch(err => err)
+      .catch(err => {
+        console.log(err.response)
+        // if we're unauthorized, auth and retry
+        if (err.response.status == '401') {
+          this.authenticate().then(authRes => axios(options))
+          .catch(err => {
+            return err
+          })
+        }
+        return err
+      })
   }
 
   saveShipping (body) {

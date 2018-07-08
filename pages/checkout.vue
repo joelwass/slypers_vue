@@ -119,12 +119,21 @@
           </div>
         </div>   
         <div v-show="currentCheckoutStep === 'REVIEW_STEP'">
-          <h3>REVIEW</h3>
+          <h3 class="checkout-content-subheader">REVIEW</h3>
           <div>
-            <h4>SHIPPING</h4>
+            <h4 class="checkout-content-subheader">SHIPPING</h4>
+            <div class="shipping-subheader">ADDRESS</div>
+            <div class="modify-button">
+              <p><u>MODIFY</u></p>
+            </div><br>
+            <label for="shippingAddress">{{ this.address }}</label><br>
+            <label v-if="address2" for="shippingAddress2">{{ this.address2 }}</label><br>
+            <label for="shippingCity">{{ this.city }}</label><br>
+            <label for="shippingState">{{ this.stateAddress }}</label><br>
+            <label for="shippingZip">{{ this.zip }}</label><br>
           </div>
           <div>
-            <h4>PAYMENT</h4>
+            <h4 class="checkout-content-subheader">PAYMENT</h4>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
@@ -448,6 +457,16 @@ export default {
 <style>
 
 @media all and (min-width: 850px) {
+  .shipping-subheader {
+    float: left;
+    width: 100px;
+  }
+
+  .modify-button {
+    width: 100px;
+    float: right;
+  }
+
   .checkout {
     min-height: 100vh;
     padding-left: 220px;

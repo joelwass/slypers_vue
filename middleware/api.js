@@ -1,5 +1,5 @@
 const axios = require('axios')
-const endpoint = process.NODE_ENV === 'production' ? 'https://slypers-production-node.herokuapp.com/api/v1' : 'http://localhost:3001/api/v1'
+let endpoint = process.NODE_ENV === 'production' ? 'https://slypers-production-node.herokuapp.com/api/v1' : 'http://localhost:3001/api/v1'
 if (process.NODE_ENV === 'staging') endpoint = 'https://slypers-staging-node.herokuapp.com/api/v1'
 import helper from '../helpers/methods'
 

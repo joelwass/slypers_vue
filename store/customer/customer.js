@@ -70,6 +70,7 @@ const customer = {
     },
     [SET_CUSTOMER_TOKEN]: ({ dispatch, commit }, token) => {
       commit(SET_CUSTOMER_TOKEN, token)
+      dispatch(SET_LOADING, false)
       dispatch(SET_CHECKOUT_STEP, { step: REVIEW_STEP })
     },
     [SET_CUSTOMER_EMAIL]: ({ commit }, email) => {
@@ -186,7 +187,6 @@ const customer = {
         console.log('blah', res)
         if (res.success) {
           alert(res.message)
-          console.log('yikes', res)
           dispatch(SET_CHECKOUT_STEP, { step: PAYMENT_STEP })
         } else {
           alert(res.message)

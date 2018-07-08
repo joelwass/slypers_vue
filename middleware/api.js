@@ -111,6 +111,7 @@ class API {
     }
     return axios(options)
       .then(res => {
+        console.log('res from create customer', res)
         if (res.data.success) this.setAuthToken(res.data.sessionId)
         return res.data
       })
@@ -118,6 +119,7 @@ class API {
   }
 
   saveShipping (body) {
+    console.log(headers)
     const options = {
       method: 'PUT',
       headers,

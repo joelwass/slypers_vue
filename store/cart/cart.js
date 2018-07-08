@@ -145,7 +145,6 @@ const cart = {
       Vue.set(state, 'selectedProducts', newProducts)
     },
     [SET_CHECKOUT_STEP](state, data) {
-      console.log('here', data)
       if (data.step === SIGNUP_LOGIN_STEP) {
         Vue.set(state, 'currentCheckoutStep', SIGNUP_LOGIN_STEP)
       } else if (data.step === SHIPPING_STEP) {

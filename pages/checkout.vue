@@ -350,6 +350,7 @@ export default {
   methods: {
     ...mapActions({
       setPassword: 'SET_PASSWORD',
+      setLoading: 'SET_LOADING',
       setEmail: 'SET_CUSTOMER_EMAIL',
       setBirthDay: 'SET_CUSTOMER_BIRHTDAY',
       setBirthMonth: 'SET_CUSTOMER_BIRHTMONTH',
@@ -374,6 +375,7 @@ export default {
     savePayment(event) {
       event.preventDefault();
       const self = this
+      this.setLoading(true)
 
       this.localStripe.createToken(this.localCard).then(function(result) {
         console.log(result)

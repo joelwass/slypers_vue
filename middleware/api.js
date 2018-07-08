@@ -103,6 +103,7 @@ class API {
   }
 
   createNewUser (body) {
+    console.log(headers)
     const options = {
       method: 'POST',
       headers,

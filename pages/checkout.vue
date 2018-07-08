@@ -40,8 +40,8 @@
           <p>OR</p><br>
           <h3 class="checkout-content-subheader">REGISTER</h3>
           <div class="signup">
-            <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="email">
-            <b>PASSWORD *</b><br><input type="text" class="checkout-content-input" placeholder="Password" v-model="password">
+            <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="signUpEmail">
+            <b>PASSWORD *</b><br><input type="text" class="checkout-content-input" placeholder="Password" v-model="signUpPassword">
             <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First Name" v-model="firstName">
             <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last Name" v-model="lastName">
             <!-- <p>DATE OF BIRTH *</p><br>
@@ -120,9 +120,19 @@
         </div>   
         <div v-show="currentCheckoutStep === 'REVIEW_STEP'">
           <h3>REVIEW</h3>
+          <div>
+            <h4>SHIPPING</h4>
+          </div>
+          <div>
+            <h4>PAYMENT</h4>
+          </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
           </div>
+          <hr><br>
+            <p><b>RETURN POLICY</b></p><br>
+            <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
+            PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
         </div>
       </div>
     </div>
@@ -169,6 +179,8 @@ export default {
       dayDropdownOpen: false,
       monthDropdownOpen: false,
       yearDropdownOpen: false,
+      signUpEmail: '',
+      signUpPassword: ''
     }
   },
   watch: {
@@ -406,8 +418,8 @@ export default {
       }
     },
     signUp() {
-      if (this.email && this.password && this.firstName && this.lastName) {
-        this.signup({ firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
+      if (this.signUpEmail && this.signUpPassword && this.firstName && this.lastName) {
+        this.signup({ firstName: this.firstName, lastName: this.lastName, email: this.signUpEmail, password: this.signUpPassword })
       }
     },
     saveShippingInfo() {

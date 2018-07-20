@@ -241,7 +241,7 @@ export default {
   grid-row: 1;
 }
 
-img{
+img {
   max-height:100%;
   max-width:100%;
 }

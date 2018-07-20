@@ -32,6 +32,7 @@ import {
   SUBMIT_ORDER,
   SET_SIGNUP_EMAIL,
   SET_SIGNUP_PASSWORD,
+  COMPLETED_STEP
 } from '../types'
 
 const customer = {
@@ -64,7 +65,7 @@ const customer = {
     },
     [SUBMIT_ORDER]: ({ dispatch, commit, state }) => {
       dispatch(SET_LOADING, true)
-      API.pay({ token: state.token, orderId: state.order.id }).then((res) => {
+      API.pay({ token: state.token, orderId: state.order.id, email: state.user.email }).then((res) => {
         console.log(res)
         if (res.success && res.order.metadata.status === 'paid') {
           dispatch(SET_CHECKOUT_STEP, { step: COMPLETED_STEP })

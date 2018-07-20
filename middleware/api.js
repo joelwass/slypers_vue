@@ -85,12 +85,12 @@ class API {
   }
 
   pay (data) {
-    console.log(data.token)
     const options = {
       method: 'POST',
       headers,
       data: {
-        source: data.token
+        source: data.token,
+        email: data.email
       },
       url: `${endpoint}/stripe/orders/${data.orderId}/pay`
     }

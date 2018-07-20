@@ -192,8 +192,6 @@ export default {
       dayDropdownOpen: false,
       monthDropdownOpen: false,
       yearDropdownOpen: false,
-      signUpEmailLocal: '',
-      signUpPasswordLocal: ''
     }
   },
   watch: {
@@ -261,7 +259,9 @@ export default {
       birthDay: state => state.customer.user.birthDay,
       birthMonth: state => state.customer.user.birthMonth,
       birthYear: state => state.customer.user.birthYear,
-      order: state => state.customer.order
+      order: state => state.customer.order,
+      signUpEmailState: state => state.customer.user.signUpEmail,
+      signUpPasswordState: state => state.customer.user.signUpPassword
     }),
     selectedProductsMapped() {
       const mappedProducts = {}
@@ -373,7 +373,7 @@ export default {
     },
     signUpEmail: {
       get() {
-        return this.signUpEmailLocal
+        return this.signUpEmailState
       },
       set(newVal) {
         this.setSignUpEmail(newVal)
@@ -381,7 +381,7 @@ export default {
     },
     signUpPassword: {
       get() {
-        return this.signUpPasswordLocal
+        return this.signUpPasswordState
       },
       set(newVal) {
         this.setSignUpPassword(newVal)
@@ -399,7 +399,7 @@ export default {
       setFirstName: 'SET_FIRST_NAME',
       setLastName: 'SET_LAST_NAME',
       login: 'LOGIN_USER',
-      signup: 'CREATE_ACCOUNT',
+      signupAction: 'CREATE_ACCOUNT',
       setAddress: 'SET_CUSTOMER_ADDRESS',
       setAddress2: 'SET_CUSTOMER_ADDRESS_2',
       setCity: 'SET_CUSTOMER_CITY',
@@ -459,7 +459,7 @@ export default {
     },
     signUp() {
       if (this.signUpEmail && this.signUpPassword && this.firstName && this.lastName) {
-        this.signup({ firstName: this.firstName, lastName: this.lastName, email: this.signUpEmail, password: this.signUpPassword })
+        this.signupAction({ firstName: this.firstName, lastName: this.lastName, email: this.signUpEmail, password: this.signUpPassword })
       }
     },
     saveShippingInfo() {

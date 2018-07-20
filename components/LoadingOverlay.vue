@@ -1,15 +1,15 @@
 <template>
-  <div class="overlay"></div>
+  <div class="loading-overlay"></div>
 </template>
 
 <script>
 </script>
 
 <style>
-.overlay {
+.loading-overlay {
   width: 100vw;
-  position: absolute;
-  height:100%;
+  position: fixed;
+  height:100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1005;
 }

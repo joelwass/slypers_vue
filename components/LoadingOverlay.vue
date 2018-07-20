@@ -9,7 +9,7 @@
 .overlay {
   width: 100vw;
   position: absolute;
-  height:100vh;
+  height:100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1005;
 }

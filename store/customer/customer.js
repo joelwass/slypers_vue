@@ -29,7 +29,9 @@ import {
   SET_CHECKOUT_STEP,
   SET_CUSTOMER_ORDER,
   SET_CUSTOMER_TOKEN,
-  SUBMIT_ORDER
+  SUBMIT_ORDER,
+  SET_SIGNUP_EMAIL,
+  SET_SIGNUP_PASSWORD,
 } from '../types'
 
 const customer = {
@@ -47,17 +49,25 @@ const customer = {
       shippingCity: '',
       shippingState: '',
       shippingZip: '',
+      signUpEmail: '',
+      signUpPassword: ''
     },
     order: undefined,
     token: undefined
   },
   actions: {
+    [SET_SIGNUP_EMAIL]: ({ commit }, email) => {
+      commit(SET_SIGNUP_EMAIL, email)
+    },
+    [SET_SIGNUP_PASSWORD]: ({ commit }, password) => {
+      commit(SET_SIGNUP_PASSWORD, password)
+    },
     [SUBMIT_ORDER]: ({ dispatch, commit, state }) => {
       dispatch(SET_LOADING, true)
       API.pay({ token: state.token, orderId: state.order.id }).then((res) => {
         console.log(res)
-        if (res.success) {
-
+        if (res.success && res.order.metadata.status === 'paid') {
+          dispatch(SET_CHECKOUT_STEP, { step: COMPLETED_STEP })
         } else {
           alert(res.error)
           dispatch(SET_ERROR, res.error)
@@ -248,6 +258,12 @@ const customer = {
     },
     [SET_CUSTOMER_ZIP](state, zip) {
       Vue.set(state.user, 'shippingZip', zip)
+    },
+    [SET_SIGNUP_EMAIL](state, email) {
+      Vue.set(state.user, 'signUpEmail', email)
+    },
+    [SET_SIGNUP_PASSWORD](state, password) {
+      Vue.set(state.user, 'signUpPassword', password)
     }
   }
 }

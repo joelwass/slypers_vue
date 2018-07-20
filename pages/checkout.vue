@@ -139,9 +139,13 @@
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
           </div>
           <hr><br>
-            <p><b>RETURN POLICY</b></p><br>
-            <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
-            PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
+          <p><b>RETURN POLICY</b></p><br>
+          <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
+          PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
+        </div>
+        <div v-show="currentCheckoutStep === 'COMPLETED_STEP'">
+          <h3>CONGRATULATIONS!</h3>
+          <p>ORDER COMPLETE</p>
         </div>
       </div>
     </div>
@@ -188,8 +192,8 @@ export default {
       dayDropdownOpen: false,
       monthDropdownOpen: false,
       yearDropdownOpen: false,
-      signUpEmail: '',
-      signUpPassword: ''
+      signUpEmailLocal: '',
+      signUpPasswordLocal: ''
     }
   },
   watch: {
@@ -366,6 +370,22 @@ export default {
       set(newVal) {
         this.setZip(newVal)
       }
+    },
+    signUpEmail: {
+      get() {
+        return this.signUpEmailLocal
+      },
+      set(newVal) {
+        this.setSignUpEmail(newVal)
+      }
+    },
+    signUpPassword: {
+      get() {
+        return this.signUpPasswordLocal
+      },
+      set(newVal) {
+        this.setSignUpPassword(newVal)
+      }
     }
   },
   methods: {
@@ -388,7 +408,9 @@ export default {
       saveShipping: 'SAVE_CUSTOMER_SHIPPING',
       setCurrentCheckoutStep: 'SET_CHECKOUT_STEP',
       setToken: 'SET_CUSTOMER_TOKEN',
-      submit: 'SUBMIT_ORDER'
+      submit: 'SUBMIT_ORDER',
+      setSignUpEmail: 'SET_SIGNUP_EMAIL',
+      setSignUpPassword: 'SET_SIGNUP_PASSWORD'
     }),
     submitOrder() {
       this.submit()
@@ -397,6 +419,15 @@ export default {
       event.preventDefault();
       const self = this
       this.setLoading(true)
+
+      // set name on card
+      try {
+        this.localCard.token.card.name = `${this.firstName} ${this.lastName}`
+      } catch (e) {
+        console.log(e)
+        // dont do anything, dont care
+      }
+      console.log('current card', this.localCard)
 
       this.localStripe.createToken(this.localCard).then(function(result) {
         console.log(result)

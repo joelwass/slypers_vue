@@ -39,10 +39,10 @@ import {
 const customer = {
   state: {
     user: {
-      email: 'joel2@wass.com',
-      password: 'asdf',
-      firstName: 'joel',
-      lastName: 'wass',
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
       birthDay: '',
       birthMonth: '',
       birthYear: '',
@@ -77,6 +77,7 @@ const customer = {
           alert(res.error)
           dispatch(SET_ERROR, res.error)
         }
+        return dispatch(SET_LOADING, { value: false, save: false })
       }).catch(err => {
         console.log(err)
         return dispatch(SET_LOADING, { value: false, save: false })

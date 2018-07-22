@@ -282,7 +282,8 @@ img {
 }
 
 .shop-product {
-  align-items:center
+  align-items:center;
+  min-height: 100vh;
 }
 
 @media all and (min-width: 850px) {

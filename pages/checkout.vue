@@ -192,7 +192,6 @@ export default {
   },
   watch: {
     currentCheckoutStep(view) {
-      console.log(view)
       if (view === 'PAYMENT_STEP' && !this.cardStuffInitialized) {
         this.cardStuffInitialized = true
           // Create a Stripe client.
@@ -431,7 +430,6 @@ export default {
       console.log('current card', this.localCard)
 
       this.localStripe.createToken(this.localCard).then(function(result) {
-        console.log(result)
         if (result.error) {
           // Inform the user if there was an error.
           var errorElement = document.getElementById('card-errors');
@@ -488,36 +486,155 @@ export default {
 </script>
 
 <style>
+.shipping-subheader {
+  float: left;
+  width: 100px;
+}
+
+.modify-button {
+  width: 100px;
+  float: right;
+}
+
+.checkout-button {
+  width: 100%;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  text-align: center;
+  height: 25px;
+  margin: 26px 0 26px 0;
+}
+
+.checkout-button-text {
+  padding-top: 4px;
+}
+
+.checkout-content-input {
+  width: 100%;
+  height: 25px;
+  padding: 5px;
+  margin: 5px 0 5px 0;
+  border: 1px solid black;
+}
+
+.grey-outline-nav-el {
+  border-left: solid rgb(230, 226, 226) 1px;
+  border-right: solid rgb(230, 226, 226) 1px;
+  border-top: solid rgb(230, 226, 226) 1px;
+  font-weight: bold;
+}
+
+.checkout-content-subheader {
+  margin-bottom: 10px;
+}
+
+.checkout-nav-ul-li {
+  display: inline;
+  font-size: 11px;
+  grid-column: 1;
+  grid-row: 1;
+  cursor: pointer;
+  padding-top: 5px;
+}
+/**
+* The CSS shown here will not be introduced in the Quickstart guide, but shows
+* how you can use CSS to style your Element's container.
+*/
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.sizes-select {
+  border: 1px solid black;
+  width: 80px;
+  padding-left: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor:pointer;
+}
+.sizes > ul {
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  position: absolute;
+  z-index: 10000;
+  width: 120px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.sizes > ul > li {
+  cursor: pointer;
+  margin: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  width: 100%;
+}
+
+.sizes > ul > li:hover {
+  background-color: black;
+  color: white;
+}
+
+.dateOfBirth {
+  display: inline-block;
+}
+
+.checkout {
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.checkout > .checkout-grid > .bag {
+  display: none;
+}
+
+.checkout > .checkout-grid > .checkout-content {
+  grid-column: 1 / 5;
+  grid-row: 2 / 10;
+  border: solid rgb(230, 226, 226) 1px;
+  padding: 30px;
+}
+
+.checkout-grid {
+  height: 1000px;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: repeat(12, 1fr);
+}
+
+.checkout-nav-el {
+  text-align: center;
+  padding-top: 25px;
+}
 
 @media all and (min-width: 850px) {
-  .shipping-subheader {
-    float: left;
-    width: 100px;
-  }
-
-  .modify-button {
-    width: 100px;
-    float: right;
-  }
-
   .checkout {
     min-height: 100vh;
     padding-left: 220px;
     padding-top: 80px;
-  }
-
-  .checkout-button {
-    width: 100%;
-    cursor: pointer;
-    background-color: black;
-    color: white;
-    text-align: center;
-    height: 25px;
-    margin: 26px 0 26px 0;
-  }
-
-  .checkout-button-text {
-    padding-top: 4px;
   }
 
   .checkout > .checkout-grid > .bag {
@@ -525,6 +642,7 @@ export default {
     grid-row: 2 / 5;
     border: solid rgb(230, 226, 226) 1px;
     padding: 30px;
+    display: block;
   }
 
   .checkout > .checkout-grid > .checkout-content {
@@ -532,25 +650,6 @@ export default {
     grid-row: 2 / 10;
     border: solid rgb(230, 226, 226) 1px;
     padding: 30px;
-  }
-
-  .checkout-content-input {
-    width: 100%;
-    height: 25px;
-    padding: 5px;
-    margin: 5px 0 5px 0;
-    border: 1px solid black;
-  }
-
-  .grey-outline-nav-el {
-    border-left: solid rgb(230, 226, 226) 1px;
-    border-right: solid rgb(230, 226, 226) 1px;
-    border-top: solid rgb(230, 226, 226) 1px;
-    font-weight: bold;
-  }
-
-  .checkout-content-subheader {
-    margin-bottom: 10px;
   }
 
   .checkout-grid {
@@ -564,78 +663,6 @@ export default {
   .checkout-nav-el {
     text-align: center;
     padding: 30px;
-  }
-
-  .checkout-nav-ul-li {
-    display: inline;
-    font-size: 11px;
-    grid-column: 1;
-    grid-row: 1;
-    cursor: pointer;
-    padding-top: 5px;
-  }
-  /**
-  * The CSS shown here will not be introduced in the Quickstart guide, but shows
-  * how you can use CSS to style your Element's container.
-  */
-  .StripeElement {
-    background-color: white;
-    height: 40px;
-    padding: 10px 12px;
-    border-radius: 4px;
-    border: 1px solid transparent;
-    box-shadow: 0 1px 3px 0 #e6ebf1;
-    -webkit-transition: box-shadow 150ms ease;
-    transition: box-shadow 150ms ease;
-  }
-
-  .StripeElement--focus {
-    box-shadow: 0 1px 3px 0 #cfd7df;
-  }
-
-  .StripeElement--invalid {
-    border-color: #fa755a;
-  }
-
-  .StripeElement--webkit-autofill {
-    background-color: #fefde5 !important;
-  }
-
-  .sizes-select {
-    border: 1px solid black;
-    width: 80px;
-    padding-left: 3px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    cursor:pointer;
-  }
-  .sizes > ul {
-    list-style-type: none;
-    border: 1px solid black;
-    background-color: white;
-    position: absolute;
-    z-index: 10000;
-    width: 120px;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .sizes > ul > li {
-    cursor: pointer;
-    margin: 0;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 3px;
-    width: 100%;
-  }
-
-  .sizes > ul > li:hover {
-    background-color: black;
-    color: white;
-  }
-
-  .dateOfBirth {
-    display: inline-block;
   }
 }
 

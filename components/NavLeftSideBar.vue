@@ -53,6 +53,7 @@ export default {
   width: 150px;
   height: 400px;
   background: transparent;
+  display: none;
 }
 
 .SideBarLeft-media {
@@ -86,6 +87,14 @@ export default {
   .SideBarLeft > .Links {
     display: block;
   } 
+
+  .SideBarLeft {
+    position: fixed;
+    width: 150px;
+    height: 400px;
+    background: transparent;
+    display: block;
+  }
 
   .SideBarLeft-media {
     padding-top: 100px;

@@ -197,9 +197,7 @@ const customer = {
           // TODO: maybe throw here?
         }
       }).then((res) => {
-        console.log('blah', res)
         if (res.success) {
-          alert(res.message)
           dispatch(SET_CHECKOUT_STEP, { step: PAYMENT_STEP })
         } else {
           alert(res.message)

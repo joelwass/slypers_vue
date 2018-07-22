@@ -1,7 +1,7 @@
 <template>
   <div class="shop-product">
     <div>
-      <swiper  :options="swiperOption" class="image-swiper">
+      <swiper :options="swiperOption" class="image-swiper">
         <swiper-slide v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="image-swiper-slide"><img :src="image" alt=""></swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
@@ -70,10 +70,14 @@ export default {
     }
   },
   created () {
-    window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('hashchange', function () {
-      window.scrollTo(window.scrollX, window.scrollY - 50);
-    });
+    if (window) {
+      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('hashchange', function () {
+        window.scrollTo(window.scrollX, window.scrollY - 50);
+      });
+    } else {
+      this.$router.push('/shop')
+    }
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);

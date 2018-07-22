@@ -1,10 +1,10 @@
 <template>
   <div class="checkout">
     <div class="checkout-grid">
-      <div :class="navClasses('SIGNUP_LOGIN_STEP')" @click="setCurrentCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. LOGIN / REGISTER</div>
-      <div :class="navClasses('SHIPPING_STEP')" @click="setCurrentCheckoutStep({ step: 'SHIPPING_STEP' })">2. SHIPPING</div>
-      <div :class="navClasses('PAYMENT_STEP')" @click="setCurrentCheckoutStep({ step: 'PAYMENT_STEP' })">3. PAYMENT</div>
-      <div :class="navClasses('REVIEW_STEP')" @click="setCurrentCheckoutStep({ step: 'REVIEW_STEP' })">4. REVIEW</div>
+      <div :class="navClasses('SIGNUP_LOGIN_STEP')" @click="setCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. LOGIN / REGISTER</div>
+      <div :class="navClasses('SHIPPING_STEP')" @click="setCheckoutStep({ step: 'SHIPPING_STEP' })">2. SHIPPING</div>
+      <div :class="navClasses('PAYMENT_STEP')" @click="setCheckoutStep({ step: 'PAYMENT_STEP' })">3. PAYMENT</div>
+      <div :class="navClasses('REVIEW_STEP')" @click="setCheckoutStep({ step: 'REVIEW_STEP' })">4. REVIEW</div>
       <div class="bag">
         <h3 class="bag-title">BAG ({{ this.selectedProducts.length }})</h3>
         <div class="products">
@@ -163,7 +163,7 @@ import helperMethods from '../helpers/methods'
 
 export default {
   mounted() {
-    console.log(helperMethods)
+    this.setLoading({ value: false, save: false })
   },
   head () {
     return {
@@ -415,10 +415,14 @@ export default {
     submitOrder() {
       this.submit()
     },
+    setCheckoutStep(data) {
+      this.setLoading({ value: true, save: true })
+      this.setCurrentCheckoutStep(data)
+    },
     savePayment(event) {
       event.preventDefault();
       const self = this
-      this.setLoading(true)
+      this.setLoading({ value: true, save: false })
 
       // set name on card
       try {

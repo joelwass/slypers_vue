@@ -13,6 +13,7 @@ export const REVIEW_STEP = 'REVIEW_STEP'
 export const COMPLETED_STEP = 'COMPLETED_STEP'
 export const SET_CHECKOUT_STEP = 'SET_CHECKOUT_STEP'
 export const SETUP_CART = 'SETUP_CART'
+export const RESUME = 'RESUME'
 
 // customer
 export const SET_CUSTOMER_EMAIL = 'SET_CUSTOMER_EMAIL'

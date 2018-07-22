@@ -59,7 +59,8 @@ export default {
     ...mapActions({
       setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN',
       removeProduct: 'REMOVE_PRODUCT',
-      addProduct: 'ADD_PRODUCT'
+      addProduct: 'ADD_PRODUCT',
+      setLoading: 'SET_LOADING'
     }),
     toggleDrawer() {
       const prevDrawerOpen = this.drawerOpen
@@ -71,6 +72,7 @@ export default {
     },
     checkout() {
       this.toggleDrawer()
+      this.setLoading({ value: true, save: true })
       this.$router.push('checkout')
     },
     product(id) {

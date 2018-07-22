@@ -13,7 +13,9 @@ import {
   REVIEW_STEP,
   SET_CHECKOUT_STEP,
   SETUP_CART,
-  SET_LOADING
+  SET_LOADING,
+  RESUME,
+  SET_ERROR
 } from '../types'
 
 const cart = {
@@ -73,7 +75,7 @@ const cart = {
   },
   actions: {
     [SETUP_CART]: ({ dispatch, commit }) => {
-      dispatch(SET_LOADING, true)
+      dispatch(SET_LOADING, { value: true, save: false })
       API.getStripeProducts().then((res) => {
         if (res.success) {
           commit(SETUP_CART, res.products.data)
@@ -81,7 +83,16 @@ const cart = {
           console.log(res)
           dispatch(SET_ERROR, res.message)
         }
-        dispatch(SET_LOADING, false)
+        dispatch(SET_LOADING, { value: false, save: false })
+      })
+      API.resume().then((res) => {
+        console.log('resume response', res)
+        if (res.success) {
+          commit(RESUME, res)
+        } else {
+          console.log(res)
+          dispatch(SET_ERROR, res.message)
+        }
       })
     },
     [SET_AVAILABLE_PRODUCTS]: ({ commit }, availableProducts) => {
@@ -96,8 +107,9 @@ const cart = {
     [REMOVE_PRODUCT]: ({ commit}, data) => {
       commit(REMOVE_PRODUCT, data)
     },
-    [SET_CHECKOUT_STEP]: ({ commit }, data) => {
+    [SET_CHECKOUT_STEP]: ({ commit, dispatch }, data) => {
       commit(SET_CHECKOUT_STEP, data)
+      dispatch(SET_LOADING, { value: false, save: false })
     }
   },
   mutations: {
@@ -124,6 +136,11 @@ const cart = {
       const newArray = state.selectedProducts
       newArray.push({ productId: data.productId, size: data.size, quantity: 1, sku: data.sku })
       Vue.set(state, 'selectedProducts', newArray)
+    },
+    [RESUME](state, data) {
+      console.log(data)
+      if (data.checkoutStep) Vue.set(state, 'currentCheckoutStep', data.checkoutStep)
+      if (data.selectedProducts) Vue.set(state, 'selectedProducts', data.selectedProducts)
     },
     [REMOVE_PRODUCT](state, data) {
       const newProducts = []

@@ -32,7 +32,8 @@ import {
   SUBMIT_ORDER,
   SET_SIGNUP_EMAIL,
   SET_SIGNUP_PASSWORD,
-  COMPLETED_STEP
+  COMPLETED_STEP,
+  RESUME
 } from '../types'
 
 const customer = {
@@ -64,7 +65,7 @@ const customer = {
       commit(SET_SIGNUP_PASSWORD, password)
     },
     [SUBMIT_ORDER]: ({ dispatch, commit, state }) => {
-      dispatch(SET_LOADING, true)
+      dispatch(SET_LOADING, { value: true, save: true })
       API.pay({ token: state.token, orderId: state.order.id, email: state.user.email }).then((res) => {
         console.log(res)
         if (res.success && res.order.metadata.status === 'paid') {
@@ -73,15 +74,14 @@ const customer = {
           alert(res.error)
           dispatch(SET_ERROR, res.error)
         }
-        return dispatch(SET_LOADING, false)
+        return dispatch(SET_LOADING, { value: false, save: true })
       }).catch(err => {
         console.log(err)
-        return dispatch(SET_LOADING, false)
+        return dispatch(SET_LOADING, { value: false, save: false })
       })
     },
     [SET_CUSTOMER_TOKEN]: ({ dispatch, commit }, token) => {
       commit(SET_CUSTOMER_TOKEN, token)
-      dispatch(SET_LOADING, false)
       dispatch(SET_CHECKOUT_STEP, { step: REVIEW_STEP })
     },
     [SET_CUSTOMER_EMAIL]: ({ commit }, email) => {
@@ -92,7 +92,7 @@ const customer = {
     },
     [CREATE_ACCOUNT]: ({ dispatch, commit }, customer) => {
       dispatch(CLEAR_ERRORS)
-      dispatch(SET_LOADING, true)
+      dispatch(SET_LOADING, { value: true, save: true })
       API.createNewUser(customer).then((res) => {
         if (res.success) {
           commit(CREATE_ACCOUNT, res.customer)
@@ -102,10 +102,11 @@ const customer = {
           console.log(res)
           dispatch(SET_ERROR, res.message)
         }
-        dispatch(SET_LOADING, false)
+        dispatch(SET_LOADING, { value: false, save: true })
       })
     },
     [LOGIN_USER]: ({ dispatch, commit }, credentials) => {
+      dispatch(SET_LOADING, { value: true, save: true })
       API.login(credentials).then((res) => {
         if (res.success) {
           dispatch(SET_CUSTOMER, res.customer)
@@ -115,7 +116,7 @@ const customer = {
           alert(res.message)
           return dispatch(SET_ERROR, res.message)
         }
-        return dispatch(SET_LOADING, false)
+        return dispatch(SET_LOADING, { value: false, save: true })
       })
     },
     [SET_PASSWORD]: ({ commit }, password) => {
@@ -153,7 +154,7 @@ const customer = {
     },
     [SAVE_CUSTOMER_SHIPPING]: ({ dispatch, commit }, data) => {
       dispatch(CLEAR_ERRORS)
-      dispatch(SET_LOADING, true)
+      dispatch(SET_LOADING, { value: true, save: true })
       console.log('data here', data)
       const stripeOrderData = {
         shipping: {
@@ -204,16 +205,19 @@ const customer = {
           console.log(res)
           dispatch(SET_ERROR, res.message)
         }
-        dispatch(SET_LOADING, false)
+        dispatch(SET_LOADING, { value: false, save: true })
       }).catch(err => {
         console.log('err', err)
-        dispatch(SET_LOADING, false)
+        dispatch(SET_LOADING, { value: false, save: false })
       })
     }
   },
   mutations: {
     [SET_CUSTOMER_TOKEN](state, token) {
       Vue.set(state, 'token', token)
+    },
+    [RESUME](state, data) {
+      Vue.set(state, 'user', data.user)
     },
     [SET_CUSTOMER_ORDER](state, order) {
       Vue.set(state, 'order', order)

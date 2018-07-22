@@ -190,11 +190,66 @@ class API {
       })
   }
 
+  // grab the selected products and selected browsing product
+  resume() {
+    const options = {
+      method: 'GET',
+      headers,
+      url: `${endpoint}/resume`
+    }
+    return axios(options)
+      .then(res => {
+        console.log(res)
+        if (res.sessionId) {
+          this.setAuthToken(res.data.sessionId)
+        }
+        return res.data
+      })
+      .catch(err => {
+        console.log(err.response)
+        // if we're unauthorized, auth and retry
+        if (err.response.status == '401') {
+          this.authenticate().then(authRes => axios(options))
+          .catch(err => {
+            return err
+          })
+        }
+        return err
+      })
+  }
+
   getStripeProducts () {
     const options = {
       method: 'GET',
       headers,
       url: `${endpoint}/stripe/products`
+    }
+    return axios(options)
+      .then(res => {
+        console.log(res)
+        return res.data
+      })
+      .catch(err => {
+        console.log(err.response)
+        // if we're unauthorized, auth and retry
+        if (err.response.status == '401') {
+          this.authenticate().then(authRes => axios(options))
+          .catch(err => {
+            return err
+          })
+        }
+        return err
+      })
+  }
+
+  saveDynamicState (data) {
+    console.log('saving data')
+    console.log(data)
+    const options = {
+      method: 'POST',
+      headers,
+      data,
+      url: `${endpoint}/save`
     }
     return axios(options)
       .then(res => {

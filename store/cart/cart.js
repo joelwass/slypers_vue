@@ -15,7 +15,7 @@ import {
   SETUP_CART,
   SET_LOADING,
   RESUME,
-  SET_ERROR
+  SET_ERROR,
 } from '../types'
 
 const cart = {
@@ -108,6 +108,7 @@ const cart = {
       commit(REMOVE_PRODUCT, data)
     },
     [SET_CHECKOUT_STEP]: ({ commit, dispatch }, data) => {
+      console.log('here x2?', data)
       commit(SET_CHECKOUT_STEP, data)
       dispatch(SET_LOADING, { value: false, save: true })
     }

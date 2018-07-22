@@ -85,6 +85,31 @@
             <p class="checkout-button-text"><b>SAVE SHIPPING INFO</b></p>
           </div>
         </div>
+        <div v-else-if="currentCheckoutStep === 'REVIEW_STEP'">
+          <h3 class="checkout-content-subheader">REVIEW</h3>
+          <div>
+            <h4 class="checkout-content-subheader">SHIPPING</h4>
+            <div class="shipping-subheader">ADDRESS</div>
+            <div class="modify-button">
+              <p><u>MODIFY</u></p>
+            </div><br>
+            <label for="shippingAddress">{{ this.address }}</label><br>
+            <label v-if="address2" for="shippingAddress2">{{ this.address2 }}</label><br>
+            <label for="shippingCity">{{ this.city }}</label><br>
+            <label for="shippingState">{{ this.stateAddress }}</label><br>
+            <label for="shippingZip">{{ this.zip }}</label><br>
+          </div>
+          <div>
+            <h4 class="checkout-content-subheader">PAYMENT</h4>
+          </div>
+          <div class="checkout-button" v-on:click="submitOrder">
+            <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
+          </div>
+          <hr><br>
+          <p><b>RETURN POLICY</b></p><br>
+          <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
+          PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
+        </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
           <h3 class="checkout-content-subheader">PAYMENT</h3>
           <p>PLEASE NOTE THAT PRE-ORDER PURCHASES CAN ONLY BE PAID FOR BY CREDIT CARD.</p><br>
@@ -118,35 +143,6 @@
             PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
           </div>
         </div>   
-        <div v-show="currentCheckoutStep === 'REVIEW_STEP'">
-          <h3 class="checkout-content-subheader">REVIEW</h3>
-          <div>
-            <h4 class="checkout-content-subheader">SHIPPING</h4>
-            <div class="shipping-subheader">ADDRESS</div>
-            <div class="modify-button">
-              <p><u>MODIFY</u></p>
-            </div><br>
-            <label for="shippingAddress">{{ this.address }}</label><br>
-            <label v-if="address2" for="shippingAddress2">{{ this.address2 }}</label><br>
-            <label for="shippingCity">{{ this.city }}</label><br>
-            <label for="shippingState">{{ this.stateAddress }}</label><br>
-            <label for="shippingZip">{{ this.zip }}</label><br>
-          </div>
-          <div>
-            <h4 class="checkout-content-subheader">PAYMENT</h4>
-          </div>
-          <div class="checkout-button" v-on:click="submitOrder">
-            <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
-          </div>
-          <hr><br>
-          <p><b>RETURN POLICY</b></p><br>
-          <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
-          PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
-        </div>
-        <div v-show="currentCheckoutStep === 'COMPLETED_STEP'">
-          <h3>CONGRATULATIONS!</h3>
-          <p>ORDER COMPLETE</p>
-        </div>
       </div>
     </div>
   </div>
@@ -196,6 +192,7 @@ export default {
   },
   watch: {
     currentCheckoutStep(view) {
+      console.log(view)
       if (view === 'PAYMENT_STEP' && !this.cardStuffInitialized) {
         this.cardStuffInitialized = true
           // Create a Stripe client.
@@ -249,11 +246,11 @@ export default {
       emailState: state => state.customer.user.email,
       firstNameState: state => state.customer.user.firstName,
       lastNameState: state => state.customer.user.lastName,
-      addressState: state => state.customer.user.shippingAddress,
-      address2State: state => state.customer.user.shippingAddress2,
-      cityState: state => state.customer.user.shippingCity,
-      stateState: state => state.customer.user.shippingState,
-      zipState: state => state.customer.user.shippingZip,
+      addressState: state => state.customer.user.address,
+      address2State: state => state.customer.user.address2,
+      cityState: state => state.customer.user.city,
+      stateState: state => state.customer.user.state,
+      zipState: state => state.customer.user.zip,
       loggedIn: state => state.authenticated,
       currentCheckoutStep: state => state.cart.currentCheckoutStep,
       birthDay: state => state.customer.user.birthDay,
@@ -439,6 +436,7 @@ export default {
           // Inform the user if there was an error.
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
+          this.setLoading({ value: false, save: false })
         } else {
           // Send the token to your server.
           self.setToken(result.token)

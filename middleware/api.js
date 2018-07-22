@@ -78,7 +78,6 @@ class API {
     }
     return axios(options)
       .then(res => {
-        if (res.data.success) this.setAuthToken(res.data.sessionId)
         return res.data
       })
       .catch(err => err)
@@ -96,7 +95,6 @@ class API {
     }
     return axios(options)
       .then(res => {
-        if (res.data.success) this.setAuthToken(res.data.sessionId)
         return res.data
       })
       .catch(err => err)
@@ -113,7 +111,6 @@ class API {
     return axios(options)
       .then(res => {
         console.log('res from create customer', res)
-        if (res.data.success) this.setAuthToken(res.data.sessionId)
         return res.data
       })
       .catch(err => {
@@ -139,7 +136,6 @@ class API {
     }
     return axios(options)
       .then(res => {
-        if (res.data.success) this.setAuthToken(res.data.sessionId)
         return res.data
       })
       .catch(err => {
@@ -192,6 +188,7 @@ class API {
 
   // grab the selected products and selected browsing product
   resume() {
+    console.log(headers)
     const options = {
       method: 'GET',
       headers,
@@ -200,9 +197,6 @@ class API {
     return axios(options)
       .then(res => {
         console.log(res)
-        if (res.sessionId) {
-          this.setAuthToken(res.data.sessionId)
-        }
         return res.data
       })
       .catch(err => {

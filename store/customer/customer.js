@@ -46,11 +46,11 @@ const customer = {
       birthDay: '',
       birthMonth: '',
       birthYear: '',
-      shippingAddress: '',
-      shippingAddress2: '',
-      shippingCity: '',
-      shippingState: '',
-      shippingZip: '',
+      address: '',
+      address2: '',
+      city: '',
+      state: '',
+      zip: '',
       signUpEmail: '',
       signUpPassword: ''
     },
@@ -69,12 +69,16 @@ const customer = {
       API.pay({ token: state.token, orderId: state.order.id, email: state.user.email }).then((res) => {
         console.log(res)
         if (res.success && res.order.metadata.status === 'paid') {
+          console.log('here?')
           dispatch(SET_CHECKOUT_STEP, { step: COMPLETED_STEP })
+        } else if (res.order.metadata.status === 'paid') {
+          // it has already been paid so better be on the completed step!
+          dispatch(SET_CHECKOUT_STEP, { step: COMPLETED_STEP })
+          alert('You already completed this order!')
         } else {
           alert(res.error)
           dispatch(SET_ERROR, res.error)
         }
-        return dispatch(SET_LOADING, { value: false, save: true })
       }).catch(err => {
         console.log(err)
         return dispatch(SET_LOADING, { value: false, save: false })
@@ -155,7 +159,6 @@ const customer = {
     [SAVE_CUSTOMER_SHIPPING]: ({ dispatch, commit }, data) => {
       dispatch(CLEAR_ERRORS)
       dispatch(SET_LOADING, { value: true, save: true })
-      console.log('data here', data)
       const stripeOrderData = {
         shipping: {
           name: data.name,
@@ -178,7 +181,6 @@ const customer = {
         email: data.email
       }
       API.createStripeOrder(stripeOrderData).then(res => {
-        console.log('here', res)
         if (res.success) {
           commit(SET_CUSTOMER_ORDER, res.order)
           return API.saveShipping({
@@ -217,7 +219,7 @@ const customer = {
       Vue.set(state, 'token', token)
     },
     [RESUME](state, data) {
-      Vue.set(state, 'user', data.user)
+      if (data.user) Vue.set(state, 'user', data.user)
     },
     [SET_CUSTOMER_ORDER](state, order) {
       Vue.set(state, 'order', order)
@@ -250,19 +252,19 @@ const customer = {
       Vue.set(state.user, 'birthYear', year)
     },
     [SET_CUSTOMER_ADDRESS](state, address) {
-      Vue.set(state.user, 'shippingAddress', address)
+      Vue.set(state.user, 'address', address)
     },
     [SET_CUSTOMER_ADDRESS_2](state, address2) {
-      Vue.set(state.user, 'shippingAddress2', address2)
+      Vue.set(state.user, 'address2', address2)
     },
     [SET_CUSTOMER_CITY](state, city) {
-      Vue.set(state.user, 'shippingCity', city)
+      Vue.set(state.user, 'city', city)
     },
     [SET_CUSTOMER_STATE](state, stateState) {
-      Vue.set(state.user, 'shippingState', stateState)
+      Vue.set(state.user, 'state', stateState)
     },
     [SET_CUSTOMER_ZIP](state, zip) {
-      Vue.set(state.user, 'shippingZip', zip)
+      Vue.set(state.user, 'zip', zip)
     },
     [SET_SIGNUP_EMAIL](state, email) {
       Vue.set(state.user, 'signUpEmail', email)

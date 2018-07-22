@@ -410,7 +410,7 @@ export default {
       setSignUpPassword: 'SET_SIGNUP_PASSWORD'
     }),
     submitOrder() {
-      this.submit()
+      this.submit(this.$router)
     },
     setCheckoutStep(data) {
       this.setLoading({ value: true, save: true })

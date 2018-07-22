@@ -70,14 +70,10 @@ export default {
     }
   },
   created () {
-    if (window) {
-      window.addEventListener('scroll', this.handleScroll);
-      window.addEventListener('hashchange', function () {
-        window.scrollTo(window.scrollX, window.scrollY - 50);
-      });
-    } else {
-      this.$router.push('/shop')
-    }
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('hashchange', function () {
+      window.scrollTo(window.scrollX, window.scrollY - 50);
+    });
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);

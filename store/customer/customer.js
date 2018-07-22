@@ -64,17 +64,15 @@ const customer = {
     [SET_SIGNUP_PASSWORD]: ({ commit }, password) => {
       commit(SET_SIGNUP_PASSWORD, password)
     },
-    [SUBMIT_ORDER]: ({ dispatch, commit, state }) => {
+    [SUBMIT_ORDER]: ({ dispatch, commit, state }, router) => {
       dispatch(SET_LOADING, { value: true, save: true })
       API.pay({ token: state.token, orderId: state.order.id, email: state.user.email }).then((res) => {
-        console.log(res)
         if (res.success && res.order.metadata.status === 'paid') {
-          console.log('here?')
-          dispatch(SET_CHECKOUT_STEP, { step: COMPLETED_STEP })
+          router.push('complete')
         } else if (res.order.metadata.status === 'paid') {
           // it has already been paid so better be on the completed step!
-          dispatch(SET_CHECKOUT_STEP, { step: COMPLETED_STEP })
           alert('You already completed this order!')
+          router.push('complete')
         } else {
           alert(res.error)
           dispatch(SET_ERROR, res.error)

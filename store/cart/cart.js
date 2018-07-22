@@ -109,7 +109,7 @@ const cart = {
     },
     [SET_CHECKOUT_STEP]: ({ commit, dispatch }, data) => {
       commit(SET_CHECKOUT_STEP, data)
-      dispatch(SET_LOADING, { value: false, save: false })
+      dispatch(SET_LOADING, { value: false, save: true })
     }
   },
   mutations: {

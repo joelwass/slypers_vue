@@ -1,19 +1,21 @@
 <template>
   <div class="shop-product">
-    <div>
-      <swiper :options="swiperOption" class="image-swiper">
-        <swiper-slide v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="image-swiper-slide"><img :src="image" alt=""></swiper-slide>
+    <div v-if="selectedFullProduct()">
+      <div v-swiper:mySwiper="swiperOption" class="image-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide image-swiper-slide" v-for="(image, index) in selectedFullProduct().images" :key="index" ><img :src="image" alt=""></div>
+        </div>
         <div class="swiper-pagination" slot="pagination"></div>
-      </swiper>
+      </div>
       <div class="grid-container-shop-product grid-container-shop-product-media">
-        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" :key="index" class="product-image one" :id="`shoe${index}`">
+        <div v-for="(image, index) in selectedFullProduct().images" :key="index" class="product-image one" :id="`shoe${index}`">
           <img :src="image" alt="">
         </div>
       </div>
     </div>
     <div class="sliding-window">
       <div class="grid-container-sliding-window">
-        <div v-for="(image, index) in selectedFullProduct(this.selectedProduct.id).images" @click="scrollToImage(`#shoe${index}`)" :key="index" :class="slidingWindowClasses(index)" name="Shoe1">
+        <div v-for="(image, index) in selectedFullProduct().images" @click="scrollToImage(`#shoe${index}`)" :key="index" :class="slidingWindowClasses(index)" name="Shoe1">
           <img :src="image" alt="">
         </div>
       </div>
@@ -50,16 +52,18 @@ import {
   mapActions
 } from 'vuex'
 import ProductCard from '~/components/ProductCard.vue'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import Api from '../middleware/api'
 
 export default {
   data() {
     return {
       swiperOption: {
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 30,
         pagination: {
-          el: '.swiper-pagination'
-        }
+          el: '.swiper-pagination',
+        },
       },
       validationIssue: undefined,
       sizes: [9.5, 10, 10.5, 11, 11.5, 12],
@@ -70,13 +74,17 @@ export default {
     }
   },
   created () {
-    window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('hashchange', function () {
-      window.scrollTo(window.scrollX, window.scrollY - 50);
-    });
+    if (process.browser) {
+      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('hashchange', function () {
+        window.scrollTo(window.scrollX, window.scrollY - 50);
+      });
+    }
   },
   destroyed () {
-    window.removeEventListener('scroll', this.handleScroll);
+    if (process.browser) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
   },
   computed: {
     ...mapState({
@@ -111,16 +119,20 @@ export default {
       return ['sliding-window-image']
     },
     handleScroll (event) {
-      const imageHeight = document.getElementById('shoe1').clientHeight
-      if (imageHeight) {
-        const floor = Math.floor((window.scrollY+300) / imageHeight)
-        this.viewingImage = floor
+      if (process.browser) {
+        const imageHeight = document.getElementById('shoe1').clientHeight
+        if (imageHeight) {
+          const floor = Math.floor((window.scrollY+300) / imageHeight)
+          this.viewingImage = floor
+        }
       }
     },
     dropdown() {
       this.dropdownOpen = !this.dropdownOpen
     },
-    selectedFullProduct(id) {
+    selectedFullProduct() {
+      const id = this.selectedProduct.id
+      if (!id) return {}
       return this.availableProducts.filter(val => {
         return val.id === id;
       })[0]
@@ -141,13 +153,13 @@ export default {
       }
     },
     scrollToImage(imageId) {
-      document.location = imageId
+      if (process.browser) {
+        document.location = imageId
+      }
     }
   },
   components: {
-    swiper,
-    swiperSlide,
-    ProductCard
+    ProductCard,
   }
 }
 </script>

@@ -46,9 +46,6 @@ export default {
     go(route) {
       this.toggleDrawer()
       this.$router.push(`/${route}`)
-    },
-    checkout() {
-
     }
   },
   computed: {

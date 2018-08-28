@@ -3,20 +3,22 @@
     <div v-if="selectedFullProduct()">
       <div v-swiper:mySwiper="swiperOption" class="image-swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide image-swiper-slide" v-for="(image, index) in selectedFullProduct().images" :key="index" ><img :src="image" alt=""></div>
+          <div class="swiper-slide image-swiper-slide" v-for="(image, index) in selectedFullProduct().images" :key="index" >
+            <img className="productImg" :src="image" alt="">
+          </div>
         </div>
         <div class="swiper-pagination" slot="pagination"></div>
       </div>
       <div class="grid-container-shop-product grid-container-shop-product-media">
         <div v-for="(image, index) in selectedFullProduct().images" :key="index" class="product-image one" :id="`shoe${index}`">
-          <img :src="image" alt="">
+          <img className="productImg" :src="image" alt="">
         </div>
       </div>
     </div>
     <div class="sliding-window">
       <div class="grid-container-sliding-window">
         <div v-for="(image, index) in selectedFullProduct().images" @click="scrollToImage(`#shoe${index}`)" :key="index" :class="slidingWindowClasses(index)" name="Shoe1">
-          <img :src="image" alt="">
+          <img className="productImg" :src="image" alt="">
         </div>
       </div>
     </div>
@@ -253,7 +255,7 @@ export default {
   grid-row: 1;
 }
 
-img {
+.productImg {
   max-height:100%;
   max-width:100%;
 }

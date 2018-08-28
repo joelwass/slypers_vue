@@ -18,7 +18,7 @@ export default {
 .TopLeftLogo {
   cursor: pointer;
   z-index: 1000;
-  background: url('~/assets/logos/Slypers-Logo@4x_PLAIN.png') no-repeat;
+  background: url('~/assets/logos/Slypers-Logo@4x_PLAIN_WHITE.png') no-repeat;
   background-size:contain;
   width: 200px;
   margin-top: 16px;
@@ -30,8 +30,15 @@ export default {
 }
 
 @media all and (min-width: 850px) {
-  .TopLeftLogo-media {
+  .TopLeftLogo {
+    cursor: pointer;
+    z-index: 1000;
+    background: url('~/assets/logos/Slypers-Logo@4x_PLAIN.png') no-repeat;
+    background-size:contain;
+    width: 200px;
     height: 50px;
+    margin-top: 16px;
+    margin-left: 16px;
   }
 }
 </style>

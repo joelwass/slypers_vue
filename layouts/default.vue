@@ -28,7 +28,6 @@ import helpers from '../helpers/methods'
 
 export default {
   mounted() {
-    console.log('here')
     this.setupCart()
   },
   methods: {

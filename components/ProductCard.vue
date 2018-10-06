@@ -42,7 +42,7 @@ export default {
 }
 
 .card > .product-price {
-  text-align: left;
+  text-align: center;
   bottom: 0px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -50,7 +50,7 @@ export default {
  
 .card > .product-label {
   margin-top: 15px;
-  text-align: left;
+  text-align: center;
   height: 30px;
 }
 

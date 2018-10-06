@@ -24,33 +24,45 @@ const cart = {
     availableProducts: [
       {
         id: '1',
-        description: 'Dutch Brothel Slypers Black And White',
-        image: '/shoes/blackAndWhite/Slypers_16.jpeg',
-        images: ['/shoes/blackAndWhite/Slypers_16.jpeg', '/shoes/blackAndWhite/Slypers_11.jpeg', '/shoes/blackAndWhite/Slypers_8.jpeg', '/shoes/blackAndWhite/Slypers_3.jpeg'],
-        name: 'Black & White Slypers',
+        description: 'Dutch Brothel Slypers Black',
+        image: '/shoes/black/Profile_black.png',
+        images: ['/shoes/black/Profile_black.png', '/shoes/black/Top_black.png', '/shoes/black/Detail_black.png', '/shoes/black/Bottom_black.png'],
+        name: 'Black Slypers',
         price: '400',
         price_dollars: 400,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Black & White'
+        colorString: 'Black'
       },
       {
         id: '2',
-        description: 'Dutch Brothel Slypers Grey',
-        image: '/shoes/grey/Slypers_13.jpeg',
-        images: ['/shoes/grey/Slypers_13.jpeg', '/shoes/grey/Slypers_10.jpeg', '/shoes/grey/Slypers_6.jpeg', '/shoes/grey/Slypers_1.jpeg'],
-        name: 'Grey Slypers',
+        description: 'Dutch Brothel Slypers Green',
+        image: '/shoes/green/Profile_green.png',
+        images: ['/shoes/green/Profile_green.png', '/shoes/green/Top_green.png', '/shoes/green/Detail_green.png', '/shoes/green/Bottom_green.png'],
+        name: 'Green Slypers',
         price: '400',
         price_dollars: 400,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Grey'
+        colorString: 'Green'
       },
       {
         id: '3',
+        description: 'Dutch Brothel Slypers Tan',
+        image: '/shoes/brown/Profile_brown.png',
+        images: ['/shoes/brown/Profile_brown.png', '/shoes/brown/Top_brown.png', '/shoes/brown/Detail_brown.png', '/shoes/brown/Bottom_brown.png'],
+        name: 'Tan Slypers',
+        price: '400',
+        price_dollars: 400,
+        price_cents: 0,
+        color: '#ff0000',
+        colorString: 'Tan'
+      },
+      {
+        id: '4',
         description: 'Dutch Brothel Slypers Blue',
-        image: '/shoes/blue/Slypers_14.jpeg',
-        images: ['/shoes/blue/Slypers_14.jpeg', '/shoes/blue/Slypers_12.jpeg', '/shoes/blue/Slypers_5.jpeg', '/shoes/blue/Slypers_4.jpeg'],
+        image: '/shoes/blue/Profile_blue.png',
+        images: ['/shoes/blue/Profile_blue.png', '/shoes/blue/Top_blue.png', '/shoes/blue/Detail_blue.png', '/shoes/blue/Bottom_blue.png'],
         name: 'Blue Slypers',
         price: '400',
         price_dollars: 400,
@@ -59,10 +71,10 @@ const cart = {
         colorString: 'Blue'
       },
       {
-        id: '4',
+        id: '5',
         description: 'Dutch Brothel Slypers Red',
-        image: '/shoes/red/Slypers_15_r.jpeg',
-        images: ['/shoes/red/Slypers_15_r.jpeg', '/shoes/red/Slypers_9_r.jpeg', '/shoes/red/Slypers_7_r.jpeg', '/shoes/red/Slypers_2_r.jpeg'],
+        image: '/shoes/red/Profile_red.png',
+        images: ['/shoes/red/Profile_red.png', '/shoes/red/Top_red.png', '/shoes/red/Detail_red.png', '/shoes/red/Bottom_red.png'],
         name: 'Red Slypers',
         price: '400',
         price_dollars: 400,

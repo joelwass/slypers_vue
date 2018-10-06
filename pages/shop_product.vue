@@ -4,21 +4,21 @@
       <div v-swiper:mySwiper="swiperOption" class="image-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide image-swiper-slide" v-for="(image, index) in selectedFullProduct().images" :key="index" >
-            <img className="productImg" :src="image" alt="">
+            <img className="productImg" :src="image" alt="Shoe image">
           </div>
         </div>
         <div class="swiper-pagination" slot="pagination"></div>
       </div>
       <div class="grid-container-shop-product grid-container-shop-product-media">
-        <div v-for="(image, index) in selectedFullProduct().images" :key="index" class="product-image one" :id="`shoe${index}`">
-          <img className="productImg" :src="image" alt="">
+        <div v-for="(image, index) in selectedFullProduct().images" :key="index" class="product-image" :id="`shoe${index}`">
+          <img className="productImg" :src="image" alt="Shoe image">
         </div>
       </div>
     </div>
     <div class="sliding-window">
       <div class="grid-container-sliding-window">
         <div v-for="(image, index) in selectedFullProduct().images" @click="scrollToImage(`#shoe${index}`)" :key="index" :class="slidingWindowClasses(index)" name="Shoe1">
-          <img className="productImg" :src="image" alt="">
+          <img className="productImg" :src="image" alt="Shoe image">
         </div>
       </div>
     </div>
@@ -255,11 +255,6 @@ export default {
   grid-row: 1;
 }
 
-.productImg {
-  max-height:100%;
-  max-width:100%;
-}
-
 .product-image {
   position: relative;
   /* border: 1px black solid; */
@@ -303,8 +298,8 @@ export default {
 @media all and (min-width: 850px) {
   .grid-container-shop-product-media {
     padding-left: 200px;
-    padding-right: 200px;
-    padding-top: 60px;
+    padding-right: 240px;
+    padding-top: 0px;
   } 
 
   .sliding-window {
@@ -314,6 +309,11 @@ export default {
     height: 70px;
     bottom: 350px;
     left: 130px;
+  }
+
+  .productImg {
+    max-height:100%;
+    max-width:100%;
   }
 
   .sizes > ul {

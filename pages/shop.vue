@@ -24,10 +24,11 @@ export default {
   data() {
     return {
       classes: {
-        'Red & Black Slypers': 'one',
-        'Grey Slypers': 'two',
-        'Black & White Slypers': 'three',
-        'Blue Slypers': 'four'
+        'Black Slypers': 'one',
+        'Green Slypers': 'two',
+        'Tan Slypers': 'three',
+        'Blue Slypers': 'four',
+        'Red Slypers': 'five'
       }
     }
   },
@@ -82,6 +83,11 @@ export default {
   grid-column: 2 / 2;
   grid-row: 2;
 }
+.grid-container-shop > .five {
+  grid-column: 1 / 2;
+  grid-row: 3;
+}
+
 
 @media all and (min-width: 850px) {
   .grid-container-shop-media {

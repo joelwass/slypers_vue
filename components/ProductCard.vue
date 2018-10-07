@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div>
+    <div class="card-image">
       <img :src="product.image" alt="productImage">
     </div>
     <div class="product-label">
@@ -36,7 +36,6 @@ export default {
 <style>
 .card {
   position: relative;
-  padding: 1em;
   text-align: center;
   cursor: pointer;
 }
@@ -60,6 +59,7 @@ img{
 }
 
 .card-image {
+  background-color: #F0F0F0;
   background-size: contain;
 }
 </style>

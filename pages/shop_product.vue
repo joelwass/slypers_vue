@@ -258,7 +258,8 @@ export default {
 .product-image {
   position: relative;
   /* border: 1px black solid; */
-  padding: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
   text-align: center;
 }
 

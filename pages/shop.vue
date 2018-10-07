@@ -56,7 +56,7 @@ export default {
 .grid-container-shop {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
+  grid-gap: 4px;
   min-height: 100vh;
   grid-auto-rows: minmax(200px, auto);
   margin: 0 auto;

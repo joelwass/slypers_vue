@@ -49,7 +49,7 @@ export default {
 
 <style>
   .bagSVG {
-    fill: #ffffff
+    fill: #000000
   }
 
   @media all and (min-width: 850px) {

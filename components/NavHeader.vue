@@ -93,7 +93,7 @@ export default {
 .header {
   position: fixed;
   z-index: 900;
-  background-color:black;
+  background-color: transparent;
   height: 60px;
   width: 100%;
 }

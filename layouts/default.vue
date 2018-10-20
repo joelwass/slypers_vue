@@ -62,9 +62,23 @@ export default {
   position: fixed;
 }
 
+@font-face {
+  font-family: 'OverpassMono-Bold';
+  font-weight: normal;
+  src: url('/font/OverpassMono-Bold.ttf'); /* IE9 Compat Mode */
+  src: url('/font/OverpassMono-Bold.ttf') format('ttf');
+}
+
+/* font-family: "OverpassMono-Regular"; */
+@font-face {
+  font-family: 'OverpassMono-Regular';
+  src: url('/font/OverpassMono-Regular.ttf'); /* IE9 Compat Mode */
+  src: url('/font/OverpassMono-Regular.ttf') format('ttf');
+}
+
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 12px;
+  font-family: 'OverpassMono-Regular', monospace;
+  font-size: 14px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;

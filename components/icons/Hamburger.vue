@@ -34,7 +34,7 @@ export default {
 
 <style>
   .hamburgerSVG path {
-    stroke: #ffffff
+    stroke: #000000
   }
 
   @media all and (min-width: 850px) {

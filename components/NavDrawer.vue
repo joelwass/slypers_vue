@@ -126,8 +126,8 @@ export default {
 .drawer-IconsNav {
   display: inline-block;
   position: fixed;
-  right: 10px;
-  top: 10px;
+  right: 14px;
+  top: 12px;
 }
 
 .drawer > .navigation {
@@ -156,7 +156,7 @@ export default {
 }
 
 .drawer-IconsNav > .icon {
-  margin-left: 5px;
+  margin-left: 14px;
 }
 
 @media all and (min-width: 850px) {

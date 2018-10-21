@@ -17,7 +17,7 @@
     </div>
     <div class="sliding-window">
       <div class="grid-container-sliding-window">
-        <div v-for="(image, index) in selectedFullProduct().images" @click="scrollToImage(`#shoe${index}`)" :key="index" :class="slidingWindowClasses(index)" name="Shoe1">
+        <div v-for="(image, index) in selectedFullProduct().images" @click="scrollToImage(`shoe${index}`)" :key="index" :class="slidingWindowClasses(index)" name="Shoe1">
           <img className="productImg" :src="image" alt="Shoe image">
         </div>
       </div>
@@ -156,7 +156,8 @@ export default {
     },
     scrollToImage(imageId) {
       if (process.browser) {
-        document.location = imageId
+        const scrollHeight = document.getElementById(imageId).offsetTop
+        window.scrollTo(0, scrollHeight + 240)
       }
     }
   },
@@ -298,8 +299,6 @@ export default {
 
 @media all and (min-width: 850px) {
   .grid-container-shop-product-media {
-    padding-left: 200px;
-    padding-right: 240px;
     padding-top: 0px;
   } 
 

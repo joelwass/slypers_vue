@@ -68,8 +68,8 @@ export default {
 .IconsNav {
   display: inline-block;
   position: fixed;
-  right: 10px;
-  top: 10px;
+  right: 14px;
+  top: 12px;
 }
 
 .quantity-in-bag {
@@ -87,7 +87,7 @@ export default {
 }
 
 .IconsNav > .icon {
-  margin-left: 5px;
+  margin-left: 14px;
 }
 
 .header {
@@ -105,7 +105,7 @@ export default {
 
   .header {
     height: 70px;
-    background-color: white;
+    background-color: transparent;
   }
 }
 </style>

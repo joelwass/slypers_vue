@@ -90,7 +90,7 @@
           <div>
             <h4 class="checkout-content-subheader">SHIPPING</h4>
             <div class="shipping-subheader">ADDRESS</div>
-            <div class="modify-button">
+            <div class="modify-button" v-on:click="setCheckoutStep({ step: 'SHIPPING_STEP' })">
               <p><u>MODIFY</u></p>
             </div><br>
             <label for="shippingAddress">{{ this.address }}</label><br>
@@ -159,6 +159,7 @@ import helperMethods from '../helpers/methods'
 
 export default {
   mounted() {
+    this.setCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })
     this.setLoading({ value: false, save: false })
   },
   head () {

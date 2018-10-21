@@ -89,6 +89,10 @@ export default {
   color: white;
 }
 
+.drawer-footer > .checkout-button > .checkout-button-text {
+  padding-top: 0px;
+}
+
 .navigation > ul {
   list-style-type: none;
   padding-left: 4pt;
@@ -100,7 +104,7 @@ export default {
 }
 
 .navigation > ul > li {
-  font-size: 11px;
+  font-size: 14px;
   cursor: pointer;
   padding-top: 5px;
 }

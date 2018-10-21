@@ -211,7 +211,7 @@ export default {
   padding-bottom: 130px;
   height: 100%;
   overflow: scroll;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .selectedProduct > .selectedProductImage {

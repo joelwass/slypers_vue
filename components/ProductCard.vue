@@ -4,7 +4,7 @@
       <img :src="product.image" alt="productImage">
     </div>
     <div class="product-label">
-      <label :for="labelFor">{{ product.description.toUpperCase() }}</label>
+      <label :for="labelFor">{{ product.name.toUpperCase() }}</label>
     </div>
     <div class="product-price">
       <p>$ {{ product.price }} - ORDER NOW</p>

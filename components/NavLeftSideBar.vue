@@ -52,6 +52,7 @@ export default {
   position: fixed;
   width: 150px;
   height: 400px;
+  z-index:10000;
   background: transparent;
   display: none;
 }

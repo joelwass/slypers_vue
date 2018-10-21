@@ -150,7 +150,7 @@ export default {
       } else {
         // add to bag and pop bag drawer
         // TODO: need to add the specific sku for the size they selected
-        this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber, sku: this.selectedProduct.skus[0].id })
+        this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })
         this.setBagDrawerOpen(true);
       }
     },

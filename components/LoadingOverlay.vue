@@ -1,5 +1,7 @@
 <template>
-  <div class="loading-overlay"></div>
+  <div class="loading-overlay">
+    <p>LOADING...</p>
+  </div>
 </template>
 
 <script>

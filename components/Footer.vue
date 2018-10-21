@@ -1,14 +1,15 @@
 <template>
   <footer class="footer_basic">
     <div class="email_collection">
-      <form v-if="stateEmail === ''" class="email-collection-form">
-        <input type="text" placeholder="Keep in touch" class="sign-up-email-input" v-model="email">
+      <form v-if="!currentEmail || currentEmail == ''" class="email-collection-form">
+        <p class="email_collection__header">Stay updated.</p>
+        <input type="text" placeholder="your email" class="sign-up-email-input" v-model="email">
         <div class="sign-up-button" v-on:click="subscribeForEmail">
-          <p>Sign Up</p>
+          <p>SIGN ME UP</p>
         </div>
       </form>
       <div v-else class="email-collection-form">
-        <p class="signed-up-email">{{ currentEmail }}, you're subscribed</p>
+        <p class="signed-up-email">{{ currentEmail && currentEmail.toUpperCase() }}, YOU'RE IN THE KNOW</p>
       </div>
     </div>
   </footer>
@@ -55,11 +56,17 @@ export default {
 <style>
 .email-collection-form {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .signed-up-email {
   color: white;
+}
+
+.email_collection__header {
+  color: white;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .sign-up-email-input {
@@ -87,8 +94,8 @@ export default {
     color: black;
     float: left;
     border: none;
-    width: 60px;
-    padding-top: 2px;
+    width: 100px;
+    padding-top: 1px;
     padding-bottom: 1px;
     margin: 10px 10px 0 10px;
     font: inherit;

@@ -87,16 +87,6 @@ const cart = {
   },
   actions: {
     [SETUP_CART]: ({ dispatch, commit }) => {
-      dispatch(SET_LOADING, { value: true, save: false })
-      API.getStripeProducts().then((res) => {
-        if (res.success) {
-          commit(SETUP_CART, res.products.data)
-        } else {
-          console.log(res)
-          dispatch(SET_ERROR, res.message)
-        }
-        dispatch(SET_LOADING, { value: false, save: false })
-      })
       API.resume().then((res) => {
         console.log('resume response', res)
         if (res.success) {
@@ -106,9 +96,6 @@ const cart = {
           dispatch(SET_ERROR, res.message)
         }
       })
-    },
-    [SET_AVAILABLE_PRODUCTS]: ({ commit }, availableProducts) => {
-      commit(SET_AVAILABLE_PRODUCTS, availableProducts)
     },
     [SET_SELECTED_PRODUCTS]: ({ commit }, selectedProducts) => {
       commit(SET_SELECTED_PRODUCTS, selectedProducts)
@@ -126,19 +113,6 @@ const cart = {
     }
   },
   mutations: {
-    [SETUP_CART](state, products) {
-      const copy = state.availableProducts.slice()
-      for (var j = 0; j < products.length; j++) {
-        const prod = products[j]
-        for (var i = 0; i < copy.length; i++) {
-          if (copy[i].id === prod.id) {
-            copy[i].skus = prod.skus.data
-            break;
-          }
-        }
-      }
-      Vue.set(state, 'availableProducts', copy)
-    },
     [SET_AVAILABLE_PRODUCTS](state, availableProducts) {
       Vue.set(state, 'availableProducts', availableProducts)
     },
@@ -147,7 +121,7 @@ const cart = {
     },
     [ADD_PRODUCT](state, data) {
       const newArray = state.selectedProducts
-      newArray.push({ productId: data.productId, size: data.size, quantity: 1, sku: data.sku })
+      newArray.push({ productId: data.productId, size: data.size, quantity: 1 })
       Vue.set(state, 'selectedProducts', newArray)
     },
     [RESUME](state, data) {

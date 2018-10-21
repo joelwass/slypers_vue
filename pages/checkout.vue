@@ -195,7 +195,7 @@ export default {
       if (view === 'PAYMENT_STEP' && !this.cardStuffInitialized) {
         this.cardStuffInitialized = true
           // Create a Stripe client.
-        this.localStripe = Stripe('pk_test_vosa23qHDTzgpr2tENv03qLC');
+        this.localStripe = Stripe('pk_test_PyjI6tSavuVEBwj8J457UWqo');
 
         // Create an instance of Elements.
         var elements = this.localStripe.elements();
@@ -409,31 +409,45 @@ export default {
       setSignUpPassword: 'SET_SIGNUP_PASSWORD'
     }),
     submitOrder() {
-      this.submit(this.$router)
+      this.submit({router: this.$router, subtotal: this.subtotal()*100, products: this.selectedProducts})
     },
     setCheckoutStep(data) {
       this.setLoading({ value: true, save: true })
       this.setCurrentCheckoutStep(data)
+    },
+    subtotal() {
+      return this.selectedProducts.reduce((acc, val) => {
+        const product = this.availableProducts.filter((avail) => avail.id === val.productId)[0]
+        return acc + parseInt(product.price_dollars)
+      }, 0)
     },
     savePayment(event) {
       event.preventDefault();
       const self = this
       this.setLoading({ value: true, save: false })
 
-      // set name on card
-      try {
-        this.localCard.token.card.name = `${this.firstName} ${this.lastName}`
-      } catch (e) {
-        console.log(e)
-        // dont do anything, dont care
-      }
       console.log('current card', this.localCard)
+      // set shipping and meta values on card
+      const options = {
+        name: `${this.firstName} ${this.lastName}`,
+        address_country: 'United States',
+        address_zip: this.zip,
+        address_state: this.stateAddress,
+        address_city: this.city,
+        address_line1: this.address,
+        address_line2: this.address2,
+        metadata: {
+          selectedProducts: this.selectedProducts,
+          subtotal: this.subtotal()*100
+        }
+      }
 
-      this.localStripe.createToken(this.localCard).then(function(result) {
+      this.localStripe.createToken(this.localCard, options).then(function(result) {
         if (result.error) {
+          result.token.email = this.email
           // Inform the user if there was an error.
-          var errorElement = document.getElementById('card-errors');
-          errorElement.textContent = result.error.message;
+          var errorElement = document.getElementById('card-errors')
+          errorElement.textContent = result.error.message
           this.setLoading({ value: false, save: false })
         } else {
           // Send the token to your server.
@@ -463,6 +477,8 @@ export default {
       }
     },
     saveShippingInfo() {
+      console.log('here')
+      console.log(this.email, this.address, this.city, this.stateAddress, this.zip)
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
         this.saveShipping({ email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts, name: `${this.firstName} ${this.lastName}` })
       }

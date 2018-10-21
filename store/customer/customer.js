@@ -31,6 +31,7 @@ import {
   SET_CUSTOMER_TOKEN,
   SUBMIT_ORDER,
   SET_SIGNUP_EMAIL,
+  SET_SELECTED_PRODUCTS,
   SET_SIGNUP_PASSWORD,
   COMPLETED_STEP,
   RESUME
@@ -64,12 +65,13 @@ const customer = {
     [SET_SIGNUP_PASSWORD]: ({ commit }, password) => {
       commit(SET_SIGNUP_PASSWORD, password)
     },
-    [SUBMIT_ORDER]: ({ dispatch, commit, state }, router) => {
+    [SUBMIT_ORDER]: ({ dispatch, commit, state }, {router, subtotal, products}) => {
       dispatch(SET_LOADING, { value: true, save: true })
-      API.pay({ token: state.token, orderId: state.order.id, email: state.user.email }).then((res) => {
-        if (res.success && res.order.metadata.status === 'paid') {
+      API.pay({ token: state.token, email: state.user.email, subtotal, products }).then((res) => {
+        if (res.success && res.status === 'succeeded') {
+          dispatch(SET_SELECTED_PRODUCTS, [])
           router.push('complete')
-        } else if (res.order.metadata.status === 'paid') {
+        } else if (res.status === 'paid') {
           // it has already been paid so better be on the completed step!
           alert('You already completed this order!')
           router.push('complete')
@@ -158,44 +160,13 @@ const customer = {
     [SAVE_CUSTOMER_SHIPPING]: ({ dispatch, commit }, data) => {
       dispatch(CLEAR_ERRORS)
       dispatch(SET_LOADING, { value: true, save: true })
-      const stripeOrderData = {
-        shipping: {
-          name: data.name,
-          address: {
-            city: data.city,
-            country: 'USA',
-            line1: data.address,
-            state: data.state,
-            postal_code: data.zip
-          }
-        },
-        items: data.selectedProducts.slice().map((val) => {
-          return {
-            currency: 'usd',
-            quantity: val.quantity,
-            parent: val.sku,
-            type: 'sku'
-          }
-        }),
-        email: data.email
-      }
-      API.createStripeOrder(stripeOrderData).then(res => {
-        if (res.success) {
-          commit(SET_CUSTOMER_ORDER, res.order)
-          return API.saveShipping({
-            address: data.address,
-            address2: data.address2,
-            email: data.email,
-            city: data.city,
-            state: data.state,
-            zip: data.zip
-          })
-        } else {
-          alert(res.message)
-          console.log(res)
-          dispatch(SET_ERROR, res.message)
-          // TODO: maybe throw here?
-        }
+      API.saveShipping({
+        address: data.address,
+        address2: data.address2,
+        email: data.email,
+        city: data.city,
+        state: data.state,
+        zip: data.zip
       }).then((res) => {
         if (res.success) {
           dispatch(SET_CHECKOUT_STEP, { step: PAYMENT_STEP })

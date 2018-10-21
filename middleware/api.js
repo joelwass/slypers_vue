@@ -89,9 +89,13 @@ class API {
       headers,
       data: {
         source: data.token,
-        email: data.email
+        metadata: {
+          email: data.email,
+          subtotal: data.subtotal,
+          products: JSON.stringify(data.products)
+        }
       },
-      url: `${endpoint}/stripe/orders/${data.orderId}/pay`
+      url: `${endpoint}/pay`
     }
     return axios(options)
       .then(res => {

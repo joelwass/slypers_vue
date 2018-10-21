@@ -74,8 +74,8 @@ export default {
 
 .quantity-in-bag {
   position: absolute;
-  top: 11px;
-  right: 43px;
+  top: 10px;
+  right: 42px;
 }
 
 .bag {
@@ -93,7 +93,7 @@ export default {
 .header {
   position: fixed;
   z-index: 900;
-  background-color: transparent;
+  background-color: white;
   height: 60px;
   width: 100%;
 }
@@ -105,7 +105,7 @@ export default {
 
   .header {
     height: 70px;
-    background-color: transparent;
+    background-color: white;
   }
 }
 </style>

@@ -239,10 +239,9 @@ export default {
   background-color: black;
   margin-top: 10px;
   cursor: pointer;
-  padding-top: 4px;
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
   color: white;
   width: 80%;
 }

@@ -11,14 +11,13 @@
         <ul>
           <li><a v-on:click="go('shop')">SHOP</a></li>
           <li><a v-on:click="go('about')">ABOUT</a></li>
-          <li><a v-on:click="go('login')">LOGIN / SIGNUP</a></li>
           <li><a v-on:click="go('faq')">FAQ</a></li>
         </ul>
       </div><br>
       <div class="drawer-footer">
         <hr>
         <div class="checkout-button" v-on:click="checkout">
-          <p>CHECKOUT ({{ selectedProducts.length }} ITEMS)</p>
+          <p class="checkout-button-text"><b>CHECKOUT ({{ selectedProducts.length }} ITEMS)</b></p>
         </div>
       </div>
     </div>
@@ -37,7 +36,8 @@ import Bag from '~/components/icons/Bag.vue'
 export default {
   methods: {
     ...mapActions({
-      setDrawerOpen: 'SET_DRAWER_OPEN'
+      setDrawerOpen: 'SET_DRAWER_OPEN',
+      setLoading: 'SET_LOADING'
     }),
     toggleDrawer() {
       const prevDrawerOpen = this.drawerOpen
@@ -46,6 +46,10 @@ export default {
     go(route) {
       this.toggleDrawer()
       this.$router.push(`/${route}`)
+    },
+    checkout() {
+      this.setLoading({ value: true, save: true })
+      this.go('checkout')
     }
   },
   computed: {
@@ -80,7 +84,7 @@ export default {
   text-align: center;
   background-color: black;
   margin-top: 10px;
-  padding-top: 8px;
+  padding-top: 4px;
   padding-bottom: 8px;
   color: white;
 }

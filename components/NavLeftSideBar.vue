@@ -72,7 +72,7 @@ export default {
 }
 
 .SideBarLeft > .Links > ul > li {
-  font-size: 11px;
+  font-size: 14px;
   cursor: pointer;
   margin-top: 2px;
   padding-top: 3px;

@@ -47,7 +47,6 @@ export default {
 .container {
   overflow: hidden;
   align-items: center;
-  padding-top: 100px;
   max-height: 100vh;
   margin: auto;
 }

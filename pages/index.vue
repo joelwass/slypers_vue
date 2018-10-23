@@ -3,7 +3,7 @@
   <div class="discoverText">
     <div class="discoverText__about">
       <p>Bordeelslypers</p>
-      <p>Dutch Brothel Slypers</p>
+      <p>Dutch Brothel Creepers</p>
     </div>
     <div class="discoverText__footer">
       <p>XXX</p>
@@ -11,7 +11,8 @@
   </div>
   <div class="container">
     <div class="splash-image-div">
-      <img class="splash-image" src="/shoes/red/Top_red.png" alt="A Brothel Slyper">
+      <img class="splash-image-desktop" src="/shoes/red/Profile_red.png" alt="A Brothel Slyper">
+      <img class="splash-image-mobile" src="/shoes/red/Back_single_red.png" alt="A Brothel Slyper">
     </div>
   </div>
 </div>
@@ -29,10 +30,15 @@ export default {
 </script>
 
 <style>
-.splash-image {
+.splash-image-mobile {
   margin: auto;
+  padding-top: 70px;
   overflow: hidden;
   width: 100%;
+}
+
+.splash-image-desktop {
+  display: none;
 }
 
 .fullscreen {
@@ -76,9 +82,14 @@ export default {
 }
 
 @media all and (min-width: 850px) {
-  .splash-image {
-    margin: auto;
+  .splash-image-mobile {
+    display: none;
+  }
+
+  .splash-image-desktop {
     width: 100%;
+    margin: auto;
+    display: block;
   }
 
   .discoverText {

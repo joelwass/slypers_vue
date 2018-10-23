@@ -5,7 +5,6 @@
         <li><a v-on:click="go('shop')">SHOP</a></li>
         <li><a v-on:click="go('about')">ABOUT</a></li>
         <li><a v-on:click="toggleDrawer">BAG ({{ selectedProducts.length }})</a></li>
-        <li><a v-on:click="go('faq')">FAQ</a></li>
       </ul>
     </div>
   </div>
@@ -51,7 +50,6 @@ export default {
 .SideBarLeft {
   position: fixed;
   width: 150px;
-  height: 400px;
   z-index:10000;
   background: transparent;
   display: none;
@@ -73,7 +71,7 @@ export default {
 }
 
 .SideBarLeft > .Links > ul > li {
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   margin-top: 2px;
   padding-top: 3px;
@@ -92,13 +90,12 @@ export default {
   .SideBarLeft {
     position: fixed;
     width: 150px;
-    height: 400px;
+    margin-top: 100px;
     background: transparent;
     display: block;
   }
 
   .SideBarLeft-media {
-    padding-top: 100px;
     padding-left: 40px;
   }
 }

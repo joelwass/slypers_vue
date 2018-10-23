@@ -26,9 +26,9 @@
       <div class="product-details-description">
         <h2>{{ this.selectedProduct.name }}</h2><br>
         <h3>${{ this.selectedProduct.price }}</h3><br>
-        <p><b>Description -</b><br>{{ this.selectedProduct.description }} </p><br>
+        <p><b>Description</b><br>{{ this.selectedProduct.description }} </p><br>
 
-        <p>Select Size:</p><br>
+        <p>Select Size</p><br>
         <div v-on:click="dropdown" class="sizes-select">{{ this.selectedSizeData }}</div>
         <div v-show="dropdownOpen" class="sizes">
           <ul>

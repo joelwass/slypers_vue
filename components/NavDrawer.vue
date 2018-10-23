@@ -104,7 +104,7 @@ export default {
 }
 
 .navigation > ul > li {
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   padding-top: 5px;
 }

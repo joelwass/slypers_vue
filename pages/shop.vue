@@ -91,8 +91,8 @@ export default {
 
 @media all and (min-width: 850px) {
   .grid-container-shop-media {
-    padding-left: 200px;
-    padding-right: 200px;
+    padding-left: 240px;
+    padding-right: 240px;
     padding-top: 0px;
   } 
 

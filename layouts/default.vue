@@ -78,7 +78,7 @@ export default {
 
 html {
   font-family: 'OverpassMono-Regular', monospace;
-  font-size: 14px;
+  font-size: 13px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;

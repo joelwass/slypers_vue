@@ -24,42 +24,18 @@ const cart = {
     availableProducts: [
       {
         id: '1',
-        description: 'Dutch Brothel Slypers Grey',
-        image: '/shoes/black/Profile_black.png',
-        images: ['/shoes/black/Profile_black.png', '/shoes/black/Top_black.png', '/shoes/black/Detail_black.png', '/shoes/black/Bottom_black.png'],
-        name: 'Bubblebad - Apres MMXIX',
+        description: 'Dutch Brothel Slypers Red',
+        image: '/shoes/red/Profile_red.png',
+        images: ['/shoes/red/Profile_red.png', '/shoes/red/Top_red.png', '/shoes/red/Detail_red.png', '/shoes/red/Bottom_red.png'],
+        name: 'Kameel ritje',
         price: '400',
         price_dollars: 400,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Grey'
+        colorString: 'Red'
       },
       {
         id: '2',
-        description: 'Dutch Brothel Slypers Green',
-        image: '/shoes/green/Profile_green.png',
-        images: ['/shoes/green/Profile_green.png', '/shoes/green/Top_green.png', '/shoes/green/Detail_green.png', '/shoes/green/Bottom_green.png'],
-        name: 'Onderwaterjager',
-        price: '400',
-        price_dollars: 400,
-        price_cents: 0,
-        color: '#ff0000',
-        colorString: 'Green'
-      },
-      {
-        id: '3',
-        description: 'Dutch Brothel Slypers Tan',
-        image: '/shoes/brown/Profile_brown.png',
-        images: ['/shoes/brown/Profile_brown.png', '/shoes/brown/Top_brown.png', '/shoes/brown/Detail_brown.png', '/shoes/brown/Bottom_brown.png'],
-        name: 'Tijgerjager',
-        price: '400',
-        price_dollars: 400,
-        price_cents: 0,
-        color: '#ff0000',
-        colorString: 'Tan'
-      },
-      {
-        id: '4',
         description: 'Dutch Brothel Slypers Blue',
         image: '/shoes/blue/Profile_blue.png',
         images: ['/shoes/blue/Profile_blue.png', '/shoes/blue/Top_blue.png', '/shoes/blue/Detail_blue.png', '/shoes/blue/Bottom_blue.png'],
@@ -71,16 +47,40 @@ const cart = {
         colorString: 'Blue'
       },
       {
-        id: '5',
-        description: 'Dutch Brothel Slypers Red',
-        image: '/shoes/red/Profile_red.png',
-        images: ['/shoes/red/Profile_red.png', '/shoes/red/Top_red.png', '/shoes/red/Detail_red.png', '/shoes/red/Bottom_red.png'],
-        name: 'Kameel ritje',
+        id: '3',
+        description: 'Dutch Brothel Slypers Green',
+        image: '/shoes/green/Profile_green.png',
+        images: ['/shoes/green/Profile_green.png', '/shoes/green/Top_green.png', '/shoes/green/Detail_green.png', '/shoes/green/Bottom_green.png'],
+        name: 'Onderwaterjager',
         price: '400',
         price_dollars: 400,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Red'
+        colorString: 'Green'
+      },
+      {
+        id: '4',
+        description: 'Dutch Brothel Slypers Tan',
+        image: '/shoes/brown/Profile_brown.png',
+        images: ['/shoes/brown/Profile_brown.png', '/shoes/brown/Top_brown.png', '/shoes/brown/Detail_brown.png', '/shoes/brown/Bottom_brown.png'],
+        name: 'Tijgerjager',
+        price: '400',
+        price_dollars: 400,
+        price_cents: 0,
+        color: '#ff0000',
+        colorString: 'Tan'
+      },
+      {
+        id: '5',
+        description: 'Dutch Brothel Slypers Grey',
+        image: '/shoes/black/Profile_black.png',
+        images: ['/shoes/black/Profile_black.png', '/shoes/black/Top_black.png', '/shoes/black/Detail_black.png', '/shoes/black/Bottom_black.png'],
+        name: 'Bubblebad Apres MMXIX',
+        price: '400',
+        price_dollars: 400,
+        price_cents: 0,
+        color: '#ff0000',
+        colorString: 'Grey'
       }
     ],
     selectedProducts: []

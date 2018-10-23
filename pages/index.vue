@@ -1,24 +1,20 @@
 <template>
-<div class="fullscreen">
-  <div class="container">
-    <div class="splash-image-div">
-      <img class="splash-image" src="/brothel.jpeg" alt="A Dutch Brothel">
+<div class="fullscreen" v-on:click="go('shop')">
+  <div class="discoverText">
+    <div class="discoverText__about">
+      <p>Bordeelslypers</p>
+      <p>Dutch Brothel Slypers</p>
+    </div>
+    <div class="discoverText__footer">
+      <p>XXX</p>
     </div>
   </div>
-    <div class="discoverText">
-      <div class="discoverText__about">
-        <p>BORDEELSLYPERS ("BROTHEL CREEPERS").</p>
-        <p>A WAY OF LIFE SINCE THE DUTCH GOLDEN AGE.</p>
-        <p>NEVER GET CAUGHT.</p>
-      </div>
-      <div class="discoverText__preorder">
-        <a v-on:click="go('shop')">PRE-ORDER THE COLLECTION</a>
-      </div>
-      <div class="discoverText__footer">
-        <p>XXX</p>
-      </div>
+  <div class="container">
+    <div class="splash-image-div">
+      <img class="splash-image" src="/shoes/red/Top_red.png" alt="A Brothel Slyper">
     </div>
-    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -59,6 +55,8 @@ export default {
 .discoverText {
   height: 40px;
   width: 100%;
+  z-index: 10000;
+  padding-top: 100px;
   color: black;
   margin-left: 20px;
 }
@@ -75,6 +73,7 @@ export default {
 
 .discoverText__footer {
   margin-top: 20px;
+  display: none;
 }
 
 @media all and (min-width: 850px) {
@@ -93,11 +92,16 @@ export default {
   .container {
     width: 100%;
     padding-top: 0px;
-    padding-left: 360px;
+    padding-left: 200px;
     align-items: center;
     display: flex;
     min-height: 100vh;
     margin: auto;
+  }
+
+  .discoverText__footer {
+    margin-top: 20px;
+    display:block;
   }
 }
 </style>

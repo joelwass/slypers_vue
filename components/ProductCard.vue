@@ -3,11 +3,13 @@
     <div class="card-image">
       <img :src="product.image" alt="productImage">
     </div>
-    <div class="product-label">
-      <label :for="labelFor">{{ product.name.toUpperCase() }}</label>
-    </div>
-    <div class="product-price">
-      <p>$ {{ product.price }} - ORDER NOW</p>
+    <div class="card__details">
+      <div class="product-label">
+        <p>{{ product.name }}</p>
+      </div>
+      <div class="product-price">
+        <p>$ {{ product.price }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -36,21 +38,25 @@ export default {
 <style>
 .card {
   position: relative;
-  text-align: center;
+  text-align: left;
   cursor: pointer;
 }
 
-.card > .product-price {
-  text-align: center;
+.card > .card__details > .product-price {
+  text-align: left;
   bottom: 0px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
  
-.card > .product-label {
+.card > .card__details > .product-label {
   margin-top: 15px;
-  text-align: center;
+  text-align: left;
   height: 30px;
+}
+
+.card__details {
+  padding-left: 10px;
 }
 
 img{

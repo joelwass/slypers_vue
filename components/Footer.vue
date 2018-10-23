@@ -3,7 +3,7 @@
     <div class="email_collection">
       <form v-if="!currentEmail || currentEmail == ''" class="email-collection-form">
         <p class="email_collection__header">Stay updated.</p>
-        <input type="text" placeholder="your email" class="sign-up-email-input" v-model="email">
+        <input type="text" placeholder="Your email" class="sign-up-email-input" v-model="email">
         <div class="sign-up-button" v-on:click="subscribeForEmail">
           <p>SIGN ME UP</p>
         </div>
@@ -75,8 +75,8 @@ export default {
   border: none;
   float: left;
   padding-top: 3px;
-  padding-bottom: 2px;
-  padding-left:3px;
+  padding-bottom: 4px;
+  padding-left:6px;
 }
 
 .sign-up-email-input:focus {
@@ -96,7 +96,7 @@ export default {
     border: none;
     width: 100px;
     padding-top: 1px;
-    padding-bottom: 1px;
+    padding-bottom: 4px;
     margin: 10px 10px 0 10px;
     font: inherit;
     cursor: pointer;

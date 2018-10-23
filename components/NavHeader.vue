@@ -1,9 +1,9 @@
 <template>
   <div class="header">
     <div class="IconsNav">
-      <bag v-on:click.native="toggleBagDrawer" class="icon bag" width="19" height="25" />
+      <bag v-on:click.native="toggleBagDrawer" class="icon bag" width="22" height="27" />
       <div class="quantity-in-bag">{{ selectedItems.length ? selectedItems.length : '' }}</div>
-      <hamburger v-on:click.native="toggleDrawer" class="icon burger" width="32" height="30"/>
+      <hamburger v-on:click.native="toggleDrawer" class="icon burger" width="34" height="32"/>
     </div>
     <logo />
   </div>
@@ -68,7 +68,7 @@ export default {
 .IconsNav {
   display: inline-block;
   position: fixed;
-  right: 14px;
+  right: 24px;
   top: 12px;
 }
 
@@ -87,7 +87,7 @@ export default {
 }
 
 .IconsNav > .icon {
-  margin-left: 14px;
+  margin-left: 24px;
 }
 
 .header {

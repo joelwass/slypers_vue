@@ -162,7 +162,7 @@ export default {
     this.setCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })
     this.setLoading({ value: false, save: false })
   },
-  head () {
+  head() {
     return {
       script: [
         { src: 'https://js.stripe.com/v3/' }

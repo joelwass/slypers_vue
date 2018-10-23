@@ -1,5 +1,5 @@
 <template>
-  <div v-on:click="goHome" class="TopLeftLogo TopLeftLogo-media">
+  <div v-on:click="goHome" class="TopLeftLogo">
   </div>
 </template>
 
@@ -20,13 +20,10 @@ export default {
   z-index: 1000;
   background: url('~/assets/logos/Slypers-Logo@4x_PLAIN.png') no-repeat;
   background-size:contain;
-  width: 190px;
-  margin-top: 16px;
-  margin-left: 16px;
-}
-
-.TopLeftLogo-media {
+  width: 160px;
   height: 40px;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 @media all and (min-width: 850px) {
@@ -35,8 +32,8 @@ export default {
     z-index: 1000;
     background: url('~/assets/logos/Slypers-Logo@4x_PLAIN.png') no-repeat;
     background-size:contain;
-    width: 200px;
-    height: 50px;
+    width: 160px;
+    height: 40px;
     margin-top: 16px;
     margin-left: 16px;
   }

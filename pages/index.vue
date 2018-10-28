@@ -1,12 +1,15 @@
 <template>
-<div class="fullscreen" v-on:click="go('shop')">
+<div class="fullscreen">
   <div class="discoverText">
-    <div class="discoverText__about">
+    <div class="discoverText__about" v-on:click="go('shop')">
       <p>Bordeelslypers</p>
-      <p>Dutch Brothel Creepers</p>
+      <p>Dutch Brothel Creepers</p><br>
+    </div>
+    <div v-on:click="go('easter')">
+      <p>XXX</p>
     </div>
   </div>
-  <div class="container">
+  <div class="container" v-on:click="go('shop')">
     <div class="splash-image-div">
       <img class="splash-image-desktop" src="/shoes/red/Profile_red.png" alt="A Brothel Slyper">
       <img class="splash-image-mobile" src="/shoes/red/Back_single_red.png" alt="A Brothel Slyper">

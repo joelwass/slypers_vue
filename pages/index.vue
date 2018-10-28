@@ -5,9 +5,6 @@
       <p>Bordeelslypers</p>
       <p>Dutch Brothel Creepers</p>
     </div>
-    <div class="discoverText__footer">
-      <p>XXX</p>
-    </div>
   </div>
   <div class="container">
     <div class="splash-image-div">

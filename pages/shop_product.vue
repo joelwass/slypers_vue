@@ -25,10 +25,13 @@
     <div class="product-details">
       <div class="product-details-description">
         <h2>{{ this.selectedProduct.name }}</h2><br>
-        <h3>${{ this.selectedProduct.price }}</h3><br>
-        <p><b>Description</b><br>{{ this.selectedProduct.description }} </p><br>
+        <h3>€ {{ this.selectedProduct.price }}</h3><br>
+        <p><b>Description & Details</b>
+        <p>Colour: {{ this.selectedProduct.colorString }} on {{ this.selectedProduct.colorString }}</p>
+        <p>Dutch Bordeelslyper.  Italian suiting wool upper. Cotton liner.  Memory foam cushioned insole.  EVA microfoam outsole.  Suede tassel.</p>
+        <p>Made In Italy</p><br>
 
-        <p>Select Size</p><br>
+        <p><b>Size</b></p>
         <div v-on:click="dropdown" class="sizes-select">{{ this.selectedSizeData }}</div>
         <div v-show="dropdownOpen" class="sizes">
           <ul>
@@ -41,7 +44,7 @@
         </div>
         
         <div class="add-to-cart-button" v-on:click="addToCart">
-          <p>Add to Cart</p>
+          <p>ADD TO BAG</p>
         </div>
       </div>
     </div>
@@ -70,7 +73,7 @@ export default {
       validationIssue: undefined,
       sizes: [9.5, 10, 10.5, 11, 11.5, 12],
       dropdownOpen: false,
-      selectedSizeData: 'Size',
+      selectedSizeData: 'SELECT SIZE',
       selectedSizeNumber: undefined,
       viewingImage: 0
     }
@@ -179,8 +182,8 @@ export default {
 
 .sizes-select {
   border: 1px solid black;
-  width: 120px;
-  padding-left: 3px;
+  width: 100%;
+  padding-left: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
   cursor:pointer;
@@ -207,9 +210,9 @@ export default {
   list-style-type: none;
   border: 1px solid black;
   background-color: white;
-  position: absolute;
   z-index: 10000;
-  width: 120px;
+  width: 100%;
+  overflow: hidden;
   padding: 0;
   cursor: pointer;
 }
@@ -219,7 +222,7 @@ export default {
   margin: 0;
   padding-top: 3px;
   padding-bottom: 3px;
-  padding-left: 3px;
+  padding-left: 5px;
   width: 100%;
 }
 
@@ -302,6 +305,10 @@ export default {
     padding-top: 0px;
   } 
 
+  .product-details-description > p {
+    margin-bottom: 5px;
+  }
+
   .sliding-window {
     display: block;
     position: fixed;
@@ -309,6 +316,16 @@ export default {
     height: 70px;
     bottom: 350px;
     left: 130px;
+  }
+
+  .sizes-select {
+    border: 1px solid black;
+    width: 100%;
+    background-color: white;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor:pointer;
   }
 
   .productImg {
@@ -322,11 +339,12 @@ export default {
     background-color: white;
     position: absolute;
     z-index: 10000;
-    width: 80%;
+    width: 210px;
     padding: 0;
   }
 
   .grid-container-shop-product {
+    padding-left: 120px;
     display: block;
   }
 
@@ -336,7 +354,7 @@ export default {
 
   .product-details {
     position: fixed;
-    width: 150px;
+    width: 240px;
     right: 100px;
     z-index: 1000;
     top: 200px;

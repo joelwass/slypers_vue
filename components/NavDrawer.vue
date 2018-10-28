@@ -3,9 +3,9 @@
   <transition name="drawer-transition">
     <div v-if="drawerOpen" class="drawer">
       <div class="drawer-IconsNav">
-        <bag class="icon bag" width="19" height="25" />
+        <bag class="icon bag" width="22" height="27" />
         <div class="quantity-in-bag">{{ selectedProducts.length ? selectedProducts.length : '' }}</div>
-        <xIcon v-on:click.native="toggleDrawer" class="icon x" width="32" height="30"/>
+        <xIcon v-on:click.native="toggleDrawer" class="icon x" width="34" height="32"/>
       </div>
       <div class="navigation">
         <ul>
@@ -84,13 +84,8 @@ export default {
   text-align: center;
   background-color: black;
   margin-top: 10px;
-  padding-top: 4px;
   padding-bottom: 8px;
   color: white;
-}
-
-.drawer-footer > .checkout-button > .checkout-button-text {
-  padding-top: 0px;
 }
 
 .navigation > ul {
@@ -123,13 +118,6 @@ export default {
   opacity: 0;
 }
 
-.drawer-IconsNav {
-  display: inline-block;
-  position: fixed;
-  right: 14px;
-  top: 12px;
-}
-
 .drawer > .navigation {
   width: 100%;
   position: relative;
@@ -155,8 +143,15 @@ export default {
   padding-top: 5px;
 }
 
+.drawer-IconsNav {
+  display: inline-block;
+  position: fixed;
+  right: 25px;
+  top: 15px;
+}
+
 .drawer-IconsNav > .icon {
-  margin-left: 14px;
+  margin-left: 24px;
 }
 
 @media all and (min-width: 850px) {

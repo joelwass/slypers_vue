@@ -2,14 +2,17 @@
   <footer class="footer_basic">
     <div class="email_collection">
       <form v-if="!currentEmail || currentEmail == ''" class="email-collection-form">
-        <p class="email_collection__header">Stay updated.</p>
-        <input type="text" placeholder="Your email" class="sign-up-email-input" v-model="email">
+        <p class="email_collection__header">Hear about new releases.</p>
+        <input type="text" placeholder="Your E-Mail" class="sign-up-email-input" v-model="email">
         <div class="sign-up-button" v-on:click="subscribeForEmail">
-          <p>SIGN ME UP</p>
+          <p>ENTER</p>
         </div>
       </form>
       <div v-else class="email-collection-form">
-        <p class="signed-up-email">{{ currentEmail && currentEmail.toUpperCase() }}, YOU'RE IN THE KNOW</p>
+        <p class="signed-up-email">{{ currentEmail && currentEmail.toUpperCase() }}, You're in the know.</p>
+      </div>
+      <div class="email_collection__footer">
+        <p>XXX</p>
       </div>
     </div>
   </footer>
@@ -70,7 +73,7 @@ export default {
 }
 
 .sign-up-email-input {
-  width: 140px;
+  width: 320px;
   margin: 10px 10px 0 10px;
   border: none;
   float: left;
@@ -83,6 +86,16 @@ export default {
   outline: none;
 }
 
+.sign-up-email-input::placeholder {
+  font-family: 'OverpassMono-Regular', monospace;
+}
+
+.email_collection__footer {
+  margin-top: 15px;
+  font-size: 16px;
+  color: white;
+}
+
 .email_collection {
   text-align:center;
   display: block;
@@ -90,13 +103,13 @@ export default {
 }
 
 .sign-up-button {
-    background: white;
-    color: black;
+    background: grey;
+    color: white;
     float: left;
     border: none;
-    width: 100px;
-    padding-top: 1px;
-    padding-bottom: 4px;
+    width: 150px;
+    padding-top: 2px;
+    padding-bottom: 3px;
     margin: 10px 10px 0 10px;
     font: inherit;
     cursor: pointer;
@@ -107,7 +120,8 @@ export default {
   display:inherit;
   background-color: black;
   width: 100%;
-  height: 60px;
+  padding-top: 5px;
+  height: 100px;
 } 
 
 @media all and (min-width: 640px) {
@@ -115,6 +129,7 @@ export default {
     display:inherit;
     background-color: black;
     width: 100%;
+    padding-top: 10px;
     height: 100px;
   } 
 }

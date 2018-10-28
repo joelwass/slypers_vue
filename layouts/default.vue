@@ -76,6 +76,10 @@ export default {
   src: url('/font/OverpassMono-Regular.ttf') format('ttf');
 }
 
+input::placeholder {
+  font-family: 'OverpassMono-Regular', monospace;
+}
+
 html {
   font-family: 'OverpassMono-Regular', monospace;
   font-size: 13px;

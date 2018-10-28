@@ -75,7 +75,7 @@ export default {
 .quantity-in-bag {
   position: absolute;
   top: 10px;
-  right: 42px;
+  right: 65px;
 }
 
 .bag {

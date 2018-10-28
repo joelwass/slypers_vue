@@ -6,39 +6,47 @@
       <div :class="navClasses('PAYMENT_STEP')" @click="setCheckoutStep({ step: 'PAYMENT_STEP' })">3. PAYMENT</div>
       <div :class="navClasses('REVIEW_STEP')" @click="setCheckoutStep({ step: 'REVIEW_STEP' })">4. REVIEW</div>
       <div class="bag">
-        <h3 class="bag-title">BAG ({{ this.selectedProducts.length }})</h3>
+        <div class="bag-drawer__header">
+          <h3 class="bag-title">BAG ({{ this.selectedProducts.length }})</h3>
+        </div>
         <div class="products">
           <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
             <div class="selectedProduct">
               <div class="productPrice">
-                <p>$ {{ product(prod.productId).price }}</p>
+                <p>${{ product(prod.productId).price }}</p>
               </div>
               <div class="productDescription">
                 <p>{{ product(prod.productId).description.toUpperCase() }}</p><br><br>
               </div>
-              <div class="productDetails">
-                <p><strong>COLOR:</strong> {{ product(prod.productId).colorString }}</p>
-                <p><strong>SIZE: </strong>{{ prod.size }}</p>
-                <p><strong>QUANTITY:</strong> {{ prod.quantity }} </p>
+              <div class="productAsterisk">
+                <p>*Delivery for December*</p>
               </div>
-              <img class="selectedProductImage" :src="product(prod.productId).image" />
+              <div class="productDetails__checkout">
+                <p><strong>Colour:</strong> {{ product(prod.productId).colorString }}</p>
+                <p><strong>Size: </strong>{{ prod.size }}</p>
+                <div class="size-row"><strong>Quantity:</strong> {{ prod.quantity }}
+                </div>
+              </div>
+              <div class="selectedProduct__imagecontainer">
+                <img class="selectedProductImage" :src="product(prod.productId).image" />
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="checkout-content">
         <div v-if="currentCheckoutStep === 'SIGNUP_LOGIN_STEP'">
-          <h3 class="checkout-content-subheader">LOG IN</h3>
-          <p>ENTER YOUR EMAIL AND PASSWORD TO ACCESS</p><br>
+          <h3 class="checkout-content-subheader">Log In</h3>
+          <p>Enter your email and password to enter</p><br>
           <div class="login">
             <b>EMAIL *</b><br><input class="checkout-content-input" type="text" placeholder="Email" v-model="email"><br>
             <b>PASSWORD *</b><br><input class="checkout-content-input" type="text" placeholder="Password" v-model="password"><br>
           </div>
           <div class="checkout-button" v-on:click="signIn">
-            <p class="checkout-button-text"><b>LOG IN</b></p>
+            <p class="checkout-button-text"><b>Log In</b></p>
           </div>
           <p>OR</p><br>
-          <h3 class="checkout-content-subheader">REGISTER</h3>
+          <h3 class="checkout-content-subheader">Register</h3>
           <div class="signup">
             <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="signUpEmail">
             <b>PASSWORD *</b><br><input type="text" class="checkout-content-input" placeholder="Password" v-model="signUpPassword">
@@ -67,13 +75,12 @@
             </div> -->
           </div>
           <div class="checkout-button" v-on:click="signUp">
-            <p class="checkout-button-text"><b>SIGN UP</b></p>
+            <p class="checkout-button-text"><b>Sign Up</b></p>
           </div>
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
-          <h3 class="checkout-content-subheader">SHIPPING ADDRESS</h3>
-          <p>ORDERS PLACED ON THIS SITE CAN ONLY BE DELIVERED IN THE UNITED STATES.</p><br>
-          <p>UPS CANNOT DELIVER TO P.O. BOXES OR TO GENERAL DELIVERY</p><br><br>
+          <h3 class="checkout-content-subheader">Shipping Address</h3>
+          <p>UPS cannot deliver to P.O. boxes or to general deliver.</p><br><br>
           <div class="shipping-info">
             <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
             <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">
@@ -86,7 +93,7 @@
           </div>
         </div>
         <div v-else-if="currentCheckoutStep === 'REVIEW_STEP'">
-          <h3 class="checkout-content-subheader">REVIEW</h3>
+          <h3 class="checkout-content-subheader">Review</h3>
           <div>
             <h4 class="checkout-content-subheader">SHIPPING</h4>
             <div class="shipping-subheader">ADDRESS</div>
@@ -100,7 +107,7 @@
             <label for="shippingZip">{{ this.zip }}</label><br>
           </div>
           <div>
-            <h4 class="checkout-content-subheader">PAYMENT</h4>
+            <h4 class="checkout-content-subheader">Payment</h4>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
@@ -111,10 +118,10 @@
           PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
         </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
-          <h3 class="checkout-content-subheader">PAYMENT</h3>
-          <p>PLEASE NOTE THAT PRE-ORDER PURCHASES CAN ONLY BE PAID FOR BY CREDIT CARD.</p><br>
-          <p><b>PAYMENT DETAILS</b></p><br>
-          <p>YOU ARE MAKING YOUR PURCHASE ON A SECURE SERVER</p><br><br>
+          <h3 class="checkout-content-subheader">Payment</h3>
+          <p>Please note that pre-order purchases can only be paid for by credit card.</p><br>
+          <p><b>Payment Details</b></p><br>
+          <p>You are making your purchase on a secure server.</p><br><br>
           <div class="stripe">
             <div class="cc-field">
               <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First name" v-model="stripeInfo.firstName" />
@@ -138,7 +145,7 @@
               </div>
             </form>
             <hr><br>
-            <p><b>RETURN POLICY</b></p><br>
+            <p><b>Return Policy</b></p><br>
             <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
             PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
           </div>
@@ -519,12 +526,12 @@ export default {
   background-color: black;
   color: white;
   text-align: center;
-  height: 25px;
+  height: 30px;
   margin: 26px 0 26px 0;
 }
 
 .checkout-button-text {
-  padding-top: 4px;
+  padding-top: 6px;
 }
 
 .checkout-content-input {
@@ -533,6 +540,19 @@ export default {
   padding: 5px;
   margin: 5px 0 5px 0;
   border: 1px solid black;
+}
+
+.selectedProduct > .productDetails__checkout {
+  position: absolute;
+  bottom: 50px;
+  left: 110px;
+  width: 110px;
+}
+
+.selectedProduct > .productAsterisk {
+  left: 110px;
+  bottom: 10px;
+  position: absolute;
 }
 
 .grey-outline-nav-el {
@@ -651,14 +671,15 @@ export default {
   .checkout {
     min-height: 100vh;
     padding-left: 220px;
+    padding-right: 180px;
     padding-top: 80px;
   }
 
   .checkout > .checkout-grid > .bag {
     grid-column: 3 / 5;
-    grid-row: 2 / 5;
+    grid-row: 2 / 10;
+    overflow: hidden;
     border: solid rgb(230, 226, 226) 1px;
-    padding: 30px;
     display: block;
   }
 

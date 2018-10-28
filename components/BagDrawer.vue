@@ -2,9 +2,11 @@
 <div>
   <transition name="bag-drawer-transition">
     <div v-if="drawerOpen" class="bag-drawer">
-      <h1 class="bag-title">BAG ({{ this.selectedProducts.length }})</h1>
-      <div class="bag-drawer-IconsNav">
-        <xIcon @click.native="toggleDrawer" class="icon x" width="32" height="30"/>
+      <div class="bag-drawer__header">
+        <h1 class="bag-title">BAG ({{ this.selectedProducts.length }})</h1>
+        <div class="bag-drawer-IconsNav">
+          <xIcon @click.native="toggleDrawer" class="icon x" width="32" height="30"/>
+        </div>
       </div>
       <hr class="divider">
       <div class="products">
@@ -27,7 +29,9 @@
                 <p class="plus" @click="plusQuantity(prod.productId, prod.size)"> + </p>
               </div>
             </div>
-            <img class="selectedProductImage" :src="product(prod.productId).image" />
+            <div class="selectedProduct__imagecontainer">
+              <img class="selectedProductImage" :src="product(prod.productId).image" />
+            </div>
           </div>
         </div>
       </div>
@@ -150,7 +154,7 @@ export default {
 .selectedProduct > .removeProductButton {
   position: absolute;
   right: 0px;
-  bottom: 0px;
+  bottom: 10px;
   margin-right: 10px;
   cursor: pointer;
 }
@@ -178,32 +182,33 @@ export default {
   width: 100%;
 }
 
-.bag-drawer > .divider {
-  margin-top: 59px;
+.bag-drawer__header {
+  padding-left: 30px;
+  padding-top: 26px;
+  padding-bottom: 30px;
 }
 
 .selectedProduct {
-  margin-bottom: 20px;
-  margin-top: 20px;
   position: relative;
 }
 
 .selectedProduct > .productDescription {
   position: absolute;
-  top: 0px;
-  right: 100px;
+  top: 10px;
+  left: 110px;
   width: 110px;
 }
 
 .selectedProduct > .productDetails {
   position: absolute;
-  bottom: 0px;
-  right: 100px;
+  bottom: 10px;
+  left: 110px;
   width: 110px;
 }
 
 .selectedProduct > .productPrice {
   float: right;
+  margin-top: 10px;
   margin-right: 10px;
 }
 
@@ -218,10 +223,17 @@ export default {
   width: 100px;
 }
 
+.selectedProduct__imagecontainer {
+  height: 150px;
+  width: 100px;
+  margin-bottom: 2px;
+  background-color: #eeeeee;
+}
+
 .bag-drawer > .bag-title {
   position: absolute;
-  left: 20px;
-  top: 18px;
+  left: 30px;
+  top: 28px;
   font-size: 20px;
 }
 
@@ -264,7 +276,7 @@ export default {
   display: inline-block;
   position: fixed;
   right: 10px;
-  top: 10px;
+  top: 24px;
 }
 
 .bag-drawer {
@@ -279,12 +291,6 @@ export default {
 
 .bag-drawer-IconsNav > .icon {
   margin-left: 5px;
-}
-
-@media all and (min-width: 850px) {
-  .bag-drawer > .divider {
-    margin-top: 79px;
-  }
 }
 </style>
 

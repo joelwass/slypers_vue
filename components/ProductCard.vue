@@ -1,14 +1,16 @@
 <template>
   <div class="card">
     <div class="card-image">
-      <img :src="product.image" alt="productImage">
+      <img :src="productImage" alt="productImage" 
+        @mouseover="productImage = product.altImage" 
+        @mouseleave="productImage = product.image">
     </div>
     <div class="card__details">
       <div class="product-label">
         <p>{{ product.name }}</p>
       </div>
       <div class="product-price">
-        <p>$ {{ product.price }}</p>
+        <p>€ {{ product.price }}</p>
       </div>
     </div>
   </div>
@@ -17,6 +19,11 @@
 <script>
 export default {
   name: 'Product-Card',
+  data() {
+    return {
+      productImage: this.product.image
+    }
+  },
   props: {
     labelFor: {
       type: String,

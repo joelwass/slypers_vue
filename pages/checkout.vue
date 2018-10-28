@@ -36,14 +36,14 @@
       </div>
       <div class="checkout-content">
         <div v-if="currentCheckoutStep === 'SIGNUP_LOGIN_STEP'">
-          <h3 class="checkout-content-subheader">Log In</h3>
+          <h3 class="checkout-content-subheader">Login</h3>
           <p>Enter your email and password to enter</p><br>
           <div class="login">
             <b>EMAIL *</b><br><input class="checkout-content-input" type="text" placeholder="Email" v-model="email"><br>
             <b>PASSWORD *</b><br><input class="checkout-content-input" type="text" placeholder="Password" v-model="password"><br>
           </div>
           <div class="checkout-button" v-on:click="signIn">
-            <p class="checkout-button-text"><b>Log In</b></p>
+            <p class="checkout-button-text"><b>Login</b></p>
           </div>
           <p>OR</p><br>
           <h3 class="checkout-content-subheader">Register</h3>
@@ -113,9 +113,12 @@
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
           </div>
           <hr><br>
-          <p><b>RETURN POLICY</b></p><br>
-          <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
-          PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
+          <p><b>Client Service</b></p><br>
+          <p> service@slypers.com</p><br>
+          <p><b>Return Policy</b></p><br>
+          <p>No returns. Exchanges only.  
+            Email service@slypers.com with your order number for more information.
+          </p>
         </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
           <h3 class="checkout-content-subheader">Payment</h3>
@@ -145,9 +148,12 @@
               </div>
             </form>
             <hr><br>
+            <p><b>Client Service</b></p><br>
+            <p> service@slypers.com</p><br>
             <p><b>Return Policy</b></p><br>
-            <p>RETURNS SERVICE: YOU HAVE 30 DAYS FROM DELIVERY TO FOLLOW OUR QUICK AND EASY RETURN PROCEDURE.
-            PLEASE NOTE THAT PRODUCTS PURCHASED ON SALE ARE NOT RETURNABLE.</p>
+            <p>No returns. Exchanges only.  
+              Email service@slypers.com with your order number for more information.
+            </p>
           </div>
         </div>   
       </div>

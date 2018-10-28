@@ -19,7 +19,7 @@
                 <p>{{ product(prod.productId).description.toUpperCase() }}</p><br><br>
               </div>
               <div class="productAsterisk">
-                <p>*Delivery for December*</p>
+                <p>*For delivery 12/8*</p>
               </div>
               <div class="productDetails__checkout">
                 <p><strong>Colour:</strong> {{ product(prod.productId).colorString }}</p>

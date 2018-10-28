@@ -33,7 +33,7 @@ const cart = {
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Red'
+        colorString: 'Bordeauxrood'
       },
       {
         id: '2',
@@ -46,7 +46,7 @@ const cart = {
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Blue'
+        colorString: 'Blauw'
       },
       {
         id: '3',
@@ -59,7 +59,7 @@ const cart = {
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Green'
+        colorString: 'Groen'
       },
       {
         id: '4',
@@ -72,7 +72,7 @@ const cart = {
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Tan'
+        colorString: 'Bruin'
       },
       {
         id: '5',
@@ -85,7 +85,7 @@ const cart = {
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Grey'
+        colorString: 'Gris'
       }
     ],
     selectedProducts: []
@@ -93,11 +93,9 @@ const cart = {
   actions: {
     [SETUP_CART]: ({ dispatch, commit }) => {
       API.resume().then((res) => {
-        console.log('resume response', res)
         if (res.success) {
           commit(RESUME, res)
         } else {
-          console.log(res)
           dispatch(SET_ERROR, res.message)
         }
       })

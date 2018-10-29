@@ -34,8 +34,8 @@ export default {
     background-size:contain;
     width: 160px;
     height: 40px;
-    margin-top: 16px;
-    margin-left: 16px;
+    margin-top: 30px;
+    margin-left: 44px;
   }
 }
 </style>

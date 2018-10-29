@@ -73,7 +73,7 @@ export default {
 }
 
 .sign-up-email-input {
-  width: 320px;
+  width: 250px;
   margin: 10px 10px 0 10px;
   border: none;
   float: left;
@@ -120,8 +120,8 @@ export default {
   display:inherit;
   background-color: black;
   width: 100%;
-  padding-top: 5px;
-  height: 100px;
+  padding-top: 20px;
+  height: 125px;
 } 
 
 @media all and (min-width: 640px) {
@@ -129,9 +129,19 @@ export default {
     display:inherit;
     background-color: black;
     width: 100%;
-    padding-top: 10px;
-    height: 100px;
+    padding-top: 20px;
+    height: 125px;
   } 
+
+  .sign-up-email-input {
+    width: 320px;
+    margin: 10px 10px 0 10px;
+    border: none;
+    float: left;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left:6px;
+  }
 }
 </style>
 

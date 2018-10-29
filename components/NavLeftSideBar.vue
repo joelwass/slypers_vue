@@ -90,7 +90,7 @@ export default {
   .SideBarLeft {
     position: fixed;
     width: 150px;
-    margin-top: 100px;
+    margin-top: 80px;
     background: transparent;
     display: block;
   }

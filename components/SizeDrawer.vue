@@ -1,7 +1,7 @@
 <template>
 <div>
   <transition name="drawer-transition">
-    <div v-if="drawerOpen" class="bag-drawer">
+    <div v-if="drawerOpen" class="size-drawer">
       <div class="drawer-IconsNav">
         <xIcon v-on:click.native="toggleDrawer" class="icon x" width="34" height="32"/>
       </div>
@@ -110,11 +110,11 @@ export default {
 <style>
 
 .size-table {
-  width: 290px;
-  margin-left: 15px;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
   height: 220px;
   overflow: hidden;
-  border: 0.5px solid black;
 }
 
 .size-table-header {
@@ -158,6 +158,51 @@ th:hover::after {
   height: 10000px;
   width: 100%;
   z-index: -1;
+}
+
+.size-drawer-transition-enter-active {
+  transition: all .3s ease;
+}
+
+.size-drawer-transition-leave-to {
+  transition: all .3s ease;
+}
+
+.size-drawer-transition-enter, .size-drawer-transition-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(220px);
+  opacity: 0;
+}
+
+.size-drawer-IconsNav {
+  display: inline-block;
+  position: fixed;
+  right: 10px;
+  top: 22px;
+}
+
+.size-drawer {
+  position: fixed;
+  z-index: 1010;
+  background-color:white;
+  height: 100%;
+  width: 100%;
+  right: 0px;
+  top: 0px;
+}
+
+.size-drawer-IconsNav > .icon {
+  margin-left: 5px;
+}
+
+@media all and (min-width: 850px) {
+  .size-drawer {
+     width: 320px;
+  }
+
+  .size-table {
+    width: 100%;
+  }
 }
 </style>
 

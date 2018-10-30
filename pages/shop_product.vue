@@ -31,7 +31,8 @@
         <p>Dutch Bordeelslyper.  Italian suiting wool upper. Cotton liner.  Memory foam cushioned insole.  EVA microfoam outsole.  Suede tassel.</p>
         <p>Made In Italy</p><br>
 
-        <p><b>Size</b></p>
+        <p class="product-details__size-label"><b>Size</b></p>
+        <p class="product-details__size-guide-button"><a @click="toggleSizeDrawer">SIZE GUIDE ></a></p>
         <div @click="dropdown" class="sizes-select">{{ this.selectedSizeData }}</div>
         <div v-show="dropdownOpen" class="sizes">
           <ul>
@@ -95,7 +96,8 @@ export default {
     ...mapState({
       selectedProduct: state => state.browsingSelectedProduct,
       selectedProducts: state => state.cart.selectedProducts,
-      availableProducts: state => state.cart.availableProducts
+      availableProducts: state => state.cart.availableProducts,
+      sizeDrawerOpenState: state => state.sizeDrawerOpen
     }),
     selectedSize: {
       get() {
@@ -104,6 +106,14 @@ export default {
       set(newVal) {
         this.selectedSizeNumber = newVal
         this.selectedSizeData = `US - ${newVal}`
+      }
+    },
+    drawerOpen: {
+      get() {
+        return this.sizeDrawerOpenState
+      },
+      set(newVal) {
+        this.setSizeDrawerOpen(newVal)
       }
     },
     isSelected() {
@@ -117,8 +127,13 @@ export default {
   methods: {
     ...mapActions({
       addProduct: 'ADD_PRODUCT',
-      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN'
+      setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN',
+      setSizeDrawerOpen: 'SET_SIZE_DRAWER_OPEN',
     }),
+    toggleSizeDrawer() {
+      const prevDrawerOpen = this.drawerOpen
+      this.drawerOpen = !prevDrawerOpen
+    },
     slidingWindowClasses(shoe) {
       if (shoe !== this.viewingImage) return ['sliding-window-image', 'sliding-window-opacity']
       return ['sliding-window-image']
@@ -192,6 +207,16 @@ export default {
   padding-top: 5px;
   padding-bottom: 5px;
   cursor:pointer;
+}
+
+.product-details__size-guide-button {
+  float: right;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.product-details__size-label {
+  display: inline-block;
 }
 
 .add-to-cart-button {

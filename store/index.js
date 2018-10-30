@@ -18,7 +18,8 @@ import {
   SET_CUSTOMER,
   SET_ERROR,
   LOGOUT_USER,
-  RESUME
+  RESUME,
+  SET_SIZE_DRAWER_OPEN
 } from './types'
 
 const store = () => {
@@ -28,6 +29,7 @@ const store = () => {
       browsingSelectedProduct: {},
       drawerOpen: false,
       bagDrawerOpen: false,
+      sizeDrawerOpen: false,
       authenticated: false,
       sessionId: '',
       loading: false,
@@ -37,6 +39,9 @@ const store = () => {
       [SET_BROWSING_SELECTED_PRODUCT]: ({ commit, state }, browsingProduct) => {
         API.saveDynamicState({ browsingProduct: browsingProduct })
         commit(SET_BROWSING_SELECTED_PRODUCT, browsingProduct)
+      },
+      [SET_SIZE_DRAWER_OPEN]: ({ commit }, open) => {
+        commit(SET_SIZE_DRAWER_OPEN, open)
       },
       [SET_DRAWER_OPEN]: ({ commit }, open) => {
         commit(SET_DRAWER_OPEN, open)
@@ -79,6 +84,9 @@ const store = () => {
       },
       [SET_DRAWER_OPEN](state, open) {
         Vue.set(state, 'drawerOpen', open)
+      },
+      [SET_SIZE_DRAWER_OPEN](state, open) {
+        Vue.set(state, 'sizeDrawerOpen', open)
       },
       [SET_BAG_DRAWER_OPEN](state, open) {
         Vue.set(state, 'bagDrawerOpen', open)

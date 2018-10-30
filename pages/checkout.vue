@@ -1,7 +1,7 @@
 <template>
   <div class="checkout">
     <div class="checkout-grid">
-      <div :class="navClasses('SIGNUP_LOGIN_STEP')" @click="setCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. LOGIN / REGISTER</div>
+      <div :class="navClasses('SIGNUP_LOGIN_STEP')" @click="setCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. LOGIN</div>
       <div :class="navClasses('SHIPPING_STEP')" @click="setCheckoutStep({ step: 'SHIPPING_STEP' })">2. SHIPPING</div>
       <div :class="navClasses('PAYMENT_STEP')" @click="setCheckoutStep({ step: 'PAYMENT_STEP' })">3. PAYMENT</div>
       <div :class="navClasses('REVIEW_STEP')" @click="setCheckoutStep({ step: 'REVIEW_STEP' })">4. REVIEW</div>
@@ -52,35 +52,13 @@
             <b>PASSWORD *</b><br><input type="text" class="checkout-content-input" placeholder="Password" v-model="signUpPassword">
             <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First Name" v-model="firstName">
             <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last Name" v-model="lastName">
-            <!-- <p>DATE OF BIRTH *</p><br>
-            <div class="dateOfBirth">
-              <div v-on:click="yearDropdown" class="sizes-select">{{ this.selectedYear }}</div>
-              <div v-show="yearDropdownOpen" class="sizes">
-                <ul>
-                  <li v-for="year in range(1950, 2018)" :key="year" v-on:click="this.localBirthYear = year">{{ year }}</li>
-                </ul>
-              </div>
-              <div v-on:click="monthDropdown" class="sizes-select">{{ this.selectedMonth }}</div>
-              <div v-show="monthDropdownOpen" class="sizes">
-                <ul>
-                  <li v-for="month in range(1, 12)" :key="month" v-on:click="this.localBirthMonth = month">{{ month }}</li>
-                </ul>
-              </div>
-              <div v-on:click="dayDropdown" class="sizes-select">{{ this.selectedDay }}</div>
-              <div v-show="dayDropdownOpen" class="sizes">
-                <ul>
-                  <li v-for="day in daysInMonth(this.localBirthMonth, this.localBirthYear)" :key="day" v-on:click="this.localBirthDay = day">{{ day }}</li>
-                </ul>
-              </div>
-            </div> -->
           </div>
           <div class="checkout-button" v-on:click="signUp">
             <p class="checkout-button-text"><b>Sign Up</b></p>
           </div>
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
-          <h3 class="checkout-content-subheader">Shipping Address</h3>
-          <p>UPS cannot deliver to P.O. boxes or to general deliver.</p><br><br>
+          <h3 class="checkout-content-subheader">Shipping Address</h3><br>
           <div class="shipping-info">
             <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
             <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">
@@ -123,8 +101,9 @@
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
           <h3 class="checkout-content-subheader">Payment</h3>
           <p>Please note that pre-order purchases can only be paid for by credit card.</p><br>
-          <p><b>Payment Details</b></p><br>
-          <p>You are making your purchase on a secure server.</p><br><br>
+          <p>Accepted Credit & Debit Cards</p><br>
+          <p><img class="card_logos" src="/visa_img.png" /></p><br>
+          <p>Powered by Stripe - you are making a purchase on a secure server.</p><br><br>
           <div class="stripe">
             <div class="cc-field">
               <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First name" v-model="stripeInfo.firstName" />
@@ -553,6 +532,10 @@ export default {
   bottom: 50px;
   left: 110px;
   width: 110px;
+}
+
+.card_logos {
+  width: 240px;
 }
 
 .selectedProduct > .productAsterisk {

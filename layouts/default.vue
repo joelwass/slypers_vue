@@ -4,8 +4,9 @@
     <nav-left-side-bar />
     <nav-drawer />
     <bag-drawer />
+    <size-drawer />
     <loading-overlay v-show="isLoading"/>
-    <overlay v-show="drawerOpen || bagDrawerOpen" />
+    <overlay v-show="drawerOpen || bagDrawerOpen || sizeDrawerOpen" />
     <nuxt />
     <footer-element/>
   </div>
@@ -21,6 +22,7 @@ import NavHeader from '~/components/NavHeader.vue'
 import Overlay from '~/components/Overlay.vue'
 import LoadingOverlay from '~/components/LoadingOverlay'
 import NavDrawer from '~/components/NavDrawer.vue'
+import SizeDrawer from '~/components/SizeDrawer.vue'
 import BagDrawer from '~/components/BagDrawer.vue'
 import Footer from '~/components/Footer.vue'
 import Api from '../middleware/api'
@@ -39,16 +41,18 @@ export default {
     ...mapState({
       drawerOpen: state => state.drawerOpen,
       bagDrawerOpen: state => state.bagDrawerOpen,
+      sizeDrawerOpen: state => state.sizeDrawerOpen,
       isLoading: state => state.loading
     }),
     appClasses() {
-      if (this.drawerOpen || this.bagDrawerOpen) return 'noScroll'
+      if (this.drawerOpen || this.bagDrawerOpen || this.sizeDrawerOpen) return 'noScroll'
     }
   },
   components: {
     NavLeftSideBar,
     NavHeader,
     BagDrawer,
+    SizeDrawer,
     NavDrawer,
     LoadingOverlay,
     Overlay,

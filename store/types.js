@@ -1,5 +1,6 @@
 // loading and UI
 export const SET_LOADING = 'SET_LOADING'
+export const SET_SIZE_DRAWER_OPEN = 'SET_SIZE_DRAWER_OPEN'
 
 // cart
 export const SET_AVAILABLE_PRODUCTS = 'SET_AVAILABLE_PRODUCTS'

@@ -3,7 +3,7 @@
   <transition name="bag-drawer-transition">
     <div v-if="drawerOpen" class="bag-drawer">
       <div class="bag-drawer__header">
-        <h1 class="bag-title">BAG ({{ this.selectedProducts.length }})</h1>
+        <h2 class="bag-title">BAG ({{ this.selectedProducts.length }})</h2>
         <div class="bag-drawer-IconsNav">
           <xIcon @click.native="toggleDrawer" class="icon x" width="32" height="30"/>
         </div>
@@ -13,7 +13,7 @@
         <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
           <div class="selectedProduct">
             <div class="productPrice">
-              <p>$ {{ product(prod.productId).price }}</p>
+              <p>€ {{ product(prod.productId).price }}</p>
             </div>
             <div class="removeProductButton">
               <p @click="removeAllOfProduct(prod.productId, prod.size)">REMOVE</p>
@@ -39,10 +39,10 @@
         <hr>
         <div class="subtotal">
           <p class="subtotal-label">SUBTOTAL</p>
-          <p class="subtotal-amount">$ {{ subtotal }}</p>
+          <p class="subtotal-amount">€ {{ subtotal }}</p>
         </div>
         <div class="checkout-button" v-on:click="checkout">
-          <p class="checkout-button-text"><b>CHECKOUT ({{ selectedProducts.length }} ITEMS)</b></p>
+          <p class="checkout-button-text"><b>CHECKOUT ({{ selectedProducts.length }} {{ selectedProducts.length > 1 ? 'ITEMS' : 'ITEM' }})</b></p>
         </div>
       </div>
     </div>
@@ -276,7 +276,7 @@ export default {
   display: inline-block;
   position: fixed;
   right: 10px;
-  top: 24px;
+  top: 22px;
 }
 
 .bag-drawer {

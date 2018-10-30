@@ -5,9 +5,6 @@
       <p>Bordeelslypers</p>
       <p>Dutch Brothel Creepers</p><br>
     </div>
-    <div class="discoverText__easterClick" v-on:click="go('easter')">
-      <p>XXX</p>
-    </div>
   </div>
   <div class="container" v-on:click="go('shop')">
     <div class="splash-image-div">
@@ -50,10 +47,6 @@ export default {
   width: 100%;
 }
 
-.discoverText__easterClick {
-  display: none;
-}
-
 .container {
   overflow: hidden;
   align-items: center;
@@ -93,10 +86,6 @@ export default {
   .splash-image-desktop {
     width: 100%;
     margin: auto;
-    display: block;
-  }
-
-  .discoverText__easterClick {
     display: block;
   }
 

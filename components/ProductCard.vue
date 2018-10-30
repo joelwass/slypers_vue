@@ -2,8 +2,8 @@
   <div class="card">
     <div class="card-image">
       <img :src="productImage" alt="productImage" 
-        @mouseover="productImage = product.altImage" 
-        @mouseleave="productImage = product.image">
+        @mouseover="productImage = product.image" 
+        @mouseleave="productImage = product.altImage">
     </div>
     <div class="card__details">
       <div class="product-label">
@@ -21,7 +21,7 @@ export default {
   name: 'Product-Card',
   data() {
     return {
-      productImage: this.product.image
+      productImage: this.product.altImage
     }
   },
   props: {
@@ -32,11 +32,6 @@ export default {
     product: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    price() {
-      return '$16000'
     }
   }
 }  

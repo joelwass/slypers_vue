@@ -1,5 +1,5 @@
 <template>
-  <div class="shop-product">
+  <div class="shop-product" @click="closeDropdown">
     <div v-if="selectedFullProduct()">
       <div v-swiper:mySwiper="swiperOption" class="image-swiper">
         <div class="swiper-wrapper">
@@ -26,16 +26,16 @@
       <div class="product-details-description">
         <h2>{{ this.selectedProduct.name }}</h2><br>
         <h3>€ {{ this.selectedProduct.price }}</h3><br>
-        <p><b>Description & Details</b>
-        <p>Colour: {{ this.selectedProduct.colorString }} on {{ this.selectedProduct.colorString }}</p>
+        <p><b>Description</b></p><br>
+        <p>Colour: {{ this.selectedProduct.colorString }}</p>
         <p>Dutch Bordeelslyper.  Italian suiting wool upper. Cotton liner.  Memory foam cushioned insole.  EVA microfoam outsole.  Suede tassel.</p>
         <p>Made In Italy</p><br>
 
         <p><b>Size</b></p>
-        <div v-on:click="dropdown" class="sizes-select">{{ this.selectedSizeData }}</div>
+        <div @click="dropdown" class="sizes-select">{{ this.selectedSizeData }}</div>
         <div v-show="dropdownOpen" class="sizes">
           <ul>
-            <li v-for="size in sizes" :key="size" v-on:click="selectSize(size)">US - {{ size }}</li>
+            <li v-for="size in sizes" :key="size" @click="selectSize(size)">US - {{ size }}</li>
           </ul>
         </div>
 
@@ -43,7 +43,7 @@
           <p>{{ this.validationIssue }}</p>
         </div>
         
-        <div class="add-to-cart-button" v-on:click="addToCart">
+        <div class="add-to-cart-button" @click="addToCart">
           <p>ADD TO BAG</p>
         </div>
       </div>
@@ -71,7 +71,7 @@ export default {
         },
       },
       validationIssue: undefined,
-      sizes: [9.5, 10, 10.5, 11, 11.5, 12],
+      sizes: [8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13],
       dropdownOpen: false,
       selectedSizeData: 'SELECT SIZE',
       selectedSizeNumber: undefined,
@@ -123,6 +123,9 @@ export default {
       if (shoe !== this.viewingImage) return ['sliding-window-image', 'sliding-window-opacity']
       return ['sliding-window-image']
     },
+    closeDropdown() {
+      this.dropdownOpen = false
+    },
     handleScroll (event) {
       if (process.browser) {
         const imageHeight = document.getElementById('shoe1').clientHeight
@@ -132,7 +135,8 @@ export default {
         }
       }
     },
-    dropdown() {
+    dropdown(e) {
+      e.stopPropagation();
       this.dropdownOpen = !this.dropdownOpen
     },
     selectedFullProduct() {
@@ -184,6 +188,7 @@ export default {
   border: 1px solid black;
   width: 100%;
   padding-left: 5px;
+  margin-top: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
   cursor:pointer;
@@ -192,8 +197,9 @@ export default {
 .add-to-cart-button {
   text-align: center;
   background-color: black;
-  margin-top: 10px;
+  margin-top: 18px;
   padding-top: 8px;
+  margin-bottom: 60px;
   padding-bottom: 8px;
   color: white;
 }
@@ -337,7 +343,6 @@ export default {
     list-style-type: none;
     border: 1px solid black;
     background-color: white;
-    position: absolute;
     z-index: 10000;
     width: 210px;
     padding: 0;

@@ -13,6 +13,7 @@ export default {
     ...mapState({
       drawerOpenState: state => state.drawerOpen,
       bagDrawerOpenState: state => state.bagDrawerOpen,
+      sizeDrawerOpenState: state => state.sizeDrawerOpen
     }),
     drawerOpen: {
       get() {
@@ -29,12 +30,21 @@ export default {
       set(newVal) {
         this.setBagDrawerOpen(newVal)
       }
+    },
+    sizeDrawerOpen: {
+      get() {
+        return this.sizeDrawerOpenState
+      },
+      set(newVal) {
+        this.setSizeDrawerOpen(newVal)
+      }
     }
   },
   methods: {
     ...mapActions({
       setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN',
-      setDrawerOpen: 'SET_DRAWER_OPEN'
+      setDrawerOpen: 'SET_DRAWER_OPEN',
+      setSizeDrawerOpen: 'SET_SIZE_DRAWER_OPEN'
     }),
     toggleDrawer() {
       const prevDrawerOpen = this.drawerOpen
@@ -44,9 +54,14 @@ export default {
       const prevDrawerOpen = this.bagDrawerOpen
       this.bagDrawerOpen = !prevDrawerOpen
     },
+    toggleSizeDrawer() {
+      const prevDrawerOpen = this.sizeDrawerOpen
+      this.sizeDrawerOpen = !prevDrawerOpen
+    },
     toggleCorrectDrawer() {
       if (this.drawerOpenState) this.toggleDrawer()
-      else this.toggleBagDrawer()
+      else if (this.bagDrawerOpenState) this.toggleBagDrawer()
+      else this.toggleSizeDrawer()
     }
   }
 }

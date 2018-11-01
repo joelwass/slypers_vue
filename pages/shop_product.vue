@@ -266,10 +266,6 @@ export default {
   display: none;
 }
 
-.grid-container-shop-product-media {
-  padding-top: 60px;
-}
-
 .image-swiper-slide {
   text-align: center;
 }

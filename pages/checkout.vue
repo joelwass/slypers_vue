@@ -43,9 +43,9 @@
             <b>PASSWORD *</b><br><input class="checkout-content-input" type="text" placeholder="Password" v-model="password"><br>
           </div>
           <div class="checkout-button" v-on:click="signIn">
-            <p class="checkout-button-text"><b>Login</b></p>
+            <p class="checkout-button-text"><b>LOGIN</b></p>
           </div>
-          <p>OR</p><br>
+          <p>or</p><br>
           <h3 class="checkout-content-subheader">Register</h3>
           <div class="signup">
             <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="signUpEmail">
@@ -54,7 +54,7 @@
             <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last Name" v-model="lastName">
           </div>
           <div class="checkout-button" v-on:click="signUp">
-            <p class="checkout-button-text"><b>Sign Up</b></p>
+            <p class="checkout-button-text"><b>REGISTER</b></p>
           </div>
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
@@ -94,9 +94,9 @@
           <hr><br>
           <p><b>Client Service</b></p><br>
           <p> service@slypers.com</p><br>
-          <p><b>Return Policy</b></p><br>
-          <p>No returns. Exchanges only.  
-            Email service@slypers.com with your order number for more information.
+          <p><b>Return & Exchange Policy</b></p><br>
+          <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery. 
+              Email service@slypers.com with your order number for more information.
           </p>
         </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
@@ -104,7 +104,7 @@
           <p>Please note that pre-order purchases can only be paid for by credit card.</p><br>
           <p>Accepted Credit & Debit Cards</p><br>
           <p><img class="card_logos" src="/visa_img.png" /></p><br>
-          <p>Powered by Stripe - you are making a purchase on a secure server.</p><br><br>
+          <p>Powered by Stripe on a secure web server.</p><br><br>
           <div class="stripe">
             <div class="cc-field">
               <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First name" v-model="stripeInfo.firstName" />
@@ -130,8 +130,8 @@
             <hr><br>
             <p><b>Client Service</b></p><br>
             <p> service@slypers.com</p><br>
-            <p><b>Return Policy</b></p><br>
-            <p>No returns. Exchanges only.  
+            <p><b>Return & Exchange Policy</b></p><br>
+            <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery. 
               Email service@slypers.com with your order number for more information.
             </p>
           </div>

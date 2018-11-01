@@ -1,12 +1,29 @@
 <template>
   <div class="complete">
-    <h3>CONGRATULATIONS!</h3>
-    <p>ORDER COMPLETE</p>
-    <p>ORDER DETAILS:</p>
+    <h2>CONGRATULATIONS!</h2>
+    <div>
+      <h3>Order Details:</h3>
+      <p>Order Id: </p>
+    </div>
+    <p></p>
+    <p>Order details: {{ orderId }}</p>
+
   </div>  
 </template>
 
 <script>
+import {
+  mapActions,
+  mapState
+} from 'vuex'
+
+export default {
+  computed: {
+    ...mapState({
+      orderId: state => state.customer.stripeOrderId
+    })
+  },
+}
 </script>
 
 <style>
@@ -18,7 +35,7 @@
 @media all and (min-width: 850px) {
   .complete {
     min-height: 100vh;
-    padding: 97px 140px 100px 140px
+    padding: 100px 140px 100px 300px
   }
 }
 </style>

@@ -13,10 +13,10 @@
           <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
             <div class="selectedProduct">
               <div class="productPrice">
-                <p>${{ product(prod.productId).price }}</p>
+                <p>€{{ product(prod.productId).price }}</p>
               </div>
               <div class="productDescription">
-                <p>{{ product(prod.productId).description.toUpperCase() }}</p><br><br>
+                <p>{{ product(prod.productId).name.toUpperCase() }}</p><br><br>
               </div>
               <div class="productAsterisk">
                 <p>*For delivery 12/8*</p>
@@ -79,13 +79,14 @@
               <p><u>MODIFY</u></p>
             </div><br>
             <label for="shippingAddress">{{ this.address }}</label><br>
-            <label v-if="address2" for="shippingAddress2">{{ this.address2 }}</label><br>
+            <label v-if="address2" for="shippingAddress2">{{ this.address2 ? `Unit ${this.address2}` : '' }}</label><br>
             <label for="shippingCity">{{ this.city }}</label><br>
             <label for="shippingState">{{ this.stateAddress }}</label><br>
-            <label for="shippingZip">{{ this.zip }}</label><br>
+            <label for="shippingZip">{{ this.zip }}</label><br><br>
           </div>
           <div>
-            <h4 class="checkout-content-subheader">Payment</h4>
+            <h4 class="checkout-content-subheader">PAYMENT</h4>
+            <label for="paymentInfo">{{ this.cardBrand }} ending in {{ this.cardLast4 }}</label>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
@@ -250,7 +251,8 @@ export default {
       birthYear: state => state.customer.user.birthYear,
       order: state => state.customer.order,
       signUpEmailState: state => state.customer.user.signUpEmail,
-      signUpPasswordState: state => state.customer.user.signUpPassword
+      signUpPasswordState: state => state.customer.user.signUpPassword,
+      customer: state => state.customer,
     }),
     selectedProductsMapped() {
       const mappedProducts = {}
@@ -262,6 +264,20 @@ export default {
         }
       })
       return Object.values(mappedProducts)
+    },
+    cardBrand() {
+      try {
+        return this.customer.token.card.brand
+      } catch (e) {
+        return 'Card'
+      }
+    },
+    cardLast4() {
+      try {
+        return this.customer.token.card.last4
+      } catch (e) {
+        return '****'
+      }
     },
     email: {
       get() {
@@ -419,7 +435,6 @@ export default {
       const self = this
       this.setLoading({ value: true, save: false })
 
-      console.log('current card', this.localCard)
       // set shipping and meta values on card
       const options = {
         name: `${this.firstName} ${this.lastName}`,
@@ -470,8 +485,6 @@ export default {
       }
     },
     saveShippingInfo() {
-      console.log('here')
-      console.log(this.email, this.address, this.city, this.stateAddress, this.zip)
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
         this.saveShipping({ email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts, name: `${this.firstName} ${this.lastName}` })
       }

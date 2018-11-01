@@ -7,10 +7,10 @@
     </div>
     <div class="subsection">
       <h3>Contact</h3><br>
-      <p>contact@slypers.com</p>
       <p>Slypers BV</p>
       <p>Keizersgracht 678</p>
-      <p>1017 ET Amsterdam, Netherlands</p>
+      <p>1017 ET Amsterdam, Netherlands</p><br>
+      <p>contact@slypers.com</p>
     </div>
     <div class="subsection">
       <h3>FAQ</h3>
@@ -77,7 +77,7 @@ export default {
 
 @media all and (min-width: 850px) {
   .info {
-    padding: 97px 140px 100px 140px
+    padding: 97px 140px 100px 200px
   }
 }
 </style>

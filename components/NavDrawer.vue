@@ -16,8 +16,8 @@
       </div><br>
       <div class="drawer-footer">
         <hr>
-        <div class="checkout-button" v-on:click="checkout">
-          <p class="checkout-button-text"><b>CHECKOUT ({{ selectedProducts.length }} ITEMS)</b></p>
+        <div class="checkout-button-drawer" v-on:click="checkout">
+          <p class="checkout-button-drawer__text"><b>CHECKOUT ({{ selectedProducts.length }} ITEMS)</b></p>
         </div>
       </div>
     </div>
@@ -80,11 +80,11 @@ export default {
   bottom: 10px;
 }
 
-.drawer-footer > .checkout-button {
+.drawer-footer > .checkout-button-drawer {
   text-align: center;
   background-color: black;
   margin-top: 10px;
-  padding-bottom: 8px;
+  padding-bottom: 5px;
   color: white;
 }
 

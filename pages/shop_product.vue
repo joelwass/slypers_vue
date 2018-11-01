@@ -27,8 +27,8 @@
         <h2>{{ this.selectedProduct.name }}</h2><br>
         <h3>€ {{ this.selectedProduct.price }}</h3><br>
         <p><b>Description</b></p><br>
-        <p>Colour: {{ this.selectedProduct.colorString }}</p>
-        <p>Dutch Bordeelslyper.  Italian suiting wool upper. Cotton liner.  Memory foam cushioned insole.  EVA microfoam outsole.  Suede tassel.</p>
+        <p>Colour: {{ this.selectedProduct.colorString }}</p><br>
+        <p>Dutch Bordeelslyper.  Italian suiting wool upper. Cotton liner.  Memory foam cushioned insole.  EVA microfoam outsole.  Suede tassel.</p><br>
         <p>Made In Italy</p><br>
 
         <p class="product-details__size-label"><b>Size</b></p>
@@ -333,7 +333,7 @@ export default {
 
 @media all and (min-width: 850px) {
   .grid-container-shop-product-media {
-    padding-top: 0px;
+    padding-bottom: 100px;
   } 
 
   .product-details-description > p {
@@ -345,7 +345,7 @@ export default {
     position: fixed;
     width: 70px;
     height: 70px;
-    bottom: 350px;
+    bottom: 450px;
     left: 130px;
   }
 
@@ -364,6 +364,11 @@ export default {
     max-width:100%;
   }
 
+  .sizes {
+    height: 120px;
+    overflow: scroll;
+  }
+
   .sizes > ul {
     list-style-type: none;
     border: 1px solid black;
@@ -375,6 +380,7 @@ export default {
 
   .grid-container-shop-product {
     padding-left: 120px;
+    margin-bottom: 100px;
     display: block;
   }
 
@@ -387,7 +393,7 @@ export default {
     width: 240px;
     right: 100px;
     z-index: 1000;
-    top: 200px;
+    top: 22vh;
     height: 300px;
   }
 }

@@ -9,7 +9,7 @@
         </div>
       </form>
       <div v-else class="email-collection-form">
-        <p class="signed-up-email">{{ currentEmail && currentEmail.toUpperCase() }}, You're in the know.</p>
+        <p class="signed-up-email">You're in.</p>
       </div>
       <div class="email_collection__footer">
         <p>XXX</p>
@@ -36,8 +36,10 @@ export default {
       'setEmail': 'SET_CUSTOMER_EMAIL'
     }),
     subscribeForEmail() {
-      this.setEmail(this.email)
-      if (this.email) Api.signUpForEmails(this.email)
+      if (this.email.includes('@')) {
+        this.setEmail(this.email)
+        if (this.email) Api.signUpForEmails(this.email)
+      }
     }
   },
   computed: {
@@ -46,7 +48,7 @@ export default {
     }),
     currentEmail: {
       get() {
-        return this.email || this.stateEmail
+        return this.stateEmail
       },
       set(newVal) {
         this.email = newVal
@@ -103,13 +105,13 @@ export default {
 }
 
 .sign-up-button {
-    background: grey;
+    background: black;
     color: white;
     float: left;
-    border: none;
+    border: 1px solid white;
     width: 150px;
-    padding-top: 2px;
-    padding-bottom: 3px;
+    padding-top: 1px;
+    padding-bottom: 2px;
     margin: 10px 10px 0 10px;
     font: inherit;
     cursor: pointer;

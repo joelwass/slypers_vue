@@ -19,8 +19,8 @@
 }
 
 .loading-overlay__text {
-  margin-top: 60%;
-  font-size: 40px;
+  margin-top: 40vh;
+  font-size: 10vh;
   vertical-align: center;
 }
 </style>

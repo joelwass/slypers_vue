@@ -34,7 +34,8 @@ import {
   SET_SELECTED_PRODUCTS,
   SET_SIGNUP_PASSWORD,
   COMPLETED_STEP,
-  RESUME
+  RESUME,
+  SET_STRIPE_ORDER_ID
 } from '../types'
 
 const customer = {
@@ -55,10 +56,14 @@ const customer = {
       signUpEmail: '',
       signUpPassword: ''
     },
+    stripeOrderId: '',
     order: undefined,
     token: undefined
   },
   actions: {
+    [SET_STRIPE_ORDER_ID]: ({ commit }, orderId) => {
+      commit(SET_STRIPE_ORDER_ID, orderId)
+    },
     [SET_SIGNUP_EMAIL]: ({ commit }, email) => {
       commit(SET_SIGNUP_EMAIL, email)
     },
@@ -69,6 +74,7 @@ const customer = {
       dispatch(SET_LOADING, { value: true, save: true })
       API.pay({ token: state.token, email: state.user.email, subtotal, products }).then((res) => {
         if (res.success && res.status === 'succeeded') {
+          commit(SET_STRIPE_ORDER_ID, res.orderId)
           dispatch(SET_SELECTED_PRODUCTS, [])
           router.push('complete')
         } else if (res.status === 'paid') {
@@ -183,6 +189,9 @@ const customer = {
     }
   },
   mutations: {
+    [SET_STRIPE_ORDER_ID](state, orderId) {
+      Vue.set(state, 'stripeOrderId', orderId)
+    },
     [SET_CUSTOMER_TOKEN](state, token) {
       Vue.set(state, 'token', token)
     },

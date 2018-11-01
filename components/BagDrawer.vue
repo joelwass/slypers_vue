@@ -19,7 +19,7 @@
               <p @click="removeAllOfProduct(prod.productId, prod.size)">REMOVE</p>
             </div>
             <div class="productDescription">
-              <p>{{ product(prod.productId).description.toUpperCase() }}</p><br><br>
+              <p>{{ product(prod.productId).name.toUpperCase() }}</p><br><br>
             </div>
             <div class="productDetails">
               <p><strong>COLOR:</strong> {{ product(prod.productId).colorString }}</p>
@@ -41,8 +41,8 @@
           <p class="subtotal-label">SUBTOTAL</p>
           <p class="subtotal-amount">€ {{ subtotal }}</p>
         </div>
-        <div class="checkout-button" v-on:click="checkout">
-          <p class="checkout-button-text"><b>CHECKOUT ({{ selectedProducts.length }} {{ selectedProducts.length > 1 ? 'ITEMS' : 'ITEM' }})</b></p>
+        <div class="checkout-button-drawer" v-on:click="checkout">
+          <p class="checkout-button-drawer__text"><b>CHECKOUT ({{ selectedProducts.length }} {{ selectedProducts.length > 1 ? 'ITEMS' : 'ITEM' }})</b></p>
         </div>
       </div>
     </div>
@@ -246,14 +246,19 @@ export default {
   padding-bottom: 10px;
 }
 
-.bag-drawer-footer > .checkout-button {
+.checkout-button-drawer__text {
+  padding-top: 8px;
+  padding-bottom: 4px;
+}
+
+.bag-drawer-footer > .checkout-button-drawer {
   text-align: center;
   background-color: black;
   margin-top: 10px;
   cursor: pointer;
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 4px;
+  padding-bottom: 5px;
   color: white;
   width: 80%;
 }

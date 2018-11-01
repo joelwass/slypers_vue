@@ -105,7 +105,6 @@ class API {
   }
 
   createNewUser (body) {
-    console.log(headers)
     const options = {
       method: 'POST',
       headers,
@@ -131,7 +130,6 @@ class API {
   }
 
   saveShipping (body) {
-    console.log(headers)
     const options = {
       method: 'PUT',
       headers,
@@ -140,6 +138,7 @@ class API {
     }
     return axios(options)
       .then(res => {
+        console.log(res)
         return res.data
       })
       .catch(err => {

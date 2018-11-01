@@ -10,10 +10,8 @@
       </div>
       <div class="drawer-sizeTable">
         <div class="drawer-sizeTable__disclaimer">
-          <p>Slypers are based on a classic formal last. 
-               We recommend choosing a size similar to your dress 
-               or formal shoes.  Note, athletic shoe sizing tends 
-               to run small (e.g. Nike US 13 closer to a dress 12)</p>
+          <p>Slypers are based on a classic dress last, and fit true to size.  
+            If between two sizes, go ½ size smaller, as they are usually worn without socks.</p>
         </div>
         <table class="size-table hover-highlight" cellspacing=0>
           <tr>
@@ -21,48 +19,44 @@
             <td><b>EU</b></td>
           </tr>
           <tr>
-            <td>8</td> 
-            <td>42</td>
-          </tr>
-          <tr>
             <td>8.5</td> 
-            <td>42.5</td>
+            <td>41.5</td>
           </tr>
           <tr>
             <td>9</td> 
-            <td>43</td>
+            <td>42</td>
           </tr>
           <tr>
             <td>9.5</td> 
-            <td>43.5</td>
+            <td>42.5</td>
           </tr>
           <tr>
             <td>10</td> 
-            <td>44</td>
+            <td>43</td>
           </tr>
           <tr>
             <td>10.5</td> 
-            <td>44.5</td>
+            <td>43.5</td>
           </tr>
           <tr>
             <td>11</td> 
-            <td>45</td>
+            <td>44</td>
           </tr>
           <tr>
             <td>11.5</td> 
-            <td>45.5</td>
+            <td>44.5</td>
           </tr>
           <tr>
             <td>12</td> 
-            <td>46</td>
+            <td>45</td>
           </tr>
           <tr>
             <td>12.5</td> 
-            <td>46.5</td>
+            <td>45.5</td>
           </tr>
           <tr>
             <td>13</td> 
-            <td>47</td>
+            <td>46</td>
           </tr>
         </table>
       </div>

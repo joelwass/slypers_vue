@@ -83,8 +83,8 @@ export default {
   margin: 10px 10px 0 10px;
   border: none;
   float: left;
-  padding-top: .5em;
-  padding-bottom: .5em;
+  padding-top: .3em;
+  padding-bottom: .35em;
   padding-left:6px;
 }
 

@@ -129,6 +129,11 @@ html {
   margin-left: 15px;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 input {
   border-radius: 0;
   -webkit-border-radius:0;

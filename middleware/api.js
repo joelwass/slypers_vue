@@ -1,5 +1,5 @@
 const axios = require('axios')
-let endpoint = process.env.NODE_ENV === 'production' ? 'https://slypers-staging-node.herokuapp.com/api/v1' : 'http://localhost:3001/api/v1'
+let endpoint = process.env.NODE_ENV === 'production' ? 'https://slypers-production-node.herokuapp.com/api/v1' : 'http://localhost:3001/api/v1'
 import helper from '../helpers/methods'
 
 const headers = { 'Content-Type': 'application/json' }
@@ -46,12 +46,10 @@ class API {
   }
 
   authenticate() { 
-    console.log('authing')
     return new Promise((resolve, reject) => {
       axios.post(`${endpoint}/auth`)
       .then(data => {
         const auth = data.data.sessionId
-        console.log(auth)
         helper.setCookie('auth', auth, 1)
         this.setAuthToken(auth)
         return resolve(auth)
@@ -69,7 +67,6 @@ class API {
   }
 
   login (body) {
-    console.log(body)
     const options = {
       method: 'POST',
       headers,
@@ -114,7 +111,6 @@ class API {
     }
     return axios(options)
       .then(res => {
-        console.log('res from create customer', res)
         return res.data
       })
       .catch(err => {
@@ -139,7 +135,6 @@ class API {
     }
     return axios(options)
       .then(res => {
-        console.log(res)
         return res.data
       })
       .catch(err => {
@@ -174,7 +169,6 @@ class API {
     }
     return axios(options)
       .then(res => {
-        console.log(res)
         return res.data
       })
       .catch(err => {
@@ -192,7 +186,6 @@ class API {
 
   // grab the selected products and selected browsing product
   resume() {
-    console.log(headers)
     const options = {
       method: 'GET',
       headers,
@@ -200,7 +193,6 @@ class API {
     }
     return axios(options)
       .then(res => {
-        console.log(res)
         return res.data
       })
       .catch(err => {
@@ -241,8 +233,6 @@ class API {
   }
 
   saveDynamicState (data) {
-    console.log('saving data')
-    console.log(data)
     const options = {
       method: 'POST',
       headers,
@@ -251,7 +241,6 @@ class API {
     }
     return axios(options)
       .then(res => {
-        console.log(res)
         return res.data
       })
       .catch(err => {

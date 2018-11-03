@@ -555,7 +555,7 @@ export default {
   padding-top: 6px;
 }
 
-.card-errors {
+#card-errors {
   color: red;
 }
 

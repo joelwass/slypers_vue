@@ -446,7 +446,9 @@ export default {
       }, 0)
     },
     savePayment(event) {
-      event.preventDefault();
+      if (event) {
+        event.preventDefault();
+      }
       const self = this
       this.setLoading({ value: true, save: false })
 
@@ -467,12 +469,12 @@ export default {
 
       this.localStripe.createToken(this.localCard, options).then(function(result) {
         if (result.error) {
-          result.token.email = this.email
           // Inform the user if there was an error.
           var errorElement = document.getElementById('card-errors')
           errorElement.textContent = result.error.message
-          this.setLoading({ value: false, save: false })
+          self.setLoading({ value: false, save: false })
         } else {
+          result.token.email = self.email
           // Send the token to your server.
           result.token.card
           self.setToken(result.token)

@@ -83,8 +83,8 @@ export default {
   margin: 10px 10px 0 10px;
   border: none;
   float: left;
-  padding-top: 3px;
-  padding-bottom: 4px;
+  padding-top: .5em;
+  padding-bottom: .5em;
   padding-left:6px;
 }
 
@@ -114,8 +114,8 @@ export default {
     float: left;
     border: 1px solid white;
     width: 130px;
-    padding-top: 1px;
-    padding-bottom: 2px;
+    padding-top: .25em;
+    padding-bottom: .25em;
     margin: 10px 10px 0 10px;
     font: inherit;
     cursor: pointer;
@@ -144,8 +144,8 @@ export default {
     margin: 10px 10px 0 10px;
     border: none;
     float: left;
-    padding-top: 3px;
-    padding-bottom: 4px;
+    padding-top: .5em;
+    padding-bottom: .5em;
     padding-left:6px;
   }
 }

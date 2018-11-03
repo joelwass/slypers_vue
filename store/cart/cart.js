@@ -85,7 +85,7 @@ const cart = {
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
-        colorString: 'Gris'
+        colorString: 'Grijs'
       }
     ],
     selectedProducts: []

@@ -10,9 +10,6 @@
     <div class="splash-image-div">
       <img class="splash-image-desktop" src="/shoes/red/Profile_red.png" alt="A Brothel Slyper">
       <img class="splash-image-mobile" src="/shoes/red/Back_single_red.png" alt="A Brothel Slyper">
-      <div class="never-get-caught" v-on:click="go('shop')">
-        <p class="never-get-caught__text"><b>NEVER GET CAUGHT</b></p>
-      </div>
     </div>
   </div>
 </div>

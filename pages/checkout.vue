@@ -555,6 +555,10 @@ export default {
   padding-top: 6px;
 }
 
+.card-errors {
+  color: red;
+}
+
 .checkout-content-input {
   width: 100%;
   height: 25px;

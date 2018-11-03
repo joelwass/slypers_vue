@@ -79,7 +79,7 @@ export default {
 }
 
 .sign-up-email-input {
-  width: 250px;
+  width: 200px;
   margin: 10px 10px 0 10px;
   border: none;
   float: left;
@@ -113,7 +113,7 @@ export default {
     color: white;
     float: left;
     border: 1px solid white;
-    width: 150px;
+    width: 130px;
     padding-top: 1px;
     padding-bottom: 2px;
     margin: 10px 10px 0 10px;

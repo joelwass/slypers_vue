@@ -129,6 +129,10 @@ html {
   margin-left: 15px;
 }
 
+input {
+  border-radius: 0;
+}
+
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;

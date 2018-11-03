@@ -21,12 +21,12 @@
     </div>
     <div class="subsection">
       <p><b>Shipping</b></p><br>
-      <p>Shipping available to the Netherlands, United Kingdom, United States.</p>
+      <p>Shipping available to the Netherlands, United Kingdom, United States.</p><br>
       <p>Standard shipping is 5-7 days.  The most recent release will be delivered the first week of December.  </p>
     </div>
     <div class="subsection">
       <p><b>Return & Exchange Policy</b></p><br>
-      <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery. Email service@slypers.com with your order number for more information.</p>
+      <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery.<br>Email service@slypers.com with your order number for more information.</p>
     </div>
   </div>
 </template>

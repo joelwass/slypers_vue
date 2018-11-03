@@ -131,6 +131,7 @@ html {
 
 input {
   border-radius: 0;
+  -webkit-border-radius:0;
 }
 
 .button--grey:hover {

@@ -28,16 +28,16 @@
         <h3>€ {{ this.selectedProduct.price }}</h3><br>
         <p><b>Description</b></p><br>
         <p>Color: {{ this.selectedProduct.colorString }}</p><br>
-        <div>
+        <div class="product-details__bullets">
           <ul>
             <li>Dutch Bordeelslyper</li>
             <li>Italian suiting wool upper</li>
             <li>Memory foam insole</li>
             <li>Microfoam outsole</li>
             <li>Suede tassel</li>
-            <li>Made In Italy</li>
           </ul>
         </div><br>
+        <p>Made In Italy</p><br>
 
         <p class="product-details__size-label"><b>Size</b></p>
         <p class="product-details__size-guide-button"><a @click="toggleSizeDrawer">SIZE GUIDE ></a></p>
@@ -328,6 +328,10 @@ export default {
   padding-top: 3px;
   padding-bottom: 3px;
   border: 1px black solid;
+}
+
+.product-details__bullets {
+  padding-left: 16px;
 }
 
 .shop-product {

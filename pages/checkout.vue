@@ -22,7 +22,7 @@
                 <p>*For delivery 12/8*</p>
               </div>
               <div class="productDetails__checkout">
-                <p><strong>Colour:</strong> {{ product(prod.productId).colorString }}</p>
+                <p><strong>Color:</strong> {{ product(prod.productId).colorString }}</p>
                 <p><strong>Size: </strong>{{ prod.size }}</p>
                 <div class="size-row"><strong>Quantity:</strong> {{ prod.quantity }}
                 </div>

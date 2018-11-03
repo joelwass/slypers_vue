@@ -27,9 +27,17 @@
         <h2>{{ this.selectedProduct.name }}</h2><br>
         <h3>€ {{ this.selectedProduct.price }}</h3><br>
         <p><b>Description</b></p><br>
-        <p>Colour: {{ this.selectedProduct.colorString }}</p><br>
-        <p>Dutch Bordeelslyper.  Italian suiting wool upper. Cotton liner.  Memory foam cushioned insole.  EVA microfoam outsole.  Suede tassel.</p><br>
-        <p>Made In Italy</p><br>
+        <p>Color: {{ this.selectedProduct.colorString }}</p><br>
+        <div>
+          <ul>
+            <li>Dutch Bordeelslyper</li>
+            <li>Italian suiting wool upper</li>
+            <li>Memory foam insole</li>
+            <li>Microfoam outsole</li>
+            <li>Suede tassel</li>
+            <li>Made In Italy</li>
+          </ul>
+        </div><br>
 
         <p class="product-details__size-label"><b>Size</b></p>
         <p class="product-details__size-guide-button"><a @click="toggleSizeDrawer">SIZE GUIDE ></a></p>
@@ -179,7 +187,7 @@ export default {
     scrollToImage(imageId) {
       if (process.browser) {
         const scrollHeight = document.getElementById(imageId).offsetTop
-        window.scrollTo(0, scrollHeight + 240)
+        window.scrollTo(0, scrollHeight + 100)
       }
     }
   },

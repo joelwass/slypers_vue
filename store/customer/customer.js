@@ -70,9 +70,9 @@ const customer = {
     [SET_SIGNUP_PASSWORD]: ({ commit }, password) => {
       commit(SET_SIGNUP_PASSWORD, password)
     },
-    [SUBMIT_ORDER]: ({ dispatch, commit, state }, {router, subtotal, products}) => {
+    [SUBMIT_ORDER]: ({ dispatch, commit, state }, {router, subtotal, products, couponCode }) => {
       dispatch(SET_LOADING, { value: true, save: true })
-      API.pay({ token: state.token, email: state.user.email, subtotal, products }).then((res) => {
+      API.pay({ token: state.token, email: state.user.email, subtotal, products, couponCode }).then((res) => {
         if (res.success && res.status === 'succeeded') {
           commit(SET_STRIPE_ORDER_ID, res.orderId)
           dispatch(SET_SELECTED_PRODUCTS, [])
@@ -124,7 +124,7 @@ const customer = {
           dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
         } else {
           console.log(res)
-          alert(res.message)
+          alert(res.error)
           return dispatch(SET_ERROR, res.message)
         }
         return dispatch(SET_LOADING, { value: false, save: true })
@@ -169,7 +169,7 @@ const customer = {
       API.saveShipping({
         address: data.address,
         address2: data.address2,
-        email: data.email,
+        email: data.email ? data.email : 'guest',
         city: data.city,
         state: data.state,
         zip: data.zip

@@ -1,6 +1,6 @@
 <template>
   <div class="loading-overlay">
-    <p class="loading-overlay__text"><b>XXX...</b></p>
+    <p class="loading-overlay__text"><b>Loading...</b></p>
   </div>
 </template>
 
@@ -20,7 +20,7 @@
 
 .loading-overlay__text {
   margin-top: 40vh;
-  font-size: 10vh;
+  font-size: 14px;
   vertical-align: center;
 }
 </style>

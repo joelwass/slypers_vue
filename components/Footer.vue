@@ -1,15 +1,15 @@
 <template>
   <footer class="footer_basic">
     <div class="email_collection">
-      <form v-if="!currentEmail || currentEmail == ''" class="email-collection-form">
+      <form class="email-collection-form">
         <p class="email_collection__header">Hear about new releases.</p>
         <input type="text" placeholder="Your E-Mail" class="sign-up-email-input" v-model="email">
         <div class="sign-up-button" v-on:click="subscribeForEmail">
           <p>ENTER</p>
         </div>
       </form>
-      <div v-else class="email-collection-form">
-        <p class="signed-up-email">You're in.</p>
+      <div v-if="currentEmail" class="email-collection-form-success">
+        <p class="signed-up-email">Success.</p>
       </div>
       <div class="email_collection__footer">
         <p>XXX</p>
@@ -62,6 +62,10 @@ export default {
 .email-collection-form {
   display: inline-block;
   margin-top: 4px;
+}
+
+.email-collection-form-success {
+  width: 100%;
 }
 
 .signed-up-email {

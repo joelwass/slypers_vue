@@ -92,7 +92,8 @@ class API {
         metadata: {
           email: data.email,
           subtotal: data.subtotal,
-          products: JSON.stringify(data.products)
+          products: JSON.stringify(data.products),
+          couponCode: data.couponCode
         }
       },
       url: `${endpoint}/pay`

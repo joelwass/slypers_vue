@@ -24,14 +24,21 @@ export default {
 
 .fullscreen__brothel__description {
   color: black;
-  z-index: 100000;
   position: relative;
 }
 
 .fullscreen__brothel {
   z-index: 100000;
+  padding-left: 250px;
+  padding-right: 250px;
+  padding-top: 100px;
+  margin-bottom: 100px;
   background-color: white;
   text-align: center;
+}
+
+.info {
+  min-height: 100vh;
 }
 @media all and (min-width: 850px) {
   

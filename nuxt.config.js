@@ -11,6 +11,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon_flag.ico' }
+    ],
+    script: [
+      { src: 'js/fullstory.js' }
     ]
   },
   /*

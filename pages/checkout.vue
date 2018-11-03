@@ -56,9 +56,18 @@
           <div class="checkout-button" v-on:click="signUp">
             <p class="checkout-button-text"><b>REGISTER</b></p>
           </div>
+          <!-- <p>or</p><br>
+          <h3 class="checkout-content-subheader">Checkout as guest</h3>
+          <div class="signup">
+            <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="guestEmail">
+          </div>
+          <div class="checkout-button" v-on:click="checkoutAsGuest">
+            <p class="checkout-button-text"><b>CHECKOUT AS GUEST</b></p>
+          </div> -->
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
           <h3 class="checkout-content-subheader">Shipping Address</h3><br>
+          <p>* All shipping is €10 *</p><br>
           <div class="shipping-info">
             <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
             <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">
@@ -74,6 +83,7 @@
           <h3 class="checkout-content-subheader">Review</h3>
           <div>
             <h4 class="checkout-content-subheader">SHIPPING</h4>
+            <p>* All shipping is €10 *</p><br>
             <div class="shipping-subheader">ADDRESS</div>
             <div class="modify-button" v-on:click="setCheckoutStep({ step: 'SHIPPING_STEP' })">
               <p><u>MODIFY</u></p>
@@ -86,7 +96,11 @@
           </div>
           <div>
             <h4 class="checkout-content-subheader">PAYMENT</h4>
-            <label for="paymentInfo">{{ this.cardBrand }} ending in {{ this.cardLast4 }}</label>
+            <label for="paymentInfo">{{ this.cardBrand }} ending in {{ this.cardLast4 }}</label><br><br>
+          </div>
+          <div>
+            <h4 class="checkout-content-subheader">SUBTOTAL</h4>
+            <label for="paymentInfo">€ {{ this.subtotal() + 10 }}</label>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
@@ -109,6 +123,7 @@
             <div class="cc-field">
               <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First name" v-model="stripeInfo.firstName" />
               <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last name" v-model="stripeInfo.lastName" />
+              <b>Referral </b><br><input type="text" class="checkout-content-input" placeholder="Referral code" v-model="couponCode" />
             </div>
             <form action="/charge" method="post" id="payment-form">
               <div class="form-row">
@@ -122,7 +137,6 @@
                 <!-- Used to display form errors. -->
                 <div id="card-errors" role="alert"></div>
               </div>
-
               <div class="checkout-button" v-on:click="savePayment">
                 <p class="checkout-button-text"><b>SAVE PAYMENT INFO</b></p>
               </div>
@@ -182,6 +196,8 @@ export default {
       dayDropdownOpen: false,
       monthDropdownOpen: false,
       yearDropdownOpen: false,
+      couponCode: '',
+      guestEmail: ''
     }
   },
   watch: {
@@ -189,7 +205,7 @@ export default {
       if (view === 'PAYMENT_STEP' && !this.cardStuffInitialized) {
         this.cardStuffInitialized = true
           // Create a Stripe client.
-        this.localStripe = Stripe('pk_test_PyjI6tSavuVEBwj8J457UWqo');
+        this.localStripe = Stripe('pk_live_oFibVEirPkAASjPpBX5zK9B5');
 
         // Create an instance of Elements.
         var elements = this.localStripe.elements();
@@ -214,7 +230,7 @@ export default {
         };
 
         // Create an instance of the card Element.
-        this.localCard = elements.create('card', {style: style});
+        this.localCard = elements.create('card', {style: style, hidePostalCode: true});
 
         // Add an instance of the card Element into the `card-element` <div>.
         this.localCard.mount('#card-element');
@@ -418,7 +434,7 @@ export default {
       setSignUpPassword: 'SET_SIGNUP_PASSWORD'
     }),
     submitOrder() {
-      this.submit({router: this.$router, subtotal: this.subtotal()*100, products: this.selectedProducts})
+      this.submit({router: this.$router, subtotal: this.subtotal()*100, products: this.selectedProducts, couponCode: this.couponCode })
     },
     setCheckoutStep(data) {
       this.setLoading({ value: true, save: true })
@@ -459,6 +475,7 @@ export default {
           this.setLoading({ value: false, save: false })
         } else {
           // Send the token to your server.
+          result.token.card
           self.setToken(result.token)
         }
       });
@@ -482,6 +499,11 @@ export default {
     signUp() {
       if (this.signUpEmail && this.signUpPassword && this.firstName && this.lastName) {
         this.signupAction({ firstName: this.firstName, lastName: this.lastName, email: this.signUpEmail, password: this.signUpPassword })
+      }
+    },
+    checkoutAsGuest() {
+      if (this.guestEmail) {
+        this.signupAction({ email: this.guestEmail }) 
       }
     },
     saveShippingInfo() {
@@ -651,7 +673,7 @@ export default {
 
 .checkout > .checkout-grid > .checkout-content {
   grid-column: 1 / 5;
-  grid-row: 2 / 10;
+  grid-row: 2 / 14;
   border: solid rgb(230, 226, 226) 1px;
   padding: 30px;
 }
@@ -687,7 +709,7 @@ export default {
 
   .checkout > .checkout-grid > .checkout-content {
     grid-column: 1 / 3;
-    grid-row: 2 / 10;
+    grid-row: 2 / 12;
     border: solid rgb(230, 226, 226) 1px;
     padding: 30px;
   }

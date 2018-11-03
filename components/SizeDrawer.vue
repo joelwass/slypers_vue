@@ -10,7 +10,7 @@
       </div>
       <div class="drawer-sizeTable">
         <div class="drawer-sizeTable__disclaimer">
-          <p>Slypers are based on a classic dress last, and fit true to size.  
+          <p>Slypers are based on a classic dress last, and fit true to size.<br><br>  
             If between two sizes, go ½ size smaller, as they are usually worn without socks.</p>
         </div>
         <table class="size-table hover-highlight" cellspacing=0>

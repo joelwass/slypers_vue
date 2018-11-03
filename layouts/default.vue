@@ -133,4 +133,9 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
 </style>

@@ -43,7 +43,6 @@ export default {
       setSizeDrawerOpen: 'SET_SIZE_DRAWER_OPEN'
     }),
     toggleDrawer() {
-      console.log('here')
       const prevDrawerOpen = this.drawerOpen
       this.drawerOpen = !prevDrawerOpen
     },

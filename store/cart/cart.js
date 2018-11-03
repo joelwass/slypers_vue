@@ -110,7 +110,6 @@ const cart = {
       commit(REMOVE_PRODUCT, data)
     },
     [SET_CHECKOUT_STEP]: ({ commit, dispatch }, data) => {
-      console.log('here x2?', data)
       commit(SET_CHECKOUT_STEP, data)
       dispatch(SET_LOADING, { value: false, save: true })
     }
@@ -128,7 +127,6 @@ const cart = {
       Vue.set(state, 'selectedProducts', newArray)
     },
     [RESUME](state, data) {
-      console.log(data)
       if (data.checkoutStep) Vue.set(state, 'currentCheckoutStep', data.checkoutStep)
       if (data.selectedProducts) Vue.set(state, 'selectedProducts', data.selectedProducts)
     },

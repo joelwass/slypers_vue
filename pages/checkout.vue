@@ -300,7 +300,6 @@ export default {
         return this.emailState
       },
       set(newVal) {
-        console.log('here')
         this.setEmail(newVal)
       }
     },

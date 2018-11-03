@@ -10,6 +10,9 @@
     <div class="splash-image-div">
       <img class="splash-image-desktop" src="/shoes/red/Profile_red.png" alt="A Brothel Slyper">
       <img class="splash-image-mobile" src="/shoes/red/Back_single_red.png" alt="A Brothel Slyper">
+      <div class="never-get-caught" v-on:click="go('shop')">
+        <p class="never-get-caught__text"><b>NEVER GET CAUGHT</b></p>
+      </div>
     </div>
   </div>
 </div>
@@ -34,6 +37,22 @@ export default {
   width: 100%;
 }
 
+.never-get-caught {
+  cursor: pointer;
+  width: 200px;
+  margin: auto;
+  background-color: black;
+  color: white;
+  text-align: center;
+  height: 30px;
+}
+
+.never-get-caught__text {
+  padding-top: 6px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
 .splash-image-desktop {
   display: none;
 }
@@ -52,6 +71,8 @@ export default {
   align-items: center;
   max-height: 100vh;
   margin: auto;
+  cursor: pointer;
+  margin-bottom: 100px;
 }
 
 .discoverText {
@@ -65,6 +86,7 @@ export default {
 
 .discoverText__about {
   margin-top: 20px;
+  cursor: pointer;
 }
 
 .discoverText__preorder {
@@ -80,6 +102,10 @@ export default {
 
 @media all and (min-width: 850px) {
   .splash-image-mobile {
+    display: none;
+  }
+
+  .never-get-caught {
     display: none;
   }
 

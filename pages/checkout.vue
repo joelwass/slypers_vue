@@ -67,7 +67,7 @@
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
           <h3 class="checkout-content-subheader">Shipping Address</h3><br>
-          <p>* All shipping is €10 *</p><br>
+          <p>* All shipping is €8 *</p><br>
           <div class="shipping-info">
             <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
             <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">

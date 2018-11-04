@@ -99,7 +99,18 @@ class API {
       .then(res => {
         return res.data
       })
-      .catch(err => err)
+      .catch(err => {
+        console.log(err.response)
+        if (!err.response) return { message: 'Uh oh! something went wrong. please try again.' }
+        // if we're unauthorized, auth and retry
+        if (err.response.status == '401') {
+          this.authenticate().then(authRes => axios(options))
+          .catch(err => {
+            return err
+          })
+        }
+        return err
+      })
   }
 
   createNewUser (body) {
@@ -115,6 +126,32 @@ class API {
       })
       .catch(err => {
         console.log(err.response)
+        if (!err.response) return { message: 'Uh oh! something went wrong. please try again.' }
+        // if we're unauthorized, auth and retry
+        if (err.response.status == '401') {
+          this.authenticate().then(authRes => axios(options))
+          .catch(err => {
+            return err
+          })
+        }
+        return err
+      })
+  }
+
+  createNewGuest (body) {
+    const options = {
+      method: 'POST',
+      headers,
+      data: body,
+      url: `${endpoint}/guest`
+    }
+    return axios(options)
+      .then(res => {
+        return res.data
+      })
+      .catch(err => {
+        console.log(err.response)
+        if (!err.response) return { message: 'Uh oh! something went wrong. please try again.' }
         // if we're unauthorized, auth and retry
         if (err.response.status == '401') {
           this.authenticate().then(authRes => axios(options))
@@ -139,6 +176,7 @@ class API {
       })
       .catch(err => {
         console.log(err.response)
+        if (!err.response) return { message: 'Uh oh! something went wrong. please try again.' }
         // if we're unauthorized, auth and retry
         if (err.response.status == '401') {
           this.authenticate().then(authRes => axios(options))
@@ -173,6 +211,7 @@ class API {
       })
       .catch(err => {
         console.log(err.response)
+        if (!err.response) return { message: 'Uh oh! something went wrong. please try again.' }
         // if we're unauthorized, auth and retry
         if (err.response.status == '401') {
           this.authenticate().then(authRes => axios(options))
@@ -197,6 +236,7 @@ class API {
       })
       .catch(err => {
         console.log(err.response)
+        if (!err.response) return { message: 'Uh oh! something went wrong. please try again.' }
         // if we're unauthorized, auth and retry
         if (err.response.status == '401') {
           this.authenticate().then(authRes => axios(options))
@@ -221,6 +261,7 @@ class API {
       })
       .catch(err => {
         console.log(err.response)
+        if (!err.response) return { message: 'Uh oh! something went wrong. please try again.' }
         // if we're unauthorized, auth and retry
         if (err.response.status == '401') {
           this.authenticate().then(authRes => axios(options))
@@ -245,6 +286,7 @@ class API {
       })
       .catch(err => {
         console.log(err.response)
+        if (!err.response) return { message: 'Uh oh! something went wrong. please try again.' }
         // if we're unauthorized, auth and retry
         if (err.response.status == '401') {
           this.authenticate().then(authRes => axios(options))

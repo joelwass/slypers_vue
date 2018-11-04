@@ -80,7 +80,7 @@ const cart = {
         image: '/shoes/black/Top_black.png',
         altImage: '/shoes/black/Profile_black.png',
         images: ['/shoes/black/Profile_black.png', '/shoes/black/Top_black.png', '/shoes/black/Back_black.png', '/shoes/black/Bottom_black.png', '/shoes/black/Print_black.png'],
-        name: 'Bubblebad Apres MMXIX',
+        name: 'Bubbelbad Apres MMXIX',
         price: '225',
         price_dollars: 225,
         price_cents: 0,

@@ -159,7 +159,9 @@ export default {
       }
     },
     dropdown(e) {
-      e.stopPropagation();
+      if (e) {
+        e.stopPropagation();
+      }
       this.dropdownOpen = !this.dropdownOpen
     },
     selectedFullProduct() {

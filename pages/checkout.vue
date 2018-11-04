@@ -56,14 +56,14 @@
           <div class="checkout-button" v-on:click="signUp">
             <p class="checkout-button-text"><b>REGISTER</b></p>
           </div>
-          <!-- <p>or</p><br>
+          <p>or</p><br>
           <h3 class="checkout-content-subheader">Checkout as guest</h3>
           <div class="signup">
             <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="guestEmail">
           </div>
           <div class="checkout-button" v-on:click="checkoutAsGuest">
             <p class="checkout-button-text"><b>CHECKOUT AS GUEST</b></p>
-          </div> -->
+          </div>
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
           <h3 class="checkout-content-subheader">Shipping Address</h3><br>
@@ -83,7 +83,7 @@
           <h3 class="checkout-content-subheader">Review</h3>
           <div>
             <h4 class="checkout-content-subheader">SHIPPING</h4>
-            <p>* All shipping is €10 *</p><br>
+            <p>* All shipping is €8 *</p><br>
             <div class="shipping-subheader">ADDRESS</div>
             <div class="modify-button" v-on:click="setCheckoutStep({ step: 'SHIPPING_STEP' })">
               <p><u>MODIFY</u></p>
@@ -100,7 +100,7 @@
           </div>
           <div>
             <h4 class="checkout-content-subheader">SUBTOTAL</h4>
-            <label for="paymentInfo">€ {{ this.subtotal() + 10 }}</label>
+            <label for="paymentInfo">€ {{ this.subtotal() + 8 }}</label>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
@@ -420,6 +420,7 @@ export default {
       setLastName: 'SET_LAST_NAME',
       login: 'LOGIN_USER',
       signupAction: 'CREATE_ACCOUNT',
+      checkoutAsGuestAction: 'CREATE_GUEST',
       setAddress: 'SET_CUSTOMER_ADDRESS',
       setAddress2: 'SET_CUSTOMER_ADDRESS_2',
       setCity: 'SET_CUSTOMER_CITY',
@@ -504,7 +505,7 @@ export default {
     },
     checkoutAsGuest() {
       if (this.guestEmail) {
-        this.signupAction({ email: this.guestEmail }) 
+        this.checkoutAsGuestAction({ email: this.guestEmail }) 
       }
     },
     saveShippingInfo() {

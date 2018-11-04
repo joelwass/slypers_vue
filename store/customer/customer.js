@@ -35,6 +35,7 @@ import {
   SET_SIGNUP_PASSWORD,
   COMPLETED_STEP,
   RESUME,
+  CREATE_GUEST,
   SET_STRIPE_ORDER_ID
 } from '../types'
 
@@ -107,6 +108,21 @@ const customer = {
       API.createNewUser(customer).then((res) => {
         if (res.success) {
           commit(CREATE_ACCOUNT, res.customer)
+          dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
+        } else {
+          alert(res.message)
+          console.log(res)
+          dispatch(SET_ERROR, res.message)
+        }
+        dispatch(SET_LOADING, { value: false, save: true })
+      })
+    },
+    [CREATE_GUEST]: ({ dispatch, commit }, guest) => {
+      dispatch(CLEAR_ERRORS)
+      dispatch(SET_LOADING, { value: true, save: true })
+      API.createNewGuest(guest).then((res) => {
+        if (res.success) {
+          commit(CREATE_GUEST, res.guest)
           dispatch(SET_CHECKOUT_STEP, { step: SHIPPING_STEP })
         } else {
           alert(res.message)
@@ -209,6 +225,9 @@ const customer = {
     },
     [CREATE_ACCOUNT](state, user) {
       Vue.set(state, 'user', user)
+    },
+    [CREATE_GUEST](state, guest) {
+      Vue.set(state, 'user', guest)
     },
     [SET_PASSWORD](state, password) {
       Vue.set(state.user, 'password', password)

@@ -480,34 +480,39 @@ export default {
       const self = this
       this.setLoading({ value: true, save: false })
 
-      // set shipping and meta values on card
-      const options = {
-        name: `${this.firstName} ${this.lastName}`,
-        address_country: 'United States',
-        address_zip: this.zip,
-        address_state: this.stateAddress,
-        address_city: this.city,
-        address_line1: this.address,
-        address_line2: this.address2,
-        metadata: {
-          selectedProducts: this.selectedProducts,
-          subtotal: this.subtotal()*100
+      try {
+        // set shipping and meta values on card
+        const options = {
+          name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
+          address_country: 'United States',
+          address_zip: this.zip,
+          address_state: this.stateAddress,
+          address_city: this.city,
+          address_line1: this.address,
+          address_line2: this.address2,
+          metadata: {
+            selectedProducts: this.selectedProducts,
+            subtotal: this.subtotal()*100
+          }
         }
-      }
 
-      this.localStripe.createToken(this.localCard, options).then(function(result) {
-        if (result.error) {
-          // Inform the user if there was an error.
-          var errorElement = document.getElementById('card-errors')
-          errorElement.textContent = result.error.message
-          self.setLoading({ value: false, save: false })
-        } else {
-          result.token.email = self.email
-          // Send the token to your server.
-          result.token.card
-          self.setToken(result.token)
-        }
-      });
+        this.localStripe.createToken(this.localCard, options).then(function(result) {
+          if (result.error) {
+            // Inform the user if there was an error.
+            var errorElement = document.getElementById('card-errors')
+            errorElement.textContent = result.error.message
+            self.setLoading({ value: false, save: false })
+          } else {
+            result.token.email = self.email
+            // Send the token to your server.
+            result.token.card
+            self.setToken(result.token)
+          }
+        });
+      } catch (e) {
+        this.setLoading({ value: false, save: false })
+        console.log('ERROR', e)
+      }
     },
     range(start, end) {
       return helperMethods.range(start, end)

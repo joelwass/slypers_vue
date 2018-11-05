@@ -1,7 +1,7 @@
 <template>
   <div class="checkout">
     <div class="checkout-grid">
-      <div :class="navClasses('SIGNUP_LOGIN_STEP')" @click="setCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. LOGIN</div>
+      <div :class="navClasses('SIGNUP_LOGIN_STEP')" @click="setCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })">1. CONTACT</div>
       <div :class="navClasses('SHIPPING_STEP')" @click="setCheckoutStep({ step: 'SHIPPING_STEP' })">2. SHIPPING</div>
       <div :class="navClasses('PAYMENT_STEP')" @click="setCheckoutStep({ step: 'PAYMENT_STEP' })">3. PAYMENT</div>
       <div :class="navClasses('REVIEW_STEP')" @click="setCheckoutStep({ step: 'REVIEW_STEP' })">4. REVIEW</div>

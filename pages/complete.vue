@@ -1,6 +1,6 @@
 <template>
   <div class="complete">
-    <h2>CONGRATULATIONS!</h2><br>
+    <h2>Order Complete</h2><br>
     <div>
       <h3>Order Details</h3>
     </div><br>

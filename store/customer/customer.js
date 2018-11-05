@@ -183,9 +183,10 @@ const customer = {
       dispatch(CLEAR_ERRORS)
       dispatch(SET_LOADING, { value: true, save: true })
       API.saveShipping({
+        isGuest: data.isGuest,
         address: data.address,
         address2: data.address2,
-        email: data.email ? data.email : 'guest',
+        email: data.email,
         city: data.city,
         state: data.state,
         zip: data.zip

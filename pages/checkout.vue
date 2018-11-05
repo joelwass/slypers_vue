@@ -36,7 +36,7 @@
       </div>
       <div class="checkout-content">
         <div v-if="currentCheckoutStep === 'SIGNUP_LOGIN_STEP'">
-          <h3 class="checkout-content-subheader">Login</h3>
+          <!-- <h3 class="checkout-content-subheader">Login</h3>
           <p>Enter your email and password to enter</p><br>
           <div class="login">
             <b>EMAIL *</b><br><input class="checkout-content-input" type="text" placeholder="Email" v-model="email"><br>
@@ -56,7 +56,7 @@
           <div class="checkout-button" v-on:click="signUp">
             <p class="checkout-button-text"><b>REGISTER</b></p>
           </div>
-          <p>or</p><br>
+          <p>or</p><br> -->
           <h3 class="checkout-content-subheader">Checkout as guest</h3>
           <div class="signup">
             <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="guestEmail">
@@ -67,7 +67,6 @@
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
           <h3 class="checkout-content-subheader">Shipping Address</h3><br>
-          <p>* All shipping is €8 *</p><br>
           <div class="shipping-info">
             <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
             <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">
@@ -83,7 +82,6 @@
           <h3 class="checkout-content-subheader">Review</h3>
           <div>
             <h4 class="checkout-content-subheader">SHIPPING</h4>
-            <p>* All shipping is €8 *</p><br>
             <div class="shipping-subheader">ADDRESS</div>
             <div class="modify-button" v-on:click="setCheckoutStep({ step: 'SHIPPING_STEP' })">
               <p><u>MODIFY</u></p>
@@ -98,9 +96,37 @@
             <h4 class="checkout-content-subheader">PAYMENT</h4>
             <label for="paymentInfo">{{ this.cardBrand }} ending in {{ this.cardLast4 }}</label><br><br>
           </div>
+          <div class="mobileBagSummary">
+            <div class="mobileBagSummary__products">
+              <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
+                <div class="selectedProduct">
+                  <div class="productPrice">
+                    <p>€{{ product(prod.productId).price }}</p>
+                  </div>
+                  <div class="productDescription">
+                    <p>{{ product(prod.productId).name.toUpperCase() }}</p><br><br>
+                  </div>
+                  <div class="productAsterisk">
+                    <p>*For delivery 12/8*</p>
+                  </div>
+                  <div class="productDetails__checkout">
+                    <p><strong>Color:</strong> {{ product(prod.productId).colorString }}</p>
+                    <p><strong>Size: </strong>{{ prod.size }}</p>
+                    <div class="size-row"><strong>Quantity:</strong> {{ prod.quantity }}
+                    </div>
+                  </div>
+                  <div class="selectedProduct__imagecontainer">
+                    <img class="selectedProductImage" :src="product(prod.productId).image" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div>
-            <h4 class="checkout-content-subheader">SUBTOTAL</h4>
-            <label for="paymentInfo">€ {{ this.subtotal() + 8 }}</label>
+            <p>Subtotal: € {{ this.subtotal() }}</p>
+            <p>Shipping: € 8</p><br>
+            <h4 class="checkout-content-subheader">TOTAL</h4>
+            <p>€ {{ this.subtotal() + 8 }}</p>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
@@ -123,7 +149,7 @@
             <div class="cc-field">
               <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First name" v-model="stripeInfo.firstName" />
               <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last name" v-model="stripeInfo.lastName" />
-              <b>Referral </b><br><input type="text" class="checkout-content-input" placeholder="Referral code" v-model="couponCode" />
+              <b>Personal Code </b><br><input type="text" class="checkout-content-input" placeholder="Personal code" v-model="couponCode" />
             </div>
             <form action="/charge" method="post" id="payment-form">
               <div class="form-row">
@@ -138,7 +164,7 @@
                 <div id="card-errors" role="alert"></div>
               </div>
               <div class="checkout-button" v-on:click="savePayment">
-                <p class="checkout-button-text"><b>SAVE PAYMENT INFO</b></p>
+                <p class="checkout-button-text"><b>PROCEED TO CHECKOUT</b></p>
               </div>
             </form>
             <hr><br>
@@ -197,7 +223,8 @@ export default {
       monthDropdownOpen: false,
       yearDropdownOpen: false,
       couponCode: '',
-      guestEmail: ''
+      guestEmail: '',
+      isGuest: true
     }
   },
   watch: {
@@ -510,7 +537,7 @@ export default {
     },
     saveShippingInfo() {
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
-        this.saveShipping({ email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts, name: `${this.firstName} ${this.lastName}` })
+        this.saveShipping({ isGuest: this.isGuest, email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts, name: `${this.firstName} ${this.lastName}` })
       }
     },
     navClasses(step) {
@@ -659,6 +686,13 @@ export default {
   width: 100%;
 }
 
+.mobileBagSummary__products {
+  height: 100%;
+  overflow: scroll;
+  font-size: 11px;
+  padding-bottom: 20px;
+}
+
 .sizes > ul > li:hover {
   background-color: black;
   color: white;
@@ -705,9 +739,13 @@ export default {
     padding-top: 80px;
   }
 
+  .mobileBagSummary {
+    display: none;
+  }
+
   .checkout > .checkout-grid > .bag {
     grid-column: 3 / 5;
-    grid-row: 2 / 10;
+    grid-row: 2 / 12;
     overflow: hidden;
     border: solid rgb(230, 226, 226) 1px;
     display: block;

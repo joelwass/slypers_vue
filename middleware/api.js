@@ -164,11 +164,19 @@ class API {
   }
 
   saveShipping (body) {
+    const isGuest = body.isGuest
+    let urlEndpoint
+    if (isGuest) {
+      urlEndpoint = `${endpoint}/guest`
+    } else {
+      urlEndpoint = `${endpoint}/customer`
+    }
+    delete body.isGuest
     const options = {
       method: 'PUT',
       headers,
       data: body,
-      url: `${endpoint}/customer`
+      url: urlEndpoint
     }
     return axios(options)
       .then(res => {

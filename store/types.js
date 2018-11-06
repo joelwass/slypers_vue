@@ -14,7 +14,6 @@ export const REVIEW_STEP = 'REVIEW_STEP'
 export const SET_CHECKOUT_STEP = 'SET_CHECKOUT_STEP'
 export const SETUP_CART = 'SETUP_CART'
 export const RESUME = 'RESUME'
-export const GET_DISCOUNT = 'GET_DISCOUNT'
 
 // customer
 export const SET_CUSTOMER_EMAIL = 'SET_CUSTOMER_EMAIL'

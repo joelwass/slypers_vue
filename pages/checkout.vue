@@ -591,7 +591,7 @@ export default {
 }
 
 .checkout-button-text {
-  padding-top: 6px;
+  padding-top: 7px;
 }
 
 #card-errors {

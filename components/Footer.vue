@@ -115,7 +115,7 @@ export default {
     border: 1px solid white;
     width: 130px;
     padding-top: .25em;
-    padding-bottom: .25em;
+    padding-bottom: .27em;
     margin: 10px 10px 0 10px;
     font: inherit;
     cursor: pointer;

@@ -394,7 +394,7 @@ export default {
     },
     address2: {
       get() {
-        return this.address2State
+        return this.address2State || ''
       },
       set(newVal) {
         this.setAddress2(newVal)

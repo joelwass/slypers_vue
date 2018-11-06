@@ -59,7 +59,9 @@
           <p>or</p><br> -->
           <h3 class="checkout-content-subheader">Checkout as guest</h3>
           <div class="signup">
-            <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="guestEmail">
+            <form action="">
+              <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="email">
+            </form>
           </div>
           <div class="checkout-button" v-on:click="checkoutAsGuest">
             <p class="checkout-button-text"><b>CHECKOUT AS GUEST</b></p>
@@ -67,13 +69,15 @@
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
           <h3 class="checkout-content-subheader">Shipping Address</h3><br>
-          <div class="shipping-info">
-            <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
-            <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">
-            <b>CITY *</b><br><input type="text" class="checkout-content-input" placeholder="City" v-model="city">
-            <b>STATE *</b><br><input type="text" class="checkout-content-input" placeholder="State" v-model="stateAddress">
-            <b>ZIP *</b><br><input type="text" class="checkout-content-input" placeholder="Zip" v-model="zip">
-          </div>
+          <form action="">
+            <div class="shipping-info">
+              <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
+              <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">
+              <b>CITY *</b><br><input type="text" class="checkout-content-input" placeholder="City" v-model="city">
+              <b>STATE *</b><br><input type="text" class="checkout-content-input" placeholder="State" v-model="stateAddress">
+              <b>ZIP *</b><br><input type="text" class="checkout-content-input" placeholder="Zip" v-model="zip">
+            </div>
+          </form>
           <div class="checkout-button" v-on:click="saveShippingInfo">
             <p class="checkout-button-text"><b>SAVE SHIPPING INFO</b></p>
           </div>
@@ -99,26 +103,28 @@
           <div class="mobileBagSummary">
             <div class="mobileBagSummary__products">
               <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
-                <div class="selectedProduct">
-                  <div class="productPrice">
-                    <p>€{{ product(prod.productId).price }}</p>
-                  </div>
-                  <div class="productDescription">
-                    <p>{{ product(prod.productId).name.toUpperCase() }}</p><br><br>
-                  </div>
-                  <div class="productAsterisk">
-                    <p>*For delivery 12/8*</p>
-                  </div>
-                  <div class="productDetails__checkout">
-                    <p><strong>Color:</strong> {{ product(prod.productId).colorString }}</p>
-                    <p><strong>Size: </strong>{{ prod.size }}</p>
-                    <div class="size-row"><strong>Quantity:</strong> {{ prod.quantity }}
+                <form action="">
+                  <div class="selectedProduct">
+                    <div class="productPrice">
+                      <p>€{{ product(prod.productId).price }}</p>
+                    </div>
+                    <div class="productDescription">
+                      <p>{{ product(prod.productId).name.toUpperCase() }}</p><br><br>
+                    </div>
+                    <div class="productAsterisk">
+                      <p>*For delivery 12/8*</p>
+                    </div>
+                    <div class="productDetails__checkout">
+                      <p><strong>Color:</strong> {{ product(prod.productId).colorString }}</p>
+                      <p><strong>Size: </strong>{{ prod.size }}</p>
+                      <div class="size-row"><strong>Quantity:</strong> {{ prod.quantity }}
+                      </div>
+                    </div>
+                    <div class="selectedProduct__imagecontainer">
+                      <img class="selectedProductImage" :src="product(prod.productId).image" />
                     </div>
                   </div>
-                  <div class="selectedProduct__imagecontainer">
-                    <img class="selectedProductImage" :src="product(prod.productId).image" />
-                  </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -536,8 +542,8 @@ export default {
       }
     },
     checkoutAsGuest() {
-      if (this.guestEmail) {
-        this.checkoutAsGuestAction({ email: this.guestEmail }) 
+      if (this.email) {
+        this.checkoutAsGuestAction({ email: this.email }) 
       }
     },
     saveShippingInfo() {

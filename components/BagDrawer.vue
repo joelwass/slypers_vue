@@ -1,53 +1,53 @@
 <template>
-<div>
-  <transition name="bag-drawer-transition">
-    <div v-if="drawerOpen" class="bag-drawer">
-      <div class="bag-drawer__header">
-        <h2 class="bag-title">BAG ({{ this.selectedProducts.length }})</h2>
-        <div class="bag-drawer-IconsNav">
-          <xIcon @click.native="toggleDrawer" class="icon x" width="32" height="30"/>
+  <div>
+    <transition name="bag-drawer-transition">
+      <div v-if="drawerOpen" class="bag-drawer">
+        <div class="bag-drawer__header">
+          <h2 class="bag-title">BAG ({{ this.selectedProducts.length }})</h2>
+          <div class="bag-drawer-IconsNav">
+            <xIcon @click.native="toggleDrawer" class="icon x" width="32" height="30"/>
+          </div>
         </div>
-      </div>
-      <hr class="divider">
-      <div class="products">
-        <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
-          <div class="selectedProduct">
-            <div class="productPrice">
-              <p>€ {{ product(prod.productId).price }}</p>
-            </div>
-            <div class="removeProductButton">
-              <p @click="removeAllOfProduct(prod.productId, prod.size)">REMOVE</p>
-            </div>
-            <div class="productDescription">
-              <p>{{ product(prod.productId).name.toUpperCase() }}</p><br><br>
-            </div>
-            <div class="productDetails">
-              <p><strong>COLOR:</strong> {{ product(prod.productId).colorString }}</p>
-              <p><strong>SIZE: </strong>{{ prod.size }}</p>
-              <div class="size-row"><strong>QUANTITY:</strong>
-                <p class="minus" @click="minusQuantity(prod.productId, prod.size)"> - </p><p> {{ prod.quantity }} </p>
-                <p class="plus" @click="plusQuantity(prod.productId, prod.size)"> + </p>
+        <hr class="divider">
+        <div class="products">
+          <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
+            <div class="selectedProduct">
+              <div class="productPrice">
+                <p>€ {{ product(prod.productId).price }}</p>
               </div>
-            </div>
-            <div class="selectedProduct__imagecontainer">
-              <img class="selectedProductImage" :src="product(prod.productId).image" />
+              <div class="removeProductButton">
+                <p @click="removeAllOfProduct(prod.productId, prod.size)">REMOVE</p>
+              </div>
+              <div class="productDescription">
+                <p>{{ product(prod.productId).name.toUpperCase() }}</p><br><br>
+              </div>
+              <div class="productDetails">
+                <p><strong>COLOR:</strong> {{ product(prod.productId).colorString }}</p>
+                <p><strong>SIZE: </strong>{{ prod.size }}</p>
+                <div class="size-row"><strong>QUANTITY:</strong>
+                  <p class="minus" @click="minusQuantity(prod.productId, prod.size)"> - </p><p> {{ prod.quantity }} </p>
+                  <p class="plus" @click="plusQuantity(prod.productId, prod.size)"> + </p>
+                </div>
+              </div>
+              <div class="selectedProduct__imagecontainer">
+                <img class="selectedProductImage" :src="product(prod.productId).image" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="bag-drawer-footer">
-        <hr>
-        <div class="subtotal">
-          <p class="subtotal-label">SUBTOTAL</p>
-          <p class="subtotal-amount">€ {{ subtotal }}</p>
+        <div class="bag-drawer-footer">
+          <hr>
+          <div class="subtotal">
+            <p class="subtotal-label">SUBTOTAL</p>
+            <p class="subtotal-amount">€ {{ subtotal }}</p>
+          </div>
+          <div class="checkout-button-drawer" v-on:click="checkout">
+            <p class="checkout-button-drawer__text"><b>CHECKOUT ({{ selectedProducts.length }} {{ selectedProducts.length > 1 ? 'ITEMS' : 'ITEM' }})</b></p>
+          </div>
         </div>
-        <div class="checkout-button-drawer" v-on:click="checkout">
-          <p class="checkout-button-drawer__text"><b>CHECKOUT ({{ selectedProducts.length }} {{ selectedProducts.length > 1 ? 'ITEMS' : 'ITEM' }})</b></p>
-        </div>
       </div>
-    </div>
-  </transition>
-</div>
+    </transition>
+  </div>
 </template>
 
 <script>

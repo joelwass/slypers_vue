@@ -62,6 +62,9 @@
             <form action="">
               <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="email">
             </form>
+            <div class="validationError" v-if="validation.emailValidation">
+              <p>Email is required</p>
+            </div>
           </div>
           <div class="checkout-button" v-on:click="checkoutAsGuest">
             <p class="checkout-button-text"><b>CHECKOUT AS GUEST</b></p>
@@ -72,10 +75,22 @@
           <form action="">
             <div class="shipping-info">
               <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
+              <div class="validationError" v-if="validation.addressValidation">
+                <p>Street address is required</p>
+              </div>
               <b>ADDRESS - LINE 2</b><br><input type="text" class="checkout-content-input" placeholder="Unit # (optional)" v-model="address2">
               <b>CITY *</b><br><input type="text" class="checkout-content-input" placeholder="City" v-model="city">
+              <div class="validationError" v-if="validation.cityValidation">
+                <p>City is required</p>
+              </div>
               <b>STATE *</b><br><input type="text" class="checkout-content-input" placeholder="State" v-model="stateAddress">
+              <div class="validationError" v-if="validation.stateValidation">
+                <p>State is required</p>
+              </div>
               <b>ZIP *</b><br><input type="text" class="checkout-content-input" placeholder="Zip" v-model="zip">
+              <div class="validationError" v-if="validation.zipValidation">
+                <p>Zip is required</p>
+              </div>
             </div>
           </form>
           <div class="checkout-button" v-on:click="saveShippingInfo">
@@ -230,7 +245,14 @@ export default {
       yearDropdownOpen: false,
       couponCode: '',
       guestEmail: '',
-      isGuest: true
+      isGuest: true,
+      validation: {
+        emailValidation: false,
+        addressValidation: false,
+        cityValidation: false,
+        stateValidation: false,
+        zipValidation: false
+      }
     }
   },
   watch: {
@@ -333,6 +355,7 @@ export default {
         return this.emailState
       },
       set(newVal) {
+        this.validation.emailValidation = false
         this.setEmail(newVal)
       }
     },
@@ -389,6 +412,7 @@ export default {
         return this.addressState
       },
       set(newVal) {
+        this.validation.addressValidation = false
         this.setAddress(newVal)
       }
     },
@@ -405,6 +429,7 @@ export default {
         return this.cityState
       },
       set(newVal) {
+        this.validation.cityValidation = false
         this.setCity(newVal)
       }
     },
@@ -413,6 +438,7 @@ export default {
         return this.stateState
       },
       set(newVal) {
+        this.validation.stateValidation = false
         this.setState(newVal)
       }
     },
@@ -421,6 +447,7 @@ export default {
         return this.zipState
       },
       set(newVal) {
+        this.validation.zipValidation = false
         this.setZip(newVal)
       }
     },
@@ -544,9 +571,15 @@ export default {
     checkoutAsGuest() {
       if (this.email) {
         this.checkoutAsGuestAction({ email: this.email }) 
+      } else {
+        this.validation.emailValidation = true
       }
     },
     saveShippingInfo() {
+      if (!this.address) this.validation.addressValidation = true
+      if (!this.city) this.validation.cityValidation = true
+      if (!this.stateAddress) this.validation.stateValidation = true
+      if (!this.zip) this.validation.zipValidation = true
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
         this.saveShipping({ isGuest: this.isGuest, email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts, name: `${this.firstName} ${this.lastName}` })
       }

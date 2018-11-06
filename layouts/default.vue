@@ -105,6 +105,10 @@ html {
   margin: 0;
 }
 
+.validationError {
+  color: red;
+}
+
 .button--green {
   display: inline-block;
   border-radius: 4px;

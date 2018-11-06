@@ -17,6 +17,31 @@ class API {
     }
   }
 
+  getDiscount(body) {
+    return new Promise((resolve, reject) => {
+      const options = {
+        method: 'POST',
+        headers: { 'Auth': helper.getCookie('auth') },
+        data: body,
+        url: `${endpoint}/discount`,
+
+      };
+      axios(options)
+      .then(res => resolve(res))
+      .catch(err => {
+        console.log(err.response)
+        // if we're unauthorized, auth and retry
+        if (err.response.status == '401') {
+          this.authenticate().then(authRes => axios(options))
+          .catch(err => {
+            return reject(err)
+          })
+        }
+        reject(err)
+      })
+    })
+  }
+
   getAllProducts() {
     new Promise((resolve, reject) => {
       const options = {

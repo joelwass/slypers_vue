@@ -145,9 +145,10 @@
           </div>
           <div>
             <p>Subtotal: € {{ this.subtotal() }}</p>
+            <p v-if="discount !== ''">Discount: € {{ this.discount }}</p>
             <p>Shipping: € 8</p><br>
             <h4 class="checkout-content-subheader">TOTAL</h4>
-            <p>€ {{ this.subtotal() + 8 }}</p>
+            <p>€ {{ this.discountedSubtotal + 8 }}</p>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
@@ -162,7 +163,6 @@
         </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
           <h3 class="checkout-content-subheader">Payment</h3>
-          <p>Please note that pre-order purchases can only be paid for by credit card.</p><br>
           <p>Accepted Credit & Debit Cards</p><br>
           <p><img class="card_logos" src="/visa_img.png" /></p><br>
           <p>Powered by Stripe on a secure web server.</p><br><br>
@@ -252,7 +252,9 @@ export default {
         cityValidation: false,
         stateValidation: false,
         zipValidation: false
-      }
+      },
+      discount: '',
+      discountedSubtotal: 0
     }
   },
   watch: {
@@ -494,7 +496,7 @@ export default {
       setSignUpPassword: 'SET_SIGNUP_PASSWORD'
     }),
     submitOrder() {
-      this.submit({router: this.$router, subtotal: this.subtotal()*100, products: this.selectedProducts, couponCode: this.couponCode })
+      this.submit({router: this.$router, subtotal: this.discountedSubtotal*100, products: this.selectedProducts })
     },
     setCheckoutStep(data) {
       this.setLoading({ value: true, save: true })
@@ -513,35 +515,82 @@ export default {
       const self = this
       this.setLoading({ value: true, save: false })
 
-      try {
-        // set shipping and meta values on card
-        const options = {
-          name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
-          address_country: 'United States',
-          address_zip: this.zip,
-          address_state: this.stateAddress,
-          address_city: this.city,
-          address_line1: this.address,
-          address_line2: this.address2,
-          metadata: {
-            selectedProducts: this.selectedProducts,
-            subtotal: this.subtotal()*100
-          }
-        }
 
-        this.localStripe.createToken(this.localCard, options).then(function(result) {
-          if (result.error) {
-            // Inform the user if there was an error.
-            var errorElement = document.getElementById('card-errors')
-            errorElement.textContent = result.error.message
-            self.setLoading({ value: false, save: false })
-          } else {
-            result.token.email = self.email
-            // Send the token to your server.
-            result.token.card
-            self.setToken(result.token)
-          }
-        });
+      try {
+        let discounted = false
+        this.discountedSubtotal = this.subtotal()
+        if (this.couponCode !== '') {
+          api.getDiscount({ subtotal: this.subtotal(), couponCode: this.couponCode })
+          .then((res) => {
+            if (res.data && res.data.success) {
+              this.discount = this.subtotal() - res.data.subtotal
+              discounted = true
+              this.discountedSubtotal = res.data.subtotal
+            }
+
+            console.log('paying here', this.discountedSubtotal)
+
+            // set shipping and meta values on card
+            const options = {
+              name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
+              address_country: 'United States',
+              address_zip: this.zip,
+              address_state: this.stateAddress,
+              address_city: this.city,
+              address_line1: this.address,
+              address_line2: this.address2,
+              metadata: {
+                selectedProducts: this.selectedProducts,
+                subtotal: discounted ? this.discountedSubtotal * 100 : this.subtotal()*100
+              }
+            }
+
+            this.localStripe.createToken(this.localCard, options).then(function(result) {
+              if (result.error) {
+                // Inform the user if there was an error.
+                var errorElement = document.getElementById('card-errors')
+                errorElement.textContent = result.error.message
+                self.setLoading({ value: false, save: false })
+              } else {
+                result.token.email = self.email
+                // Send the token to your server.
+                result.token.card
+                self.setToken(result.token)
+              }
+            });
+          }).catch((e) => {
+
+            console.log('blahblahblah')
+            // set shipping and meta values on card
+            const options = {
+              name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
+              address_country: 'United States',
+              address_zip: this.zip,
+              address_state: this.stateAddress,
+              address_city: this.city,
+              address_line1: this.address,
+              address_line2: this.address2,
+              metadata: {
+                selectedProducts: this.selectedProducts,
+                subtotal: this.subtotal()*100
+              }
+            }
+    
+            this.localStripe.createToken(this.localCard, options).then(function(result) {
+              if (result.error) {
+                // Inform the user if there was an error.
+                var errorElement = document.getElementById('card-errors')
+                errorElement.textContent = result.error.message
+                self.setLoading({ value: false, save: false })
+              } else {
+                result.token.email = self.email
+                // Send the token to your server.
+                result.token.card
+                self.setToken(result.token)
+              }
+            });
+          })
+        }
       } catch (e) {
         this.setLoading({ value: false, save: false })
         console.log('ERROR', e)

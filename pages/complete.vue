@@ -5,8 +5,8 @@
       <h3>Order Details</h3>
     </div><br>
     <p>Order Id: {{ orderId }}</p><br><br>
-    <p>A receipt should be emailed shortly to {{ email }}</p><br><br>
-    <p>Please contact us at hans@slypers.com with any questions or concerns</p>
+    <p>A receipt will be emailed to {{ email }} shortly</p><br><br>
+    <p>Please contact us at service@slypers.com with any questions or concerns</p>
 
   </div>  
 </template>

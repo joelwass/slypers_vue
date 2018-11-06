@@ -106,7 +106,7 @@ const cart = {
     [ADD_PRODUCT]: ({ commit }, data) => {
       commit(ADD_PRODUCT, data)
     },
-    [REMOVE_PRODUCT]: ({ commit}, data) => {
+    [REMOVE_PRODUCT]: ({ commit }, data) => {
       commit(REMOVE_PRODUCT, data)
     },
     [SET_CHECKOUT_STEP]: ({ commit, dispatch }, data) => {

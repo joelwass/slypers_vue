@@ -51,7 +51,7 @@ export default {
 .complete {
   min-height: 100vh;
   padding: 80px 30px 20px 30px;
-  text-align: center;
+  text-align: left;
 } 
 
 @media all and (min-width: 850px) {

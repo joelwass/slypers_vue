@@ -17,6 +17,7 @@ import {
   SET_CUSTOMER_CITY,
   SET_CUSTOMER_STATE,
   SET_CUSTOMER_ZIP,
+  SET_CUSTOMER_COUNTRY,
   SAVE_CUSTOMER_SHIPPING,
   SIGNUP_LOGIN_STEP,
   LOGIN_USER,
@@ -54,6 +55,7 @@ const customer = {
       city: '',
       state: '',
       zip: '',
+      country: '',
       signUpEmail: '',
       signUpPassword: ''
     },
@@ -179,6 +181,9 @@ const customer = {
     [SET_CUSTOMER_ZIP]: ({ commit }, zip) => {
       commit(SET_CUSTOMER_ZIP, zip)
     },
+    [SET_CUSTOMER_COUNTRY]: ({ commit }, country) => {
+      commit(SET_CUSTOMER_COUNTRY, country)
+    },
     [SAVE_CUSTOMER_SHIPPING]: ({ dispatch, commit }, data) => {
       dispatch(CLEAR_ERRORS)
       dispatch(SET_LOADING, { value: true, save: true })
@@ -262,6 +267,9 @@ const customer = {
     },
     [SET_CUSTOMER_ZIP](state, zip) {
       Vue.set(state.user, 'zip', zip)
+    },
+    [SET_CUSTOMER_COUNTRY](state, country) {
+      Vue.set(state.user, 'country', country)
     },
     [SET_SIGNUP_EMAIL](state, email) {
       Vue.set(state.user, 'signUpEmail', email)

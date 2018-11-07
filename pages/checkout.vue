@@ -83,14 +83,12 @@
               <div class="validationError" v-if="validation.cityValidation">
                 <p>City is required</p>
               </div>
-              <b>STATE *</b><br><input type="text" class="checkout-content-input" placeholder="State" v-model="stateAddress">
-              <div class="validationError" v-if="validation.stateValidation">
-                <p>State is required</p>
-              </div>
-              <b>ZIP *</b><br><input type="text" class="checkout-content-input" placeholder="Zip" v-model="zip">
+              <b>STATE / PROVINCE</b><br><input type="text" class="checkout-content-input" placeholder="State" v-model="stateAddress">
+              <b>ZIP / POSTAL CODE *</b><br><input type="text" class="checkout-content-input" placeholder="Zip" v-model="zip">
               <div class="validationError" v-if="validation.zipValidation">
                 <p>Zip is required</p>
               </div>
+              <b>COUNTRY</b><br><input type="text" class="checkout-content-input" placeholder="Country" v-model="country">
             </div>
           </form>
           <div class="checkout-button" v-on:click="saveShippingInfo">
@@ -250,8 +248,7 @@ export default {
         emailValidation: false,
         addressValidation: false,
         cityValidation: false,
-        stateValidation: false,
-        zipValidation: false
+        zipValidation: false,
       },
       discount: '',
       discountedSubtotal: 0
@@ -317,6 +314,7 @@ export default {
       cityState: state => state.customer.user.city,
       stateState: state => state.customer.user.state,
       zipState: state => state.customer.user.zip,
+      countryState: state => state.customer.user.country,
       loggedIn: state => state.authenticated,
       currentCheckoutStep: state => state.cart.currentCheckoutStep,
       birthDay: state => state.customer.user.birthDay,
@@ -440,7 +438,6 @@ export default {
         return this.stateState
       },
       set(newVal) {
-        this.validation.stateValidation = false
         this.setState(newVal)
       }
     },
@@ -451,6 +448,14 @@ export default {
       set(newVal) {
         this.validation.zipValidation = false
         this.setZip(newVal)
+      }
+    },
+    country: {
+      get() {
+        return this.countryState
+      },
+      set(newVal) {
+        this.setCountry(newVal)
       }
     },
     signUpEmail: {
@@ -488,6 +493,7 @@ export default {
       setCity: 'SET_CUSTOMER_CITY',
       setState: 'SET_CUSTOMER_STATE',
       setZip: 'SET_CUSTOMER_ZIP',
+      setCountry: 'SET_CUSTOMER_COUNTRY',
       saveShipping: 'SAVE_CUSTOMER_SHIPPING',
       setCurrentCheckoutStep: 'SET_CHECKOUT_STEP',
       setToken: 'SET_CUSTOMER_TOKEN',
@@ -539,6 +545,7 @@ export default {
               address_city: this.city,
               address_line1: this.address,
               address_line2: this.address2,
+              address_country: this.country,
               metadata: {
                 selectedProducts: this.selectedProducts,
                 subtotal: discounted ? this.discountedSubtotal * 100 : this.subtotal()*100
@@ -567,6 +574,7 @@ export default {
               address_country: 'United States',
               address_zip: this.zip,
               address_state: this.stateAddress,
+              address_country: this.country,
               address_city: this.city,
               address_line1: this.address,
               address_line2: this.address2,
@@ -627,7 +635,6 @@ export default {
     saveShippingInfo() {
       if (!this.address) this.validation.addressValidation = true
       if (!this.city) this.validation.cityValidation = true
-      if (!this.stateAddress) this.validation.stateValidation = true
       if (!this.zip) this.validation.zipValidation = true
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
         this.saveShipping({ isGuest: this.isGuest, email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts, name: `${this.firstName} ${this.lastName}` })

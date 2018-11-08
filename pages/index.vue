@@ -5,6 +5,10 @@
       <p>Bordeelslypers</p>
       <p>Dutch Brothel Creepers</p><br>
     </div>
+    <div class="discoverText__quote" v-on:click="go('shop')">
+      <p>"Lord, let me be chaste - but not quite yet."</p>
+      <p class="discoverText__quote__author">Augistine of Hippo</p>
+    </div>
   </div>
   <div class="container" v-on:click="go('shop')">
     <div class="splash-image-div">
@@ -29,9 +33,19 @@ export default {
 <style>
 .splash-image-mobile {
   margin: auto;
-  padding-top: 70px;
+  padding-top: 8em;
   overflow: hidden;
   width: 100%;
+}
+
+.discoverText__quote {
+  margin-top: 2em;
+  font-style: italic;
+}
+
+.discoverText__quote__author {
+  text-align: right;
+  margin-right: 2em;
 }
 
 .never-get-caught {
@@ -78,7 +92,8 @@ export default {
   z-index: 10000;
   padding-top: 100px;
   color: black;
-  margin-left: 20px;
+  padding-left: 2em;
+  padding-right: 1em;
 }
 
 .discoverText__about {
@@ -112,11 +127,20 @@ export default {
     display: block;
   }
 
+  .discoverText__quote {
+    margin-top: 6em;
+  }
+
+  .discoverText__quote__author {
+    text-align: left;
+    margin-top: 1em;
+  }
+
   .discoverText {
     width: 300px;
     position: fixed;
     left: 20px;
-    top: 300px;
+    top: 16em;
   }
 
   .container {

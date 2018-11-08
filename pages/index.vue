@@ -7,7 +7,7 @@
     </div>
     <div class="discoverText__quote" v-on:click="go('shop')">
       <p>"Lord, let me be chaste - but not quite yet."</p>
-      <p class="discoverText__quote__author">Augistine of Hippo</p>
+      <p class="discoverText__quote__author">Augustine of Hippo</p>
     </div>
   </div>
   <div class="container" v-on:click="go('shop')">

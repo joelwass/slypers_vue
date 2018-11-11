@@ -12,7 +12,7 @@
       <img class="splash-image-mobile" src="/shoes/red/Back_single_red.png" alt="A Brothel Slyper">
       <div class="discoverText__quote" v-on:click="go('shop')">
         <p>"Lord, let me be chaste -<br class="mobile"> but not quite yet."</p>
-        <p class="discoverText__quote__author">-Augustine</p>
+        <p class="discoverText__quote__author">-Saint Augustine</p>
       </div>
     </div>
   </div>

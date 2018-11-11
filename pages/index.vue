@@ -95,7 +95,7 @@ export default {
 .discoverText {
   height: 40px;
   width: 100%;
-  z-index: 10000;
+  z-index: 100;
   padding-top: 100px;
   color: black;
   padding-left: 2em;

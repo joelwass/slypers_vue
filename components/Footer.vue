@@ -7,10 +7,10 @@
         <div class="sign-up-button" v-on:click="subscribeForEmail">
           <p>ENTER</p>
         </div>
+        <div v-if="currentEmail" class="email-collection-form-success">
+          <p class="signed-up-email">Success.</p>
+        </div>
       </form>
-      <div v-if="currentEmail" class="email-collection-form-success">
-        <p class="signed-up-email">Success.</p>
-      </div>
       <div class="email_collection__footer">
         <p>XXX</p>
       </div>
@@ -65,7 +65,12 @@ export default {
 }
 
 .email-collection-form-success {
+  text-align: left;
+  margin-top: 8px;
+  margin-left: 10px;
   width: 100%;
+  display: inline-block;
+  height: 20px;
 }
 
 .signed-up-email {
@@ -97,7 +102,7 @@ export default {
 }
 
 .email_collection__footer {
-  margin-top: 15px;
+  margin-top: 4px;
   font-size: 16px;
   color: white;
 }
@@ -136,7 +141,7 @@ export default {
     background-color: black;
     width: 100%;
     padding-top: 20px;
-    height: 125px;
+    height: 130px;
   } 
 
   .sign-up-email-input {

@@ -5,15 +5,15 @@
       <p>Bordeelslypers</p>
       <p>Dutch Brothel Creepers</p><br>
     </div>
-    <div class="discoverText__quote" v-on:click="go('shop')">
-      <p>"Lord, let me be chaste - but not quite yet."</p>
-      <p class="discoverText__quote__author">Augustine of Hippo</p>
-    </div>
   </div>
   <div class="container" v-on:click="go('shop')">
     <div class="splash-image-div">
-      <img class="splash-image-desktop" src="/shoes/red/Profile_red.png" alt="A Brothel Slyper">
+      <img class="splash-image-desktop" src="/shoes/red/Back_single_red.png" alt="A Brothel Slyper">
       <img class="splash-image-mobile" src="/shoes/red/Back_single_red.png" alt="A Brothel Slyper">
+      <div class="discoverText__quote" v-on:click="go('shop')">
+        <p>"Lord, let me be chaste -<br class="mobile"> but not quite yet."</p>
+        <p class="discoverText__quote__author">-Augustine</p>
+      </div>
     </div>
   </div>
 </div>
@@ -33,18 +33,24 @@ export default {
 <style>
 .splash-image-mobile {
   margin: auto;
-  padding-top: 8em;
+  padding-top: 5em;
   overflow: hidden;
   width: 100%;
 }
 
+.mobile {
+  display: block;
+}
+
 .discoverText__quote {
   margin-top: 2em;
+  text-align: center;
   font-style: italic;
 }
 
 .discoverText__quote__author {
   text-align: right;
+  margin-top: 1em;
   margin-right: 2em;
 }
 
@@ -117,22 +123,26 @@ export default {
     display: none;
   }
 
+  .mobile {
+    display: none;
+  }
+
   .never-get-caught {
     display: none;
   }
 
   .splash-image-desktop {
-    width: 100%;
+    width: 50%;
     margin: auto;
     display: block;
   }
 
   .discoverText__quote {
-    margin-top: 6em;
+    margin-top: 0em;
   }
 
   .discoverText__quote__author {
-    text-align: left;
+    text-align: center;
     margin-top: 1em;
   }
 

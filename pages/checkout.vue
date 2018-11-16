@@ -505,8 +505,11 @@ export default {
       this.submit({router: this.$router, subtotal: this.discountedSubtotal*100, products: this.selectedProducts })
     },
     setCheckoutStep(data) {
-      this.setLoading({ value: true, save: true })
-      this.setCurrentCheckoutStep(data)
+      const order = ['SIGNUP_LOGIN_STEP', 'SHIPPING_STEP', 'PAYMENT_STEP', 'REVIEW_STEP']
+      if (order.indexOf(data.step) < order.indexOf(this.currentCheckoutStep)) {
+        this.setLoading({ value: true, save: true })
+        this.setCurrentCheckoutStep(data)
+      }
     },
     subtotal() {
       return this.selectedProducts.reduce((acc, val) => {

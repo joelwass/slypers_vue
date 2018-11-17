@@ -213,17 +213,50 @@ export default {
   mounted() {
     this.setCheckoutStep({ step: 'SIGNUP_LOGIN_STEP' })
     this.setLoading({ value: false, save: false })
-  },
-  head() {
-    return {
-      script: [
-        { src: 'https://js.stripe.com/v3/' }
-      ]
-    } 
+
+    // Create a Stripe client.
+    this.localStripe = Stripe('pk_live_oFibVEirPkAASjPpBX5zK9B5');
+
+    // Create an instance of Elements.
+    var elements = this.localStripe.elements();
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+      base: {
+        color: '#32325d',
+        lineHeight: '18px',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4'
+        }
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    };
+
+    // Create an instance of the card Element.
+    this.localCard = elements.create('card', {style: style, hidePostalCode: true});
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    this.localCard.mount('#card-element');
+
+    // Handle real-time validation errors from the card Element.
+    this.localCard.addEventListener('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
   },
   data() {
     return {
-      cardStuffInitialized: false,
       clickedSignUp: true,
       stripeOptions: {
         hidePostalCode: false
@@ -252,53 +285,6 @@ export default {
       },
       discount: '',
       discountedSubtotal: 0
-    }
-  },
-  watch: {
-    currentCheckoutStep(view) {
-      if (view === 'PAYMENT_STEP' && !this.cardStuffInitialized) {
-        this.cardStuffInitialized = true
-          // Create a Stripe client.
-        this.localStripe = Stripe('pk_live_oFibVEirPkAASjPpBX5zK9B5');
-
-        // Create an instance of Elements.
-        var elements = this.localStripe.elements();
-
-        // Custom styling can be passed to options when creating an Element.
-        // (Note that this demo uses a wider set of styles than the guide below.)
-        var style = {
-          base: {
-            color: '#32325d',
-            lineHeight: '18px',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-              color: '#aab7c4'
-            }
-          },
-          invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-          }
-        };
-
-        // Create an instance of the card Element.
-        this.localCard = elements.create('card', {style: style, hidePostalCode: true});
-
-        // Add an instance of the card Element into the `card-element` <div>.
-        this.localCard.mount('#card-element');
-
-        // Handle real-time validation errors from the card Element.
-        this.localCard.addEventListener('change', function(event) {
-          var displayError = document.getElementById('card-errors');
-          if (event.error) {
-            displayError.textContent = event.error.message;
-          } else {
-            displayError.textContent = '';
-          }
-        });
-      }
     }
   },
   computed: {

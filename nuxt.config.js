@@ -13,7 +13,8 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon_flag.ico' }
     ],
     script: [
-      { src: 'js/fullstory.js' }
+      { src: 'js/fullstory.js' },
+      { src: 'https://js.stripe.com/v3/'}
     ]
   },
   /*

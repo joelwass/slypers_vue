@@ -486,9 +486,15 @@ export default {
       setSignUpPassword: 'SET_SIGNUP_PASSWORD'
     }),
     submitOrder() {
+      if (window.ga) {
+        window.ga('send', 'event', 'SubmitOrder', this.discountedSubtotal*100)
+      }
       this.submit({router: this.$router, subtotal: this.discountedSubtotal*100, products: this.selectedProducts })
     },
     setCheckoutStep(data) {
+      if (window.ga) {
+        window.ga('send', 'event', 'CheckoutNav', data.step)
+      }
       const order = ['SIGNUP_LOGIN_STEP', 'SHIPPING_STEP', 'PAYMENT_STEP', 'REVIEW_STEP']
       if (order.indexOf(data.step) < order.indexOf(this.currentCheckoutStep)) {
         this.setLoading({ value: true, save: true })
@@ -502,6 +508,9 @@ export default {
       }, 0)
     },
     savePayment(event) {
+      if (window.ga) {
+        window.ga('send', 'event', 'SavePayment', 'Press')
+      }
       if (event) {
         event.preventDefault();
       }
@@ -612,6 +621,9 @@ export default {
     },
     checkoutAsGuest() {
       if (this.email) {
+        if (window.ga) {
+          window.ga('send', 'event', 'CheckoutAsGuest', this.email)
+        }
         this.checkoutAsGuestAction({ email: this.email }) 
       } else {
         this.validation.emailValidation = true
@@ -622,6 +634,9 @@ export default {
       if (!this.city) this.validation.cityValidation = true
       if (!this.zip) this.validation.zipValidation = true
       if (this.email && this.address && this.city && this.stateAddress && this.zip) {
+        if (window.ga) {
+          window.ga('send', 'event', 'SaveShipping', 'Press')
+        }
         this.saveShipping({ isGuest: this.isGuest, email: this.email, address: this.address, address2: this.address2, city: this.city, state: this.stateAddress, zip: this.zip, selectedProducts: this.selectedProducts, name: `${this.firstName} ${this.lastName}` })
       }
     },

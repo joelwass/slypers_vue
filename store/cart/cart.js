@@ -23,7 +23,7 @@ const cart = {
     currentCheckoutStep: SIGNUP_LOGIN_STEP,
     availableProducts: [
       {
-        id: '1',
+        id: 'red',
         description: 'Dutch Brothel Slypers Red',
         image: '/shoes/red/Top_red.png',
         altImage: '/shoes/red/Profile_red.png',
@@ -36,7 +36,7 @@ const cart = {
         colorString: 'Bordeauxrood'
       },
       {
-        id: '2',
+        id: 'blue',
         description: 'Dutch Brothel Slypers Blue',
         image: '/shoes/blue/Top_blue.png',
         altImage: '/shoes/blue/Profile_blue.png',
@@ -49,7 +49,7 @@ const cart = {
         colorString: 'Blauw'
       },
       {
-        id: '3',
+        id: 'green',
         description: 'Dutch Brothel Slypers Green',
         image: '/shoes/green/Top_green.png',
         altImage: '/shoes/green/Profile_green.png',
@@ -62,7 +62,7 @@ const cart = {
         colorString: 'Groen'
       },
       {
-        id: '4',
+        id: 'tan',
         description: 'Dutch Brothel Slypers Tan',
         image: '/shoes/brown/Top_brown.png',
         altImage: '/shoes/brown/Profile_brown.png',
@@ -75,7 +75,7 @@ const cart = {
         colorString: 'Bruin'
       },
       {
-        id: '5',
+        id: 'grey',
         description: 'Dutch Brothel Slypers Grey',
         image: '/shoes/black/Top_black.png',
         altImage: '/shoes/black/Profile_black.png',

@@ -14,7 +14,8 @@ module.exports = {
     ],
     script: [
       { src: 'js/fullstory.js' },
-      { src: 'https://js.stripe.com/v3/'}
+      { src: 'https://js.stripe.com/v3/'},
+      { src: 'https://www.googletagmanager.com/gtag/js?id=UA-129382082-1'},
     ]
   },
   /*
@@ -23,6 +24,7 @@ module.exports = {
   loading: { color: '#3B8070' },
   plugins: [
     { src: '~/plugins/swiper.js', ssr: false },
+    { src: '~plugins/ga.js', ssr: false },
   ],
   css: [
     'swiper/dist/css/swiper.css'

@@ -59,7 +59,7 @@
           <p>or</p><br> -->
           <h3 class="checkout-content-subheader">Checkout as guest</h3>
           <div class="signup">
-            <form action="">
+            <form v-on:submit.prevent="checkoutAsGuest">
               <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="email">
             </form>
             <div class="validationError" v-if="validation.emailValidation">
@@ -72,7 +72,7 @@
         </div>
         <div v-else-if="currentCheckoutStep === 'SHIPPING_STEP'">
           <h3 class="checkout-content-subheader">Shipping Address</h3><br>
-          <form action="">
+          <form v-on:submit.prevent="saveShippingInfo">
             <div class="shipping-info">
               <b>ADDRESS - LINE 1 *</b><br><input type="text" class="checkout-content-input" placeholder="Street Address" v-model="address">
               <div class="validationError" v-if="validation.addressValidation">
@@ -116,7 +116,6 @@
           <div class="mobileBagSummary">
             <div class="mobileBagSummary__products">
               <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
-                <form action="">
                   <div class="selectedProduct">
                     <div class="productPrice">
                       <p>€{{ product(prod.productId).price }}</p>
@@ -137,7 +136,6 @@
                       <img class="selectedProductImage" :src="product(prod.productId).image" />
                     </div>
                   </div>
-                </form>
               </div>
             </div>
           </div>
@@ -514,80 +512,78 @@ export default {
       try {
         let discounted = false
         this.discountedSubtotal = this.subtotal()
-        if (this.couponCode !== '') {
-          api.getDiscount({ subtotal: this.subtotal(), couponCode: this.couponCode })
-          .then((res) => {
-            if (res.data && res.data.success) {
-              this.discount = this.subtotal() - res.data.subtotal
-              discounted = true
-              this.discountedSubtotal = res.data.subtotal
+        api.getDiscount({ subtotal: this.subtotal(), couponCode: this.couponCode })
+        .then((res) => {
+          if (res.data && res.data.success) {
+            this.discount = this.subtotal() - res.data.subtotal
+            discounted = true
+            this.discountedSubtotal = res.data.subtotal
+          }
+
+          console.log('paying here', this.discountedSubtotal)
+
+          // set shipping and meta values on card
+          const options = {
+            name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
+            address_country: 'United States',
+            address_zip: this.zip,
+            address_state: this.stateAddress,
+            address_city: this.city,
+            address_line1: this.address,
+            address_line2: this.address2,
+            address_country: this.country,
+            metadata: {
+              selectedProducts: this.selectedProducts,
+              subtotal: discounted ? this.discountedSubtotal * 100 : this.subtotal()*100
             }
+          }
 
-            console.log('paying here', this.discountedSubtotal)
-
-            // set shipping and meta values on card
-            const options = {
-              name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
-              address_country: 'United States',
-              address_zip: this.zip,
-              address_state: this.stateAddress,
-              address_city: this.city,
-              address_line1: this.address,
-              address_line2: this.address2,
-              address_country: this.country,
-              metadata: {
-                selectedProducts: this.selectedProducts,
-                subtotal: discounted ? this.discountedSubtotal * 100 : this.subtotal()*100
-              }
+          this.localStripe.createToken(this.localCard, options).then(function(result) {
+            if (result.error) {
+              // Inform the user if there was an error.
+              var errorElement = document.getElementById('card-errors')
+              errorElement.textContent = result.error.message
+              self.setLoading({ value: false, save: false })
+            } else {
+              result.token.email = self.email
+              // Send the token to your server.
+              result.token.card
+              self.setToken(result.token)
             }
+          });
+        }).catch((e) => {
 
-            this.localStripe.createToken(this.localCard, options).then(function(result) {
-              if (result.error) {
-                // Inform the user if there was an error.
-                var errorElement = document.getElementById('card-errors')
-                errorElement.textContent = result.error.message
-                self.setLoading({ value: false, save: false })
-              } else {
-                result.token.email = self.email
-                // Send the token to your server.
-                result.token.card
-                self.setToken(result.token)
-              }
-            });
-          }).catch((e) => {
-
-            console.log('blahblahblah')
-            // set shipping and meta values on card
-            const options = {
-              name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
-              address_country: 'United States',
-              address_zip: this.zip,
-              address_state: this.stateAddress,
-              address_country: this.country,
-              address_city: this.city,
-              address_line1: this.address,
-              address_line2: this.address2,
-              metadata: {
-                selectedProducts: this.selectedProducts,
-                subtotal: this.subtotal()*100
-              }
+          console.log('blahblahblah')
+          // set shipping and meta values on card
+          const options = {
+            name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
+            address_country: 'United States',
+            address_zip: this.zip,
+            address_state: this.stateAddress,
+            address_country: this.country,
+            address_city: this.city,
+            address_line1: this.address,
+            address_line2: this.address2,
+            metadata: {
+              selectedProducts: this.selectedProducts,
+              subtotal: this.subtotal()*100
             }
-    
-            this.localStripe.createToken(this.localCard, options).then(function(result) {
-              if (result.error) {
-                // Inform the user if there was an error.
-                var errorElement = document.getElementById('card-errors')
-                errorElement.textContent = result.error.message
-                self.setLoading({ value: false, save: false })
-              } else {
-                result.token.email = self.email
-                // Send the token to your server.
-                result.token.card
-                self.setToken(result.token)
-              }
-            });
-          })
-        }
+          }
+  
+          this.localStripe.createToken(this.localCard, options).then(function(result) {
+            if (result.error) {
+              // Inform the user if there was an error.
+              var errorElement = document.getElementById('card-errors')
+              errorElement.textContent = result.error.message
+              self.setLoading({ value: false, save: false })
+            } else {
+              result.token.email = self.email
+              // Send the token to your server.
+              result.token.card
+              self.setToken(result.token)
+            }
+          });
+        })
       } catch (e) {
         this.setLoading({ value: false, save: false })
         console.log('ERROR', e)

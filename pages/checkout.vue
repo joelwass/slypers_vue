@@ -344,7 +344,6 @@ export default {
         return this.emailState
       },
       set(newVal) {
-        location.reload()
         this.validation.emailValidation = false
         this.setEmail(newVal)
       }

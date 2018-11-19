@@ -27,7 +27,7 @@ const cart = {
         description: 'Dutch Brothel Slypers Red',
         image: '/shoes/red/Top_red.png',
         altImage: '/shoes/red/Profile_red.png',
-        images: ['/shoes/red/Profile_red.png', '/shoes/red/Top_red.png', '/shoes/red/Back_red.png', '/shoes/red/Bottom_red.png', '/shoes/red/Print_red.png'],
+        images: ['/shoes/red/Profile_red.png', '/shoes/red/Print_red.png', '/shoes/red/Top_red.png', '/shoes/red/Back_red.png', '/shoes/red/Bottom_red.png'],
         name: 'Kameel ritje',
         price: '225',
         price_dollars: 225,

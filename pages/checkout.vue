@@ -57,7 +57,7 @@
             <p class="checkout-button-text"><b>REGISTER</b></p>
           </div>
           <p>or</p><br> -->
-          <h3 class="checkout-content-subheader">Checkout as guest</h3>
+          <h3 class="checkout-content-subheader">Checkout</h3>
           <div class="signup">
             <form v-on:submit.prevent="checkoutAsGuest">
               <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="email">

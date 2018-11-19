@@ -151,7 +151,7 @@ export default {
     },
     handleScroll (event) {
       if (process.browser) {
-        const imageHeight = document.getElementById('shoe1').clientHeight
+        const imageHeight = document.getElementById('shoe0').clientHeight
         if (imageHeight) {
           const floor = Math.floor((window.scrollY+300) / imageHeight)
           this.viewingImage = floor

@@ -213,6 +213,7 @@ export default {
     this.setLoading({ value: false, save: false })
 
     // Create a Stripe client.
+    try {
     this.localStripe = Stripe('pk_live_oFibVEirPkAASjPpBX5zK9B5');
 
     // Create an instance of Elements.
@@ -252,6 +253,10 @@ export default {
         displayError.textContent = '';
       }
     });
+    } catch (e) {
+      console.log('ERRORRRRRR', e)
+      
+    }
   },
   data() {
     return {
@@ -339,6 +344,7 @@ export default {
         return this.emailState
       },
       set(newVal) {
+        location.reload()
         this.validation.emailValidation = false
         this.setEmail(newVal)
       }

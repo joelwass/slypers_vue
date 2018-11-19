@@ -18,6 +18,7 @@ module.exports = {
       { src: 'https://www.googletagmanager.com/gtag/js?id=UA-129382082-1'},
     ]
   },
+  serverMiddleware: ['redirect-ssl'],
   /*
   ** Customize the progress bar color
   */

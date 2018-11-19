@@ -30,7 +30,7 @@ import helpers from '../helpers/methods'
 
 export default {
   mounted() {
-    if (window.location && window.location.includes('http:')) {
+    if (window.location && window.location.protocol === 'http:') {
       window.location = 'https://www.slypers.com'
     }
     this.setupCart()

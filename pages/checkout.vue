@@ -36,27 +36,6 @@
       </div>
       <div class="checkout-content">
         <div v-if="currentCheckoutStep === 'SIGNUP_LOGIN_STEP'">
-          <!-- <h3 class="checkout-content-subheader">Login</h3>
-          <p>Enter your email and password to enter</p><br>
-          <div class="login">
-            <b>EMAIL *</b><br><input class="checkout-content-input" type="text" placeholder="Email" v-model="email"><br>
-            <b>PASSWORD *</b><br><input class="checkout-content-input" type="text" placeholder="Password" v-model="password"><br>
-          </div>
-          <div class="checkout-button" v-on:click="signIn">
-            <p class="checkout-button-text"><b>LOGIN</b></p>
-          </div>
-          <p>or</p><br>
-          <h3 class="checkout-content-subheader">Register</h3>
-          <div class="signup">
-            <b>EMAIL *</b><br><input type="text" class="checkout-content-input" placeholder="Email" v-model="signUpEmail">
-            <b>PASSWORD *</b><br><input type="text" class="checkout-content-input" placeholder="Password" v-model="signUpPassword">
-            <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First Name" v-model="firstName">
-            <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last Name" v-model="lastName">
-          </div>
-          <div class="checkout-button" v-on:click="signUp">
-            <p class="checkout-button-text"><b>REGISTER</b></p>
-          </div>
-          <p>or</p><br> -->
           <h3 class="checkout-content-subheader">Checkout</h3>
           <div class="signup">
             <form v-on:submit.prevent="checkoutAsGuest">
@@ -64,6 +43,9 @@
             </form>
             <div class="validationError" v-if="validation.emailValidation">
               <p>Email is required</p>
+            </div>
+            <div class="validationError" v-if="validation.emailInvalidFormat">
+              <p>Email needs to be of format xxx@xxx.xx</p>
             </div>
           </div>
           <div class="checkout-button" v-on:click="checkoutAsGuest">
@@ -282,6 +264,7 @@ export default {
       isGuest: true,
       validation: {
         emailValidation: false,
+        emailInvalidFormat: false,
         addressValidation: false,
         cityValidation: false,
         zipValidation: false,
@@ -345,6 +328,7 @@ export default {
       },
       set(newVal) {
         this.validation.emailValidation = false
+        this.validation.emailInvalidFormat = false
         this.setEmail(newVal)
       }
     },
@@ -566,8 +550,6 @@ export default {
             }
           });
         }).catch((e) => {
-
-          console.log('blahblahblah')
           // set shipping and meta values on card
           const options = {
             name: `${this.stripeInfo.firstName} ${this.stripeInfo.lastName}`,
@@ -626,10 +608,16 @@ export default {
     },
     checkoutAsGuest() {
       if (this.email) {
-        if (window.ga) {
-          window.ga('send', 'event', 'CheckoutAsGuest', this.email)
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        const emailValid = emailRegex.test(this.email)
+        if (!emailValid) {
+          this.validation.emailInvalidFormat = true  
+        } else {
+          if (window.ga) {
+            window.ga('send', 'event', 'CheckoutAsGuest', this.email)
+          }
+          this.checkoutAsGuestAction({ email: this.email }) 
         }
-        this.checkoutAsGuestAction({ email: this.email }) 
       } else {
         this.validation.emailValidation = true
       }

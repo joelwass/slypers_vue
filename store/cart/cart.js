@@ -35,19 +35,19 @@ const cart = {
         color: '#ff0000',
         colorString: 'Bordeauxrood'
       },
-      {
-        id: 'blue',
-        description: 'Dutch Brothel Slypers Blue',
-        image: '/shoes/blue/Top_blue.png',
-        altImage: '/shoes/blue/Profile_blue.png',
-        images: ['/shoes/blue/Profile_blue.png', '/shoes/blue/Print_blue.png', '/shoes/blue/Top_blue.png', '/shoes/blue/Back_blue.png', '/shoes/blue/Bottom_blue.png'],
-        name: 'Meid op meid',
-        price: '225',
-        price_dollars: 225,
-        price_cents: 0,
-        color: '#ff0000',
-        colorString: 'Blauw'
-      },
+      // {
+      //   id: 'blue',
+      //   description: 'Dutch Brothel Slypers Blue',
+      //   image: '/shoes/blue/Top_blue.png',
+      //   altImage: '/shoes/blue/Profile_blue.png',
+      //   images: ['/shoes/blue/Profile_blue.png', '/shoes/blue/Print_blue.png', '/shoes/blue/Top_blue.png', '/shoes/blue/Back_blue.png', '/shoes/blue/Bottom_blue.png'],
+      //   name: 'Meid op meid',
+      //   price: '225',
+      //   price_dollars: 225,
+      //   price_cents: 0,
+      //   color: '#ff0000',
+      //   colorString: 'Blauw'
+      // },
       {
         id: 'green',
         description: 'Dutch Brothel Slypers Green',

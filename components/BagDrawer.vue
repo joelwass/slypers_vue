@@ -77,7 +77,7 @@ export default {
     checkout() {
       this.toggleDrawer()
       this.setLoading({ value: true, save: true })
-      this.$router.push('checkout')
+      this.$router.push('/checkout')
     },
     product(id) {
       return this.availableProducts.filter(val => {

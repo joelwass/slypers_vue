@@ -92,6 +92,15 @@ export default {
     }
   },
   created () {
+    const res = this.availableProducts.filter((val) => {
+      return val.numId == parseInt(this.$route.params.product)
+    })
+    // if for some reason this failed
+    if (!res.length) {
+      this.setSelectedProduct(this.availableProducts[0])
+    } else {
+      this.setSelectedProduct(res[0])
+    }
     if (process.browser) {
       window.addEventListener('scroll', this.handleScroll);
       window.addEventListener('hashchange', function () {
@@ -141,6 +150,7 @@ export default {
       addProduct: 'ADD_PRODUCT',
       setBagDrawerOpen: 'SET_BAG_DRAWER_OPEN',
       setSizeDrawerOpen: 'SET_SIZE_DRAWER_OPEN',
+      setSelectedProduct: 'SET_BROWSING_SELECTED_PRODUCT',
     }),
     toggleSizeDrawer() {
       const prevDrawerOpen = this.drawerOpen

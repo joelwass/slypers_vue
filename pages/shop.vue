@@ -43,7 +43,7 @@ export default {
     }),
     shopProduct(product) {
       this.setSelectedProduct(product)
-      this.$router.push('/shop_product')
+      this.$router.push(`/product/${product.numId}`)
     }
   },
   components: {

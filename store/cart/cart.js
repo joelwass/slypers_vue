@@ -24,6 +24,7 @@ const cart = {
     availableProducts: [
       {
         id: 'red',
+        numId: 1897,
         description: 'Dutch Brothel Slypers Red',
         image: '/shoes/red/Top_red.png',
         altImage: '/shoes/red/Profile_red.png',
@@ -37,6 +38,7 @@ const cart = {
       },
       // {
       //   id: 'blue',
+      //   numId: 3979,
       //   description: 'Dutch Brothel Slypers Blue',
       //   image: '/shoes/blue/Top_blue.png',
       //   altImage: '/shoes/blue/Profile_blue.png',
@@ -50,6 +52,7 @@ const cart = {
       // },
       {
         id: 'green',
+        numId: 1692,
         description: 'Dutch Brothel Slypers Green',
         image: '/shoes/green/Top_green.png',
         altImage: '/shoes/green/Profile_green.png',
@@ -63,6 +66,7 @@ const cart = {
       },
       {
         id: 'tan',
+        numId: 3462,
         description: 'Dutch Brothel Slypers Tan',
         image: '/shoes/brown/Top_brown.png',
         altImage: '/shoes/brown/Profile_brown.png',
@@ -76,6 +80,7 @@ const cart = {
       },
       {
         id: 'grey',
+        numId: 5678,
         description: 'Dutch Brothel Slypers Grey',
         image: '/shoes/black/Top_black.png',
         altImage: '/shoes/black/Profile_black.png',

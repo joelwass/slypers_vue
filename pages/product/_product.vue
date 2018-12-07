@@ -66,9 +66,13 @@ import {
   mapActions
 } from 'vuex'
 import ProductCard from '~/components/ProductCard.vue'
-import Api from '../middleware/api'
+import Api from '../../middleware/api'
 
 export default {
+  validate ({ params }) {
+    // Must be a number
+    return /^\d+$/.test(params.product)
+  },
   data() {
     return {
       swiperOption: {

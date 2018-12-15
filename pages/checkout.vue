@@ -147,7 +147,13 @@
           <div class="stripe">
             <div class="cc-field">
               <b>FIRST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="First name" v-model="stripeInfo.firstName" />
+              <div class="validationError" v-if="validation.firstnameValidation">
+                <p>First name is required</p>
+              </div>
               <b>LAST NAME *</b><br><input type="text" class="checkout-content-input" placeholder="Last name" v-model="stripeInfo.lastName" />
+              <div class="validationError" v-if="validation.lastnameValidation">
+                <p>Last name is required</p>
+              </div>
               <b>Personal Code </b><br><input type="text" class="checkout-content-input" placeholder="Personal code" v-model="couponCode" />
             </div>
             <form action="/charge" method="post" id="payment-form">
@@ -268,6 +274,8 @@ export default {
         addressValidation: false,
         cityValidation: false,
         zipValidation: false,
+        firstnameValidation: false,
+        lastnameValidation: false
       },
       discount: '',
       discountedSubtotal: 0
@@ -497,15 +505,26 @@ export default {
       }, 0)
     },
     savePayment(event) {
+      if (event) {
+        event.preventDefault()
+      }
+      // reset validation
+      this.validation.firstnameValidation = false
+      this.validation.lastnameValidation = false
+
+      // make sure we have first and last name!!!!!!
+      if (!this.stripeInfo.firstName || !this.stripeInfo.lastName) {
+        if (!this.stripeInfo.firstName) this.validation.firstnameValidation = true
+        if (!this.stripeInfo.lastName) this.validation.lastnameValidation = true
+        return
+      }
+
+      // send google analytics
       if (window.ga) {
         window.ga('send', 'event', 'SavePayment', 'Press')
       }
-      if (event) {
-        event.preventDefault();
-      }
       const self = this
       this.setLoading({ value: true, save: false })
-
 
       try {
         let discounted = false
@@ -623,6 +642,11 @@ export default {
       }
     },
     saveShippingInfo() {
+      // reset all validation for shipping
+      this.validation.addressValidation = false
+      this.validation.cityValidation = false
+      this.validation.zipValidation = false
+      // validate
       if (!this.address) this.validation.addressValidation = true
       if (!this.city) this.validation.cityValidation = true
       if (!this.zip) this.validation.zipValidation = true

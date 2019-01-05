@@ -486,7 +486,13 @@ export default {
       if (window.ga) {
         window.ga('send', 'event', 'SubmitOrder', this.discountedSubtotal*100)
       }
-      this.submit({router: this.$router, subtotal: this.discountedSubtotal*100, products: this.selectedProducts })
+      this.submit({
+        router: this.$router,
+        subtotal: this.discountedSubtotal*100, 
+        products: this.selectedProducts, 
+        firstName: `${this.stripeInfo.firstName}`, 
+        lastName: `${this.stripeInfo.lastName}` 
+      })
     },
     setCheckoutStep(data) {
       if (window.ga) {
@@ -836,7 +842,8 @@ export default {
 }
 
 .checkout-grid {
-  height: 1000px;
+  height: auto;
+  min-height: 1000px;
   max-width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 25%);

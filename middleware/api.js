@@ -115,7 +115,16 @@ class API {
           email: data.email,
           subtotal: data.subtotal,
           products: JSON.stringify(data.products),
-          couponCode: data.couponCode
+          firstName: data.firstName,
+          lastName: data.lastName,
+          cardType: data.token && data.token.card && data.token.card.brand,
+          lastFour: data.token && data.token.card && data.token.card.last4,
+          address: data.address,
+          address2: data.address2,
+          city: data.city,
+          state: data.state,
+          zip: data.zip,
+          country: data.country || 'USA'
         }
       },
       url: `${endpoint}/pay`

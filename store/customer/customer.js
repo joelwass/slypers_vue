@@ -73,9 +73,22 @@ const customer = {
     [SET_SIGNUP_PASSWORD]: ({ commit }, password) => {
       commit(SET_SIGNUP_PASSWORD, password)
     },
-    [SUBMIT_ORDER]: ({ dispatch, commit, state }, {router, subtotal, products, couponCode }) => {
+    [SUBMIT_ORDER]: ({ dispatch, commit, state }, {router, subtotal, products, firstName, lastName }) => {
       dispatch(SET_LOADING, { value: true, save: true })
-      API.pay({ token: state.token, email: state.user.email, subtotal, products, couponCode }).then((res) => {
+      API.pay({ 
+        token: state.token, 
+        email: state.user.email, 
+        subtotal, 
+        products, 
+        firstName,
+        lastName,
+        address: state.user.address,
+        address2: state.user.address2,
+        city: state.user.city,
+        state: state.user.state,
+        zip: state.user.zip,
+        country: state.user.country
+      }).then((res) => {
         if (res.success && res.status === 'succeeded') {
           commit(SET_STRIPE_ORDER_ID, res.orderId)
           dispatch(SET_SELECTED_PRODUCTS, [])
@@ -85,7 +98,12 @@ const customer = {
           alert('You already completed this order!')
           router.push('complete')
         } else {
-          alert(res.error)
+          console.log('here', res)
+          if (res.status == '500') {
+            alert(res.data.error)
+          } else {
+            alert(res.message)
+          }
           dispatch(SET_ERROR, res.error)
         }
         return dispatch(SET_LOADING, { value: false, save: false })

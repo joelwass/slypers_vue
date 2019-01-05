@@ -87,6 +87,10 @@ input::placeholder {
   font-family: 'OverpassMono-Regular', monospace;
 }
 
+input, select, textarea, button {
+  font-family:inherit;
+}
+
 html {
   font-family: 'OverpassMono-Regular', monospace;
   font-size: 13px;

@@ -134,7 +134,7 @@
           <p> service@slypers.com</p><br>
           <p><b>Return & Exchange Policy</b></p><br>
           <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery. 
-              Email service@slypers.com with your order number for more information.
+              Email service@slypers.com with your order number for more information, or begin your process at www.slypers.com/service.
           </p>
         </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
@@ -175,7 +175,7 @@
             <p> service@slypers.com</p><br>
             <p><b>Return & Exchange Policy</b></p><br>
             <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery. 
-              Email service@slypers.com with your order number for more information.
+              Email service@slypers.com with your order number for more information, or begin your process at www.slypers.com/service.
             </p>
           </div>
         </div>   

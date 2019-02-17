@@ -122,9 +122,9 @@
           <div>
             <p>Subtotal: € {{ this.subtotal() }}</p>
             <p v-if="discount !== ''">Discount: € {{ this.discount }}</p>
-            <p>Shipping: € 8</p><br>
+            <p>Shipping: € 10</p><br>
             <h4 class="checkout-content-subheader">TOTAL</h4>
-            <p>€ {{ this.discountedSubtotal + 8 }}</p>
+            <p>€ {{ this.discountedSubtotal + 10 }}</p>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>
@@ -134,7 +134,7 @@
           <p> service@slypers.com</p><br>
           <p><b>Return & Exchange Policy</b></p><br>
           <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery. 
-              Email service@slypers.com with your order number for more information, or begin your process at www.slypers.com/service.
+              Email service@slypers.com with your order number for more information.
           </p>
         </div>
         <div v-show="currentCheckoutStep === 'PAYMENT_STEP'">
@@ -175,7 +175,7 @@
             <p> service@slypers.com</p><br>
             <p><b>Return & Exchange Policy</b></p><br>
             <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery. 
-              Email service@slypers.com with your order number for more information, or begin your process at www.slypers.com/service.
+              Email service@slypers.com with your order number for more information.
             </p>
           </div>
         </div>   
@@ -459,6 +459,7 @@ export default {
       setPassword: 'SET_PASSWORD',
       setLoading: 'SET_LOADING',
       setEmail: 'SET_CUSTOMER_EMAIL',
+      setCouponId: 'SET_COUPON_ID',
       setBirthDay: 'SET_CUSTOMER_BIRHTDAY',
       setBirthMonth: 'SET_CUSTOMER_BIRHTMONTH',
       setBirthYear: 'SET_CUSTOMER_BIRHTYEAR',
@@ -538,6 +539,7 @@ export default {
           if (res.data && res.data.success) {
             this.discount = this.subtotal() - res.data.subtotal
             discounted = true
+            self.setCouponId(res.data.coupon.id)
             this.discountedSubtotal = res.data.subtotal
           }
 

@@ -24,7 +24,6 @@ class API {
         headers: { 'Auth': helper.getCookie('auth') },
         data: body,
         url: `${endpoint}/discount`,
-
       };
       axios(options)
       .then(res => resolve(res))
@@ -124,7 +123,8 @@ class API {
           city: data.city,
           state: data.state,
           zip: data.zip,
-          country: data.country || 'USA'
+          country: data.country || 'USA',
+          couponId: data.couponId
         }
       },
       url: `${endpoint}/pay`

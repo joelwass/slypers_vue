@@ -31,6 +31,7 @@ import {
   SET_CUSTOMER_ORDER,
   SET_CUSTOMER_TOKEN,
   SUBMIT_ORDER,
+  SET_COUPON_ID,
   SET_SIGNUP_EMAIL,
   SET_SELECTED_PRODUCTS,
   SET_SIGNUP_PASSWORD,
@@ -60,12 +61,16 @@ const customer = {
       signUpPassword: ''
     },
     stripeOrderId: '',
+    stripeCouponId: '',
     order: undefined,
     token: undefined
   },
   actions: {
     [SET_STRIPE_ORDER_ID]: ({ commit }, orderId) => {
       commit(SET_STRIPE_ORDER_ID, orderId)
+    },
+    [SET_COUPON_ID]: ({ commit }, couponId) => {
+      commit(SET_COUPON_ID, couponId)
     },
     [SET_SIGNUP_EMAIL]: ({ commit }, email) => {
       commit(SET_SIGNUP_EMAIL, email)
@@ -78,6 +83,7 @@ const customer = {
       API.pay({ 
         token: state.token, 
         email: state.user.email, 
+        couponId: state.stripeCouponId,
         subtotal, 
         products, 
         firstName,
@@ -92,6 +98,7 @@ const customer = {
         if (res.success && res.status === 'succeeded') {
           commit(SET_STRIPE_ORDER_ID, res.orderId)
           dispatch(SET_SELECTED_PRODUCTS, [])
+          dispatch(SET_COUPON_ID, '')
           router.push('complete')
         } else if (res.status === 'paid') {
           // it has already been paid so better be on the completed step!
@@ -229,6 +236,9 @@ const customer = {
     }
   },
   mutations: {
+    [SET_COUPON_ID](state, couponId) {
+      Vue.set(state, 'stripeCouponId', couponId)
+    },
     [SET_STRIPE_ORDER_ID](state, orderId) {
       Vue.set(state, 'stripeOrderId', orderId)
     },

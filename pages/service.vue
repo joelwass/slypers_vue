@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="subsection">
-      <p>You'll be refunded upon receipt and acceptance of the returned merchandise.  Please direct additional questions to service@slypers.com</p>
+      <p>You'll be refunded upon receipt and acceptance of the returned merchandise. Please direct additional questions to service@slypers.com</p>
     </div>
   </div>
 </template>
@@ -45,6 +45,7 @@ export default {
         this.invalid = true;
       }
       // submit return
+      
     }
   }
 }

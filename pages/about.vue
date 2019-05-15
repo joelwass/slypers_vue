@@ -21,7 +21,7 @@
     <div class="subsection">
       <p><b>Shipping</b></p><br>
       <p>Shipping available to the Netherlands, United Kingdom, United States.</p><br><br>
-      <p>Standard shipping is 5-7 days.  The most recent release will be delivered the first week of December.  </p>
+      <p>Standard shipping is 5-7 days.</p>
     </div>
     <div class="subsection">
       <p><b>Return & Exchange Policy</b></p><br>

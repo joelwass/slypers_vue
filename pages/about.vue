@@ -2,7 +2,8 @@
   <div class="info">
     <div class="subsection">
       <h3>About</h3><br>
-      <p>Bordeelslypers (“Brothel Creepers”) have been a way of life since the Dutch Golden Age. Soft-soled slippers for sliding in and sneaking out.</p><br>
+      <p>Bordeelslypers (“Brothel Creepers”) have been a way of life since the Dutch Golden Age, giving gentleman rubber-bottomed protection to avoid all detection.</p><br>
+      <p>Slypers - The expedient sole for the deviant soul.</p>
     </div>
     <div class="subsection">
       <h3>Contact</h3><br>

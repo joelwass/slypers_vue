@@ -1,13 +1,22 @@
 <template>
-  <div class="grid-container-shop grid-container-shop-media">
-    <product-card 
-        v-for="product in cart.availableProducts" 
-        :key="product.id"
-        :class="classes[product.name]"
-        :product="product"
-        v-on:click.native="shopProduct(product)">
-      <label for="product">{{product.name}}</label>
-    </product-card>
+  <div class="shop-container shop-container-media">
+    <div>
+      <p class="emphasize">Dutch Brothel Creepers</p>
+      <p>For royal weddings and casual beddings,</p>
+      <p>For being born on third and still stumbling home,</p>
+      <p>For doing what you naught but never getting caught,</p>
+      <p class="emphasize">There are Slypers - the expedient sole for the deviant soul.</p>
+    </div>
+    <div class="grid-container-shop grid-container-shop-media">
+      <product-card 
+          v-for="product in cart.availableProducts" 
+          :key="product.id"
+          :class="classes[product.name]"
+          :product="product"
+          v-on:click.native="shopProduct(product)">
+        <label for="product">{{product.name}}</label>
+      </product-card>
+    </div>
   </div>
 </template>
 
@@ -53,17 +62,27 @@ export default {
 </script>
 
 <style>
+.emphasize {
+  font-weight: bold;
+  margin: 1.8rem 0 1.8rem 0;
+}
+
 .grid-container-shop {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 4px;
-  min-height: 100vh;
   grid-auto-rows: minmax(200px, auto);
   margin: 0 auto;
-  margin-bottom: 30px;
 }
 
-.grid-container-shop-media {
+.shop-container {
+  min-height: 100vh;
+  margin-bottom: 30px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.shop-container-media {
   padding-top: 60px;
 }
 
@@ -90,13 +109,13 @@ export default {
 
 
 @media all and (min-width: 850px) {
-  .grid-container-shop-media {
+  .shop-container-media {
     padding-left: 240px;
     padding-right: 240px;
     padding-top: 0px;
-  } 
+  }
 
-  .grid-container-shop {
+  .shop-container {
     padding-top: 70px;
   }
 }

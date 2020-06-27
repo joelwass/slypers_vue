@@ -23,22 +23,7 @@
       </div>
     </div>
     <div class="product-details">
-      <div class="product-details-description">
-        <h2>{{ this.selectedProduct.name }}</h2><br>
-        <h3>€ {{ this.selectedProduct.price }}</h3><br>
-        <p><b>Description</b></p><br>
-        <p>Color: {{ this.selectedProduct.colorString }}</p><br>
-        <div class="product-details__bullets">
-          <ul>
-            <li>Dutch Bordeelslyper</li>
-            <li>Italian suiting wool upper</li>
-            <li>Memory foam insole</li>
-            <li>Microfoam outsole</li>
-            <li>Suede tassel</li>
-          </ul>
-        </div><br>
-        <p>Made In Italy</p><br>
-
+      <div class="product-details__purchase">
         <p class="product-details__size-label"><b>Size</b></p>
         <p class="product-details__size-guide-button"><a @click="toggleSizeDrawer">SIZE GUIDE ></a></p>
         <div @click="dropdown" class="sizes-select">{{ this.selectedSizeData }}</div>
@@ -56,6 +41,25 @@
           <p>ADD TO BAG</p>
         </div>
       </div>
+      <div class="product-details-description">
+        <h2>{{ this.selectedProduct.name }}</h2><br>
+        <h3>€ {{ this.selectedProduct.price }}</h3><br>
+        <div>
+          <p v-for="(line, idx) in this.selectedProduct.limerick.split('\n')" :key="idx">{{ line }} </p>
+        </div><br>
+        <p>Color: {{ this.selectedProduct.colorString }}</p><br>
+        <div class="product-details__bullets">
+          <ul>
+            <li>Dutch Bordeelslyper</li>
+            <li>Italian suiting wool upper</li>
+            <li>Memory foam insole</li>
+            <li>Microfoam outsole</li>
+            <li>Suede tassel</li>
+          </ul>
+        </div><br>
+        <p>Made In Italy</p><br>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -218,6 +222,10 @@ export default {
   display: none;
 }
 
+.product-details__purchase {
+  height: auto;
+}
+
 .validation-container {
   margin-top: 5px;
   color: red;
@@ -248,7 +256,7 @@ export default {
   background-color: black;
   margin-top: 18px;
   padding-top: 8px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   padding-bottom: 8px;
   color: white;
 }
@@ -327,6 +335,8 @@ export default {
 }
 
 .product-details {
+  display: flex;
+  flex-direction: column;
   position: relative;
   margin-top: 30px;
   margin-bottom: 20px;
@@ -335,7 +345,7 @@ export default {
   padding-right: 15px;
   z-index: 1000;
   bottom: 0px;
-  height: 300;
+  height: auto;
 }
 
 .size-guide {
@@ -359,6 +369,10 @@ export default {
   .grid-container-shop-product-media {
     padding-bottom: 100px;
   } 
+
+  .product-details__purchase {
+    height: 8rem;
+  }
 
   .product-details-description > p {
     margin-bottom: 5px;
@@ -398,7 +412,7 @@ export default {
     border: 1px solid black;
     background-color: white;
     z-index: 10000;
-    width: 210px;
+    width: 100%;
     padding: 0;
   }
 
@@ -413,12 +427,14 @@ export default {
   }
 
   .product-details {
+    display: flex;
+    flex-direction: column-reverse;
     position: fixed;
-    width: 240px;
+    width: 320px;
     right: 100px;
     z-index: 1000;
     top: 22vh;
-    height: 300px;
+    height: 400px;
   }
 }
 

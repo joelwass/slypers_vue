@@ -4,6 +4,7 @@
       <p class="emphasize">Slypers - Dutch Brothel Creepers</p>
       <p>For royal weddings and casual beddings,</p>
       <p>For being born on third and stumbling home,</p>
+      <p>To do what you’re naught but never get caught,</p>
       <p class="emphasize">The expedient sole for the deviant soul.</p>
     </div>
     <div class="grid-container-shop grid-container-shop-media">

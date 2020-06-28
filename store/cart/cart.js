@@ -67,7 +67,7 @@ const cart = {
           'I met a lass with a glorious shelf,\n'+
           'With m’stock in her blouse,\n'+
           'She took down a grouse,\n'+
-          'And I promptly I soiled m’self.',
+          'And I promptly soiled m’self.',
         description: 'Dutch Brothel Slypers Tan',
         image: '/shoes/brown/Top_brown.png',
         altImage: '/shoes/brown/Profile_brown.png',

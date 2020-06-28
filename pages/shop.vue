@@ -1,11 +1,10 @@
 <template>
   <div class="shop-container shop-container-media">
     <div>
-      <p class="emphasize">Dutch Brothel Creepers</p>
+      <p class="emphasize">Slypers - Dutch Brothel Creepers</p>
       <p>For royal weddings and casual beddings,</p>
-      <p>For being born on third and still stumbling home,</p>
-      <p>For doing what you naught but never getting caught,</p>
-      <p class="emphasize">There are Slypers - the expedient sole for the deviant soul.</p>
+      <p>For being born on third and stumbling home,</p>
+      <p class="emphasize">The expedient sole for the deviant soul.</p>
     </div>
     <div class="grid-container-shop grid-container-shop-media">
       <product-card 

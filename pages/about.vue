@@ -65,7 +65,7 @@ export default {
 
 <style>
 .info {
-  padding: 80px 30px 20px 30px;
+  padding: 5rem 0 2rem 0;
   min-height: 100vh;
 } 
 

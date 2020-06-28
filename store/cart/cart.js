@@ -26,7 +26,7 @@ const cart = {
         id: 'red',
         numId: 1897,
         limerick: 'A Nile princess with eyes hazelnut,\n'+
-          'Had great pyramids worthy of Tut.\n'+
+          'Had Great Pyramids worthy of Tut.\n'+
           'But as I went to exhume,\n'+
           'Fair Jasmine’s tomb,\n'+
           'I found the entrance sealed shut.',
@@ -40,25 +40,6 @@ const cart = {
         price_cents: 0,
         color: '#ff0000',
         colorString: 'Bordeauxrood'
-      },
-      {
-        id: 'blue',
-        numId: 3979,
-        limerick: 'One evening in Cap Ferrat,\n'+
-          'I ordered a kilo of foie,\n'+
-          'The waitress blushed,\n'+
-          'Like a goose to be stuffed,\n'+
-          'And our party of deux became trois.',
-        description: 'Dutch Brothel Slypers Blue',
-        image: '/shoes/blue/Top_blue.png',
-        altImage: '/shoes/blue/Profile_blue.png',
-        images: ['/shoes/blue/Profile_blue.png', '/shoes/blue/Print_blue.png', '/shoes/blue/Top_blue.png', '/shoes/blue/Back_blue.png', '/shoes/blue/Bottom_blue.png'],
-        name: 'Waterskiërs',
-        price: '225',
-        price_dollars: 225,
-        price_cents: 0,
-        color: '#ff0000',
-        colorString: 'Blauw'
       },
       {
         id: 'green',
@@ -83,7 +64,7 @@ const cart = {
         id: 'tan',
         numId: 3462,
         limerick: 'On the morn of the Glorious Twelfth,\n'+
-          'I met a lass with a generous shelf,\n'+
+          'I met a lass with a glorious shelf,\n'+
           'With m’stock in her blouse,\n'+
           'She took down a grouse,\n'+
           'And I promptly I soiled m’self.',
@@ -110,12 +91,31 @@ const cart = {
         image: '/shoes/black/Top_black.png',
         altImage: '/shoes/black/Profile_black.png',
         images: ['/shoes/black/Profile_black.png', '/shoes/black/Print_black.png', '/shoes/black/Top_black.png', '/shoes/black/Back_black.png', '/shoes/black/Bottom_black.png'],
-        name: 'Bubbelbad Apres MMXIX',
+        name: 'Bubbelbad',
         price: '225',
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
         colorString: 'Grijs'
+      },
+      {
+        id: 'blue',
+        numId: 3979,
+        limerick: 'One evening in Cap Ferrat,\n'+
+          'I ordered a kilo of foie,\n'+
+          'The waitress blushed,\n'+
+          'Like a goose to be stuffed,\n'+
+          'And our party of deux became trois.',
+        description: 'Dutch Brothel Slypers Blue',
+        image: '/shoes/blue/Top_blue.png',
+        altImage: '/shoes/blue/Profile_blue.png',
+        images: ['/shoes/blue/Profile_blue.png', '/shoes/blue/Print_blue.png', '/shoes/blue/Top_blue.png', '/shoes/blue/Back_blue.png', '/shoes/blue/Bottom_blue.png'],
+        name: 'Waterskiërs',
+        price: '225',
+        price_dollars: 225,
+        price_cents: 0,
+        color: '#ff0000',
+        colorString: 'Blauw'
       }
     ],
     selectedProducts: []

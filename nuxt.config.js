@@ -14,6 +14,7 @@ module.exports = {
     ],
     script: [
       { src: 'js/fullstory.js' },
+      { src: 'js/fbPixel.js' },
       { src: 'https://js.stripe.com/v3/'},
       { src: 'https://www.googletagmanager.com/gtag/js?id=UA-129382082-1'},
     ]

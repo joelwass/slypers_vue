@@ -51,7 +51,6 @@ class API {
       axios(options)
       .then(res => resolve(res))
       .catch(err => {
-        console.log(err.response)
         // if we're unauthorized, auth and retry
         if (err.response.status == '401') {
           this.authenticate().then(authRes => axios(options))

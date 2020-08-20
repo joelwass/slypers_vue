@@ -23,7 +23,8 @@ export default {
       selectedProducts: state => state.cart.selectedProducts,
       availableProducts: state => state.cart.availableProducts,
       email: state => state.customer.user.email,
-      orderId: state => state.customer.stripeOrderId
+      orderId: state => state.customer.stripeOrderId,
+      subtotal: state => state.customer.subtotal
     }),
     selectedProductsMapped() {
       const mappedProducts = {}
@@ -43,6 +44,15 @@ export default {
         return val.id === id;
       })[0]
     },
+  },
+  created: function() {
+    // Attempt fb tracking, bail if fails
+    try {
+      fbq('track', 'Purchase', {
+        value: this.subtotal,
+        currency: 'usd',
+      })
+    } catch (e) {}
   }
 }
 </script>

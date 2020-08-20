@@ -75,6 +75,10 @@ export default {
       this.$router.push(`/${route}`)
     },
     checkout() {
+      // Attempt to fb track and swallow error on failure
+      try {
+        fbq('track', 'InitiateCheckout')
+      } catch (e) {}
       this.toggleDrawer()
       this.setLoading({ value: true, save: true })
       this.$router.push('/checkout')

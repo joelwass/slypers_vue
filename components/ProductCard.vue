@@ -67,7 +67,6 @@ img{
 }
 
 .card-image {
-  background-color: #F0F0F0;
   background-size: contain;
 }
 </style>

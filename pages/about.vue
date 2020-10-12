@@ -2,7 +2,8 @@
   <div class="info">
     <div class="subsection">
       <h3>About</h3><br>
-      <p>Bordeelslypers (“Brothel Creepers”) have been a way of life since the Dutch Golden Age, giving gentleman rubber-bottomed protection to avoid all detection.</p><br>
+      <p>Bordeelslypers (“Brothel Creepers”) have been a way of life since the Dutch Golden Age.</p><br>
+      <p>Originally built with silent rubber bottoms to slide gildermen in and out of de Wallen undetected, today they serve the easy Continental - for day or night, inside or out, land or sea, champagne or chablis.</p><br>
       <p>Slypers - The expedient sole for the deviant soul.</p>
     </div>
     <div class="subsection">
@@ -27,6 +28,10 @@
     <div class="subsection">
       <p><b>Return & Exchange Policy</b></p><br>
       <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery.<br><br>Email service@slypers.com with your order number for more information.</p>
+    </div>
+    <div class="subsection">
+      <p><b>Care</b></p><br>
+      <p>Typically worn without socks, our customers occasionally find themselves in the heat of the moment. To keep your Slypers fresh, we recommend occasionally leaving a shoe powder or baking soda in them overnight.</p>
     </div>
   </div>
 </template>

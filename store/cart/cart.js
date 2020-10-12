@@ -26,16 +26,17 @@ const cart = {
         id: 'red',
         numId: 1897,
         limerick: 'A Nile princess with eyes hazelnut,\n'+
-          'Had Great Pyramids worthy of Tut.\n'+
+          'Had Great Pyramids worthy of Tut,\n'+
           'But as I went to exhume,\n'+
           'Fair Jasmine’s tomb,\n'+
           'I found the entrance sealed shut.',
         description: 'Dutch Brothel Slypers Red',
         image: '/shoes/red/Top_red.png',
-        altImage: '/shoes/red/Profile_red.png',
+        altImage: '/shoes/red/Profile_print_red.png',
         images: ['/shoes/red/Profile_red.png', '/shoes/red/Print_red.png', '/shoes/red/Top_red.png', '/shoes/red/Back_red.png', '/shoes/red/Bottom_red.png'],
         name: 'Kameel ritje',
         price: '225',
+        usdPrice: '250',
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
@@ -51,10 +52,11 @@ const cart = {
         numId: 1692,
         description: 'Dutch Brothel Slypers Green',
         image: '/shoes/green/Top_green.png',
-        altImage: '/shoes/green/Profile_green.png',
+        altImage: '/shoes/green/Profile_print_green.png',
         images: ['/shoes/green/Profile_green.png', '/shoes/green/Print_green.png', '/shoes/green/Top_green.png', '/shoes/green/Back_green.png', '/shoes/green/Bottom_green.png'],
         name: 'Onderwaterjager',
         price: '225',
+        usdPrice: '250',
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
@@ -70,10 +72,11 @@ const cart = {
           'And I promptly soiled m’self.',
         description: 'Dutch Brothel Slypers Tan',
         image: '/shoes/brown/Top_brown.png',
-        altImage: '/shoes/brown/Profile_brown.png',
+        altImage: '/shoes/brown/Profile_print_brown.png',
         images: ['/shoes/brown/Profile_brown.png', '/shoes/brown/Print_brown.png', '/shoes/brown/Top_brown.png', '/shoes/brown/Back_brown.png', '/shoes/brown/Bottom_brown.png'],
         name: 'Tijgerjager',
         price: '225',
+        usdPrice: '250',
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
@@ -82,17 +85,18 @@ const cart = {
       {
         id: 'grey',
         numId: 5678,
-        limerick: 'After apres in Kitzbühel,\n'+
-          'I dipped into a tub on the hill,\n'+
-          'But things got a little weird,\n'+
-          'When a pair of moguls appeared,\n'+
-          'I hear they are scrubbing it still.',
+        limerick: 'In a hot tub outside Grenoble,\n'+
+          'A fair stranger I dared ogle,\n'+
+          'But was in over my skis,\n'+
+          'When she threw her top in the trees,\n'+
+          'To reveal a huge set of moguls.',
         description: 'Dutch Brothel Slypers Grey',
         image: '/shoes/black/Top_black.png',
-        altImage: '/shoes/black/Profile_black.png',
+        altImage: '/shoes/black/Profile_print_black.png',
         images: ['/shoes/black/Profile_black.png', '/shoes/black/Print_black.png', '/shoes/black/Top_black.png', '/shoes/black/Back_black.png', '/shoes/black/Bottom_black.png'],
         name: 'Bubbelbad',
         price: '225',
+        usdPrice: '250',
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',
@@ -108,10 +112,11 @@ const cart = {
           'And our party of deux became trois.',
         description: 'Dutch Brothel Slypers Blue',
         image: '/shoes/blue/Top_blue.png',
-        altImage: '/shoes/blue/Profile_blue.png',
+        altImage: '/shoes/blue/Profile_print_blue.png',
         images: ['/shoes/blue/Profile_blue.png', '/shoes/blue/Print_blue.png', '/shoes/blue/Top_blue.png', '/shoes/blue/Back_blue.png', '/shoes/blue/Bottom_blue.png'],
         name: 'Waterskiërs',
         price: '225',
+        usdPrice: '250',
         price_dollars: 225,
         price_cents: 0,
         color: '#ff0000',

@@ -43,7 +43,7 @@
       </div>
       <div class="product-details-description">
         <h2>{{ this.selectedProduct.name }}</h2><br>
-        <h3>€ {{ this.selectedProduct.price }}</h3><br>
+        <h3>€ {{ this.selectedProduct.price }} / $ {{ this.selectedProduct.usdPrice }}</h3><br>
         <div>
           <p v-for="(line, idx) in this.selectedProduct.limerick.split('\n')" :key="idx">{{ line }} </p>
         </div><br>

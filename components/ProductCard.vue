@@ -10,7 +10,7 @@
         <p>{{ product.name }}</p>
       </div>
       <div class="product-price">
-        <p>€ {{ product.price }}</p>
+        <p>€ {{ product.price }} / $ {{ product.usdPrice }}</p>
       </div>
     </div>
   </div>

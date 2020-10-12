@@ -87,7 +87,7 @@ const cart = {
         numId: 5678,
         limerick: 'In a hot tub outside Grenoble,\n'+
           'A fair stranger I dared ogle,\n'+
-          'But was in over my skis,\n'+
+          'But was over my skis,\n'+
           'When she threw her top in the trees,\n'+
           'To reveal a huge set of moguls.',
         description: 'Dutch Brothel Slypers Grey',

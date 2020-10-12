@@ -29,10 +29,6 @@
       <p><b>Return & Exchange Policy</b></p><br>
       <p>Returns and exchanges for unused merchandise in original condition accepted within 14 days of delivery.<br><br>Email service@slypers.com with your order number for more information.</p>
     </div>
-    <div class="subsection">
-      <p><b>Care</b></p><br>
-      <p>Typically worn without socks, our customers occasionally find themselves in the heat of the moment. To keep your Slypers fresh, we recommend occasionally leaving a shoe powder or baking soda in them overnight.</p>
-    </div>
   </div>
 </template>
 

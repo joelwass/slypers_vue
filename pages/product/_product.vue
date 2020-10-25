@@ -198,6 +198,10 @@ export default {
       if (!this.selectedSizeNumber) {
         this.validationIssue = 'Please select a size first'
       } else {
+        // Attempt to fb track but swallow error
+        try {
+          fbq('track', 'AddToCart')
+        } catch (e) {}
         // add to bag and pop bag drawer
         // TODO: need to add the specific sku for the size they selected
         this.addProduct({ productId: this.selectedProduct.id, size: this.selectedSizeNumber })

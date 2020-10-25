@@ -29,6 +29,7 @@ import {
   SET_CUSTOMER_BIRHTYEAR,
   SET_CHECKOUT_STEP,
   SET_CUSTOMER_ORDER,
+  SET_CUSTOMER_SUBTOTAL,
   SET_CUSTOMER_TOKEN,
   SUBMIT_ORDER,
   SET_COUPON_ID,
@@ -62,6 +63,7 @@ const customer = {
     },
     stripeOrderId: '',
     stripeCouponId: '',
+    subtotal: 0,
     order: undefined,
     token: undefined
   },
@@ -97,6 +99,7 @@ const customer = {
       }).then((res) => {
         if (res.success && res.status === 'succeeded') {
           commit(SET_STRIPE_ORDER_ID, res.orderId)
+          commit(SET_CUSTOMER_SUBTOTAL, subtotal)
           dispatch(SET_SELECTED_PRODUCTS, [])
           dispatch(SET_COUPON_ID, '')
           router.push('complete')

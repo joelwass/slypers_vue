@@ -1,5 +1,7 @@
 <template>
   <div :class="appClasses">
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=654930548443449&ev=PageView&noscript=1" />
     <nav-header />
     <nav-left-side-bar />
     <nav-drawer />

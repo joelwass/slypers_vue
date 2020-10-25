@@ -75,6 +75,9 @@ export default {
       this.$router.push(`/${route}`)
     },
     checkout() {
+      try {
+        fbq('track', 'InitiateCheckout')
+      } catch (e) {}
       this.toggleDrawer()
       this.setLoading({ value: true, save: true })
       this.$router.push('/checkout')

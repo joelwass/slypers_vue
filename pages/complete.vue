@@ -53,6 +53,7 @@ export default {
         currency: 'usd',
       })
     } catch (e) {}
+  }
 }
 </script>
 

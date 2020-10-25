@@ -39,7 +39,7 @@
           <hr>
           <div class="subtotal">
             <p class="subtotal-label">SUBTOTAL</p>
-            <p class="subtotal-amount">€ {{ subtotal }}</p>
+            <p class="subtotal-amount">$ {{ subtotal }}</p>
           </div>
           <div class="checkout-button-drawer" v-on:click="checkout">
             <p class="checkout-button-drawer__text"><b>CHECKOUT ({{ selectedProducts.length }} {{ selectedProducts.length > 1 ? 'ITEMS' : 'ITEM' }})</b></p>
@@ -122,7 +122,7 @@ export default {
     subtotal() {
       return this.selectedProducts.reduce((acc, val) => {
         const product = this.availableProducts.filter((avail) => avail.id === val.productId)[0]
-        return acc + parseInt(product.price_dollars)
+        return acc + parseInt(product.usdPrice)
       }, 0)
     }
   },

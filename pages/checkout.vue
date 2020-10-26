@@ -506,7 +506,7 @@ export default {
     subtotal() {
       return this.selectedProducts.reduce((acc, val) => {
         const product = this.availableProducts.filter((avail) => avail.id === val.productId)[0]
-        return acc + parseInt(product.price_dollars)
+        return acc + parseInt(product.usdPrice)
       }, 0)
     },
     savePayment(event) {

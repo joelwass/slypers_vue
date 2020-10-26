@@ -120,11 +120,11 @@
             </div>
           </div>
           <div>
-            <p>Subtotal: € {{ this.subtotal() }}</p>
-            <p v-if="discount !== ''">Discount: € {{ this.discount }}</p>
-            <p>Shipping: € 10</p><br>
+            <p>Subtotal: $ {{ this.subtotal() }}</p>
+            <p v-if="discount !== ''">Discount: $ {{ this.discount }}</p>
+            <p>Shipping: $ 10</p><br>
             <h4 class="checkout-content-subheader">TOTAL</h4>
-            <p>€ {{ this.discountedSubtotal + 10 }}</p>
+            <p>$ {{ this.discountedSubtotal + 10 }}</p>
           </div>
           <div class="checkout-button" v-on:click="submitOrder">
             <p class="checkout-button-text"><b>SUBMIT ORDER</b></p>

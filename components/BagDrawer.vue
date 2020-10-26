@@ -13,7 +13,7 @@
           <div v-for="prod in selectedProductsMapped" class="selectedProductsMapped" :key="prod.id">
             <div class="selectedProduct">
               <div class="productPrice">
-                <p>€ {{ product(prod.productId).price }}</p>
+                <p>$ {{ product(prod.productId).usdPrice }}</p>
               </div>
               <div class="removeProductButton">
                 <p @click="removeAllOfProduct(prod.productId, prod.size)">REMOVE</p>

@@ -3,6 +3,8 @@
 > https://slypers.com
 > Nuxt.js project
 
+heroku-20
+
 ## Build Setup
 
 ``` bash
